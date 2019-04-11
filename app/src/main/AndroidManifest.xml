@@ -19,6 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+                android:name=".wxapi.WXEntryActivity"
+                android:exported="true"
+                android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wxb3852e6a6b7d9516" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
