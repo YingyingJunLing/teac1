@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyTech</string>
+    <string name="finsh">取消</string>
+    <string name="search">搜索文章、作者</string>
 </resources>
