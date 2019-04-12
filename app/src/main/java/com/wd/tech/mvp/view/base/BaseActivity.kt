@@ -12,7 +12,7 @@ abstract class BaseActivity<V,T : BasePresenter<V>> : AppCompatActivity(), Custo
     }
 
     override fun getSizeInDp(): Float {
-        return 1080F
+        return 667F
     }
 
     var mPresenter : BasePresenter<V> = BasePresenter()
