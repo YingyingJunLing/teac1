@@ -7,20 +7,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.wd.tech.mvp.presenter.base.BasePresenter
+import me.jessyan.autosize.internal.CustomAdapt
 
-abstract class BaseFragment<V,T : BasePresenter<V>> : Fragment() {
+abstract class BaseFragment<V,T : BasePresenter<V>> : Fragment(), CustomAdapt {
+
+    override fun isBaseOnWidth(): Boolean {
+        return false
+    }
+
+    override fun getSizeInDp(): Float {
+        return 1080F
+    }
 
     var mPresenter : BasePresenter<V> = BasePresenter()
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        initFragmentData()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return super.onCreateView(inflater, container, savedInstanceState)
         initFragmentView(inflater)
         initFragmentChildView()
-        initFragmentData()
     }
 
     abstract protected fun initFragmentView(inflater : LayoutInflater) : View

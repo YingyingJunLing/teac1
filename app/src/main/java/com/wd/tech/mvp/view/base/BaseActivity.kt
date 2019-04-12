@@ -6,6 +6,7 @@ import com.wd.tech.mvp.presenter.base.BasePresenter
 import me.jessyan.autosize.internal.CustomAdapt
 
 abstract class BaseActivity<V,T : BasePresenter<V>> : AppCompatActivity(), CustomAdapt {
+
     override fun isBaseOnWidth(): Boolean {
         return false
     }
