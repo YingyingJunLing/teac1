@@ -16,9 +16,9 @@ class AlterAndAnimationUtil {
         //将布局设置给Dialog
         dialog!!.setContentView(view)
         //获取当前Activity所在的窗体
-        var dialogWindow : Window = dialog!!.window
+        var dialogWindow : Window ?= dialog!!.window
         //设置Dialog从窗体底部弹出
-        dialogWindow.setGravity(Gravity.BOTTOM)
+        dialogWindow!!.setGravity(Gravity.BOTTOM)
         var lp : WindowManager.LayoutParams = dialogWindow.attributes
         lp.width = WindowManager.LayoutParams.MATCH_PARENT
         lp.height = WindowManager.LayoutParams.MATCH_PARENT
