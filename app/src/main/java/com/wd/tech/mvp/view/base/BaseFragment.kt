@@ -26,9 +26,8 @@ abstract class BaseFragment<V,T : BasePresenter<V>> : Fragment(), CustomAdapt {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-        initFragmentView(inflater)
         initFragmentChildView()
+        return initFragmentView(inflater)
     }
 
     abstract protected fun initFragmentView(inflater : LayoutInflater) : View
