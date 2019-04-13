@@ -3,7 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@mipmap/bitmap"
         tools:context=".mvp.view.activity.RegisterActivity">
     <ImageView
@@ -19,16 +20,20 @@
             android:layout_marginRight="148dp"
     />
     <EditText
+            android:background="#00000000"
             android:id="@+id/reg_nickName"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:hint="昵称"
             android:textSize="16sp"
             android:textColor="@color/text_color"
-            app:layout_constraintTop_toBottomOf="@id/reg_head_img"
-            android:layout_marginTop="44dp"
+            android:textColorHint="@color/text_color"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="232dp"
             tools:layout_editor_absoluteX="78dp"
-            android:paddingLeft="30dp"
+            android:paddingLeft="40dp"
             android:paddingBottom="10dp"
             android:lines="1"
             tools:ignore="MissingConstraints"/>
@@ -40,6 +45,8 @@
             android:paddingBottom="10dp"
             app:layout_constraintLeft_toLeftOf="@id/reg_nickName"
             app:layout_constraintBottom_toBottomOf="@id/reg_nickName"
+            android:layout_marginLeft="10dp"
+
        />
     <View
             android:layout_width="280dp"
@@ -64,12 +71,14 @@
             android:layout_marginTop="40dp"
             android:hint="手机号"
             android:inputType="number"
-            android:paddingLeft="35dp"
+            android:textColorHint="@color/text_color"
+            android:paddingLeft="40dp"
             android:paddingBottom="15dp"
             android:lines="1"
             android:maxLength="11"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/text_color"
+            android:background="#00000000"
     />
     <ImageView
             android:id="@+id/login_phone_img"
@@ -80,6 +89,7 @@
             app:layout_constraintLeft_toLeftOf="@id/reg_phone"
             app:layout_constraintBottom_toBottomOf="@id/reg_phone"
             android:src="@mipmap/login_icon_phone"
+            android:layout_marginLeft="10dp"
     />
     <View
             android:id="@+id/login_phone_view"
@@ -103,7 +113,8 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:hint="登录密码"
-            android:textSize="18sp"
+            android:textColorHint="@color/text_color"
+            android:textSize="16sp"
             android:textColor="@color/text_color"
             android:paddingBottom="10dp"
             android:paddingLeft="45dp"
@@ -111,6 +122,7 @@
             android:password="true"
             android:lines="1"
             android:maxLength="6"
+            android:background="#00000000"
     />
     <ImageView
             android:layout_width="30dp"

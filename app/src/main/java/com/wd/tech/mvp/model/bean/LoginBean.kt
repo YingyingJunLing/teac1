@@ -2,11 +2,11 @@ package com.wd.tech.mvp.model.bean
 
 data class LoginBean(
     val message: String,
-    val result: Result,
+    val result: LoginBeanResult,
     val status: String
 )
 
-data class Result(
+data class LoginBeanResult(
     val nickName: String,
     val phone: String,
     val pwd: String,

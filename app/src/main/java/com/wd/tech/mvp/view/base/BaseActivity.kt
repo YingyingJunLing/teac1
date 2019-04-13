@@ -1,5 +1,6 @@
 package com.wd.tech.mvp.view.base
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.wd.tech.mvp.presenter.base.BasePresenter
@@ -15,23 +16,32 @@ abstract class BaseActivity<V,T : BasePresenter<V>> : AppCompatActivity(), Custo
         return 667F
     }
 
-    var mPresenter : BasePresenter<V> = BasePresenter()
-
+    var basePresenter:T?=null
+    var mContext: Context?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initActivity(savedInstanceState)
-        cratePresenter()
-        getData()
+        //加载布局
+        initActivityView(savedInstanceState)
+        mContext = this@BaseActivity
+        //加载控件
+        initView()
+        //加载数据
+        initData()
+        //创建层
+        basePresenter = createPresenter()
+        //绑定p
+        if (null !=basePresenter)
+        {
+            basePresenter!!.attachView(this as V)
+        }
     }
 
-    abstract fun initActivity(savedInstanceState: Bundle?)
+    abstract fun createPresenter(): T?
 
-    abstract fun getData()
+    abstract fun initActivityView(savedInstanceState: Bundle?)
 
-    abstract fun cratePresenter()
+    abstract fun initData()
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mPresenter.detachView()
-    }
+    abstract fun initView()
+
 }

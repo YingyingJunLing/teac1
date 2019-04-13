@@ -17,10 +17,7 @@ class Contract
     {
       fun onILoinPre(phone:String,pwd:String)
     }
-    interface ILoginModel
-    {
-      fun onILoginModel(phone:String,pwd:String,loginCallBack: LoginCallBack)
-    }
+
     interface LoginCallBack{
        fun  loadSuccess(loginBean: LoginBean)
         fun loadFail()
@@ -37,10 +34,7 @@ class Contract
     {
         fun onIRegPre(phone:String,nickName:String,pwd:String)
     }
-    interface IRegModel
-    {
-        fun onIRegModel(phone:String,nickName:String,pwd:String,regCallBack: RegCallBack)
-    }
+
     interface RegCallBack{
         fun  loadSuccess(regBean: RegBean)
         fun loadFail()
