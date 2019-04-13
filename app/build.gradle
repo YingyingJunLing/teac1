@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.wd.tech"
-        minSdkVersion 23
+        minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -67,4 +67,5 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.16'
     //屏幕适配
     implementation 'me.jessyan:autosize:1.1.2'
+
 }

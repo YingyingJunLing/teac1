@@ -16,11 +16,15 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".mvp.view.activity.StartActivity">
+        <activity android:name=".mvp.view.activity.SearchActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.RegisterActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.LoginActivity">
         </activity>
         <activity android:name=".mvp.view.activity.MainActivity">
         </activity>
-        <activity android:name=".mvp.view.activity.SearchActivity">
+        <activity android:name=".mvp.view.activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
