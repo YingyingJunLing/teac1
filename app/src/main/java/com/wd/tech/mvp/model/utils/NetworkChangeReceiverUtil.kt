@@ -25,7 +25,7 @@ class NetworkChangeReceiverUtil : BroadcastReceiver() {
         }else{
             var view : View = LayoutInflater.from(context).inflate(R.layout.network_change_dialog,null)
             var bulider : AlertDialog.Builder = AlertDialog.Builder(context)
-            var alertDialog : AlertDialog = bulider.create()
+            val alertDialog : AlertDialog = bulider.create()
             alertDialog.window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
             alertDialog.setView(view)
             alertDialog.show()

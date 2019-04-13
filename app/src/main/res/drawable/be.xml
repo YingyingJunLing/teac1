@@ -1,0 +1,16 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+android:color="#555199">//这里是扩散水波纹的色值里面的色值可以任选一个
+<item>
+    <selector>
+        // 这里是当按钮处于disable状态下的颜色
+        <item
+            android:drawable="@drawable/dot_check_b3b3b3"
+            android:state_enabled="false" />
+        // 这里是默认展示出来的颜色
+        <item
+            android:drawable="@drawable/dot_check_009ee7"
+            android:state_enabled="true" />
+    </selector>
+</item>
+</ripple>
+

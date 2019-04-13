@@ -1,39 +1,26 @@
 package com.wd.tech.mvp.view.activity
 
-import android.arch.lifecycle.LiveData
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Message
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.wd.tech.R
 import com.wd.tech.mvp.view.frag.CommunityFragment
 import com.wd.tech.mvp.view.frag.InformationFragment
 import com.wd.tech.mvp.view.frag.MessageFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(),View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
 
-        val toggle = ActionBarDrawerToggle(
-            this, drawer_layout,toolbar , R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
-
-
-
+        setAndroidNativeLightStatusBar(MainActivity@this, true)
+        ce_login.setOnClickListener(this)
+        ce_reg.setOnClickListener(this)
         //初始化bottomBar
         bottomBar.init(supportFragmentManager)
             .setImgSize(50F, 50F)
@@ -47,7 +34,33 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun setAndroidNativeLightStatusBar(activity: MainActivity, dark: Boolean) {
+        val decor = activity.window.decorView
+        if (dark) {
+            decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        } else {
+            decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        }
+    }
 
+    /**
+     * 按钮点击事件
+     */
+    override fun onClick(v: View?) {
+        when(v!!.id) {
+            //登录
+            R.id.ce_login -> {
+                Toast.makeText(this,"点击了登录",Toast.LENGTH_LONG).show()
+                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                finish()
+            }
+            //注册
+            R.id.ce_reg -> {
+                Toast.makeText(this,"点击了注册",Toast.LENGTH_LONG).show()
+                startActivity(Intent(this@MainActivity, RegisterActivity::class.java))
+            }
+        }
+    }
 
 
 }
