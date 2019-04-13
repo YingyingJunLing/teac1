@@ -3,6 +3,8 @@ package com.wd.tech.base;
 
 
 import android.util.Log;
+import kotlin.Unit;
+import org.jetbrains.annotations.NotNull;
 
 
 import javax.crypto.Cipher;
@@ -31,6 +33,8 @@ public class RsaCoder {
     static {
         publicKey = getPublicKey(KEY_ALGORITHM);
     }
+
+
 
 
     /**
