@@ -5,6 +5,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.REG
 import com.wd.tech.mvp.model.bean.BannerShowBean
 import com.wd.tech.mvp.model.bean.LoginBean
+import com.wd.tech.mvp.model.bean.RegBean
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -24,5 +25,5 @@ interface ApiServer {
     //注册
     @POST(REG)
     @FormUrlEncoded
-    fun getReg(@Field("phone")phone:String,@Field("nickName")nickName:String,@Field("pwd")pwd:String): Observable<LoginBean>
+    fun getReg(@Field("phone")phone:String,@Field("nickName")nickName:String,@Field("pwd")pwd:String): Observable<RegBean>
 }

@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">MyTech</string>
+    <string name="app_name">维度科技</string>
+    <string name="finsh">取消</string>
+    <string name="search">搜索文章、作者</string>
     <string name="navigation_drawer_open">打开</string>
     <string name="navigation_drawer_close">关闭</string>
 </resources>

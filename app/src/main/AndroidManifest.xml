@@ -11,11 +11,27 @@
     <application
             android:name=".mvp.model.app.MyApp"
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/logo_xhdpi"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".mvp.view.activity.MySettingActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.MyTaskActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.MyNoticeActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.MyCardActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.MyScoreActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.MyAttentionActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.MyCollectionActivity">
+        </activity>
+        <activity android:name=".mvp.view.activity.SearchActivity">
+        </activity>
         <activity android:name=".mvp.view.activity.RegisterActivity">
         </activity>
         <activity android:name=".mvp.view.activity.LoginActivity">

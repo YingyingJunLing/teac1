@@ -134,15 +134,7 @@
             app:layout_constraintBottom_toBottomOf="@id/reg_pwd"
             android:layout_marginBottom="10dp"
     />
-    <ImageView
-            android:id="@+id/login_pwd_eye"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@mipmap/login_icon_eye"
-            app:layout_constraintRight_toRightOf="@id/reg_pwd"
-            app:layout_constraintBottom_toBottomOf="@id/reg_pwd"
-            android:paddingBottom="10dp"
-    />
+
     <View
             android:id="@+id/login_pwd_view"
             android:layout_width="280dp"
@@ -155,7 +147,7 @@
             android:layout_marginLeft="40dp"
             tools:ignore="MissingConstraints"/>
     <TextView
-            android:id="@+id/login_reg"
+            android:id="@+id/login_reg_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="短信验证注册"
@@ -168,7 +160,7 @@
     />
     <!-- 注册按钮 -->
     <Button
-            android:id="@+id/login_btn"
+            android:id="@+id/reg_btn"
             android:layout_width="280dp"
             android:layout_height="39dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -178,8 +170,9 @@
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@color/text_color"
-            android:background="@drawable/be"
             android:layout_marginBottom="150dp"
+            android:background="@drawable/be"
+
     />
 
 </android.support.constraint.ConstraintLayout>

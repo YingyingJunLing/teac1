@@ -8,7 +8,7 @@ class Api {
         //登录
         const val LOGIN:String="techApi/user/v1/login"
         //注册
-        const val REG="techApi/user/v1/register"
+        const val REG:String="techApi/user/v1/register"
 
     }
 }
