@@ -20,7 +20,7 @@
                 tools:ignore="MissingConstraints"/>
     </LinearLayout>
     <LinearLayout
-            android:layout_width="270dp"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"
             android:orientation="vertical"
@@ -54,5 +54,8 @@
                     android:layout_height="wrap_content"
                     android:text="注册"/>
         </LinearLayout>
+        <include layout="@layout/ceshi"
+                 android:id="@+id/my_content"
+        ></include>
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>
