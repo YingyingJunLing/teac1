@@ -19,8 +19,7 @@ class NetworkChangeReceiverUtil : BroadcastReceiver() {
         var networkInfo : NetworkInfo ?= connectionManager.activeNetworkInfo
         if (networkInfo != null && networkInfo.isConnected == true){
             when(networkInfo.subtype){
-                0 ->
-                    Toast.makeText(context, "正在使用移动网络", Toast.LENGTH_SHORT).show()
+
             }
         }else{
             var view : View = LayoutInflater.from(context).inflate(R.layout.network_change_dialog,null)
