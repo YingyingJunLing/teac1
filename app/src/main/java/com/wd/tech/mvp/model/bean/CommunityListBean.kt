@@ -2,11 +2,11 @@ package com.wd.tech.mvp.model.bean
 
 data class CommunityListBean(
     val message: String,
-    val result: List<Result>,
+    val result: List<CommunityListBeanResult>,
     val status: String
 )
 
-data class Result(
+data class CommunityListBeanResult(
     val comment: Int,
     val communityCommentVoList: List<CommunityCommentVo>,
     val content: String,

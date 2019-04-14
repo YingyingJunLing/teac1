@@ -15,29 +15,41 @@ abstract class BaseFragment<V,T : BasePresenter<V>> : Fragment(), CustomAdapt {
     }
 
     override fun getSizeInDp(): Float {
-        return 1080F
+        return 667F
     }
 
     var mPresenter : BasePresenter<V> = BasePresenter()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        initFragmentData()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        initFragmentChildView()
-        return initFragmentView(inflater)
+        var view = initFragmentView(inflater)
+        return view
     }
 
-    abstract protected fun initFragmentView(inflater : LayoutInflater) : View
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initFragmentChildView(view)
+    }
 
-    abstract protected fun initFragmentChildView();
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (savedInstanceState != null) {
+            initFragmentData(savedInstanceState)
+        }
+    }
 
-    abstract protected fun initFragmentData();
+    abstract fun initFragmentView(inflater : LayoutInflater): View
+
+    abstract fun initFragmentChildView(view : View)
+
+    abstract fun initFragmentData(savedInstanceState : Bundle)
 
     override fun onDestroy() {
         super.onDestroy()
-        mPresenter.detachView()
+        if (null != mPresenter) {
+            mPresenter.detachView()
+        }
     }
 }
