@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -9,11 +9,14 @@
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
                 android:orientation="horizontal">
             <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/user_head_image"
                     android:layout_width="100px"
-                    android:layout_height="100px"/>
+                    android:layout_height="100px"
+                    android:layout_marginRight="20px"
+                    app:roundAsCircle="true"/>
             <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -24,14 +27,19 @@
                         android:orientation="horizontal">
                     <TextView android:id="@+id/user_head_text"
                               android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"/>
+                              android:layout_height="wrap_content"
+                              android:maxEms="5"
+                              android:maxLines="1"
+                              android:ellipsize="end"/>
+                    <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"/>
                     <TextView android:id="@+id/user_head_time"
                               android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"/>
+                              android:layout_height="wrap_content"
+                              android:layout_marginRight="20px"/>
                 </LinearLayout>
-                <TextView android:id="@+id/user_head_text_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
         <TextView android:id="@+id/user_text_title"
@@ -40,7 +48,12 @@
         <LinearLayout android:id="@+id/user_image_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+            <TextView android:id="@+id/user_head_text_title"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="10px"
+                      android:layout_marginBottom="10px"/>
             <android.support.v7.widget.RecyclerView
                     android:id="@+id/community_image_recycle"
                     android:layout_width="match_parent"
@@ -48,20 +61,51 @@
         </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
                 android:orientation="horizontal">
-            <ImageView
+            <View
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            <TextView android:id="@+id/user_praise_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+            <ImageView android:id="@+id/user_comment_image"
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:layout_marginRight="10px"
+                    android:background="@mipmap/common_icon_comment_n"/>
             <TextView android:id="@+id/user_comment_num"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="36px"/>
+            <CheckBox android:id="@+id/user_praise_box"
+                    android:layout_width="32px"
+                    android:layout_height="32px"
+                    android:background="@drawable/check_praise"
+                      android:layout_marginRight="10px"
+                    android:button="@null"/>
+            <TextView android:id="@+id/user_praise_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="40px"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/comment_linear"
+                android:layout_width="match_parent"
+                android:layout_height="250px"
+                android:layout_marginBottom="20px"
+                android:paddingTop="30px"
+                android:background="@mipmap/comment_9"
+                android:orientation="vertical">
+            <android.support.v7.widget.RecyclerView android:id="@+id/community_comment_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+            <TextView android:id="@+id/comment_text_show"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/comment_text_show"
+                      android:padding="20px"
+                      android:gravity="center"
+                      android:textColor="#03A9F4"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

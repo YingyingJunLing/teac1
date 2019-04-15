@@ -2,7 +2,6 @@ package com.wd.tech.mvp.view.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,7 +9,9 @@ import com.bumptech.glide.Glide
 import com.wd.tech.mvp.view.activity.MainActivity
 import kotlinx.android.synthetic.main.community_image_list_layout.view.*
 
-
+/**
+ * 图片加载adapter
+ */
 class CommunityImageListAdapter(context : Context, list : List<String>,flie : String) : RecyclerView.Adapter<CommunityImageListAdapter.MyViewHolder>() {
 
     private var context : Context = context
@@ -26,31 +27,36 @@ class CommunityImageListAdapter(context : Context, list : List<String>,flie : St
         return list.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     override fun onBindViewHolder(p0: MyViewHolder, p1: Int) {
+        /**
+         * 加载图片 根据图片数量进行判断
+         */
         var width = MainActivity.width
-        var height = MainActivity.height
-        if (list.size <= 1){
-            var para = p0.community_image_show.layoutParams
+        var imagePara = p0.community_image_show.layoutParams
+        var imageHeight : Int = imagePara.height
+        var para = p0.community_image_show.layoutParams
+        if (list.size <= 0){
+            p0.community_image_show.visibility = View.GONE
+        }else if (list.size == 1){
             para.width = width
-            para.height = height
-            Log.i("宽高",para.width.toString()+"---"+para.height.toString())
+            para.height = imageHeight
             p0.community_image_show.setLayoutParams(para)
-            Glide.with(context).load(flie.split(",")[p1]).into(p0.community_image_show)
         }else if (list.size == 2){
-            var para = p0.community_image_show.layoutParams
-            para.width = width/2
-            para.height = height/2
-            Log.i("宽高",para.width.toString()+"---"+para.height.toString())
+            para.width = (width/2)-20
+            para.height = (width/2)-20
             p0.community_image_show.setLayoutParams(para)
-            Glide.with(context).load(flie.split(",")[p1]).into(p0.community_image_show)
+            p0.community_image_show.scaleType = ImageView.ScaleType.CENTER_CROP
         }else{
-            var para = p0.community_image_show.layoutParams
-            para.width = width/3
-            para.height = height/3
-            Log.i("宽高",para.width.toString()+"---"+para.height.toString())
+            para.width = (width/3)-20
+            para.height = (width/3)-20
             p0.community_image_show.setLayoutParams(para)
-            Glide.with(context).load(flie.split(",")[p1]).into(p0.community_image_show)
+            p0.community_image_show.scaleType = ImageView.ScaleType.CENTER_CROP
         }
+        Glide.with(context).load(flie.split(",")[p1]).into(p0.community_image_show)
     }
 
     class MyViewHolder : RecyclerView.ViewHolder{
