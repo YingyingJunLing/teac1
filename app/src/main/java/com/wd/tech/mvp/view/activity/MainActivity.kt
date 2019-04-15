@@ -4,7 +4,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.WindowManager
 import com.wd.tech.R
 import com.wd.tech.mvp.view.frag.CommunityFragment
 import com.wd.tech.mvp.view.frag.InformationFragment
@@ -14,10 +16,19 @@ import kotlinx.android.synthetic.main.ceshi.*
 
 class MainActivity : AppCompatActivity(),View.OnClickListener {
 
+    companion object{
+        var width : Int = 0
+        var height : Int = 0
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setAndroidNativeLightStatusBar(MainActivity@this, true)
+        var windowManager : WindowManager = getWindowManager()
+        var metrics : DisplayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(metrics)
+        width = metrics.widthPixels
+        height = metrics.heightPixels
         ce_login.setOnClickListener(this)
         ce_reg.setOnClickListener(this)
         //初始化bottomBar
@@ -107,6 +118,4 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
           }
         }
     }
-
-
 }

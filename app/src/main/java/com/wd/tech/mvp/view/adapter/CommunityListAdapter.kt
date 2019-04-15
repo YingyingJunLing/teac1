@@ -1,12 +1,11 @@
 package com.wd.tech.mvp.view.adapter
 
 import android.content.Context
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
@@ -40,9 +39,17 @@ class CommunityListAdapter(context : Context, list : List<CommunityListBeanResul
         p0.user_head_text_title.setText(list.get(p1).content)
         var file : String = list.get(p1).file
         var length=file.split(",")
-        for (i in length){
-            var imageView : ImageView = ImageView(context)
+        p0.user_image_linear.layoutParams
+        if (length.size <= 0){
+            p0.community_image_recycle.layoutManager = GridLayoutManager(context,0,GridLayoutManager.VERTICAL,false)
+        }else if (length.size == 1){
+            p0.community_image_recycle.layoutManager = GridLayoutManager(context,1,GridLayoutManager.VERTICAL,false)
+        }else if (length.size == 2){
+            p0.community_image_recycle.layoutManager = GridLayoutManager(context,2,GridLayoutManager.VERTICAL,false)
+        }else{
+            p0.community_image_recycle.layoutManager = GridLayoutManager(context,3,GridLayoutManager.VERTICAL,false)
         }
+        p0.community_image_recycle.adapter = CommunityImageListAdapter(context,length,file)
     }
 
     class MyViewHolder : RecyclerView.ViewHolder{
@@ -51,12 +58,14 @@ class CommunityListAdapter(context : Context, list : List<CommunityListBeanResul
         var user_head_time : TextView
         var user_head_text_title : TextView
         var user_image_linear : LinearLayout
+        var community_image_recycle : RecyclerView
         constructor(view : View) : super(view){
             user_head_image = view.user_head_image
             user_head_text = view.user_head_text
             user_head_time = view.user_head_time
             user_head_text_title = view.user_head_text_title
             user_image_linear = view.user_image_linear
+            community_image_recycle = view.community_image_recycle
         }
     }
 }

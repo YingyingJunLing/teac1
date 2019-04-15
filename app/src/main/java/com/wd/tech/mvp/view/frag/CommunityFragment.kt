@@ -24,7 +24,7 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
 
     override fun initFragmentData(savedInstanceState: Bundle?) {
         var hashMap : HashMap<String,Int> = HashMap()
-        communityListPresenter.onICommunityListPre(hashMap,1,10)
+        communityListPresenter.onICommunityListPre(hashMap,2,10)
     }
 
     override fun initFragmentChildView(view: View) {
