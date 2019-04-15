@@ -1,9 +1,9 @@
-package com.wd.tech.mvp.presenter.base
+package com.wd.tech.mvp.presenter.presenterimpl
 
 import android.util.Log
-import com.wd.tech.mvp.model.bean.LoginBean
 import com.wd.tech.mvp.model.bean.RegBean
 import com.wd.tech.mvp.model.utils.RetrofitUtil
+import com.wd.tech.mvp.presenter.base.BasePresenter
 import com.wd.tech.mvp.view.activity.RegisterActivity
 import com.wd.tech.mvp.view.contract.Contract
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -1,5 +1,6 @@
 package com.wd.tech.mvp.view.contract
 
+import com.wd.tech.mvp.model.bean.BannerShowBean
 import com.wd.tech.mvp.model.bean.CommunityListBean
 import com.wd.tech.mvp.model.bean.LoginBean
 import com.wd.tech.mvp.model.bean.RegBean
@@ -40,4 +41,33 @@ class Contract
     interface ICommunityListPre{
         fun onICommunityListPre(hashMap: HashMap<String,Int>,page:Int,count:Int)
     }
+    /**
+     * 咨询展示
+     */
+    interface  IInformationView
+    {
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface IInformationPre{
+        //轮播图
+        fun onIBannerPre()
+        //资讯推荐展示列表(包含单独板块列表展示)
+        fun onInfoRecommendList(plateId:Int,page:Int,count:Int)
+        //广告
+        fun onInfoAdvertising()
+    }
+    /**
+     * 咨询详情页面
+     */
+    interface  IInfoDetailView
+    {
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface IInfoDetailPre{
+        fun onInfoDetailPre(id:String)
+    }
+
+
 }
