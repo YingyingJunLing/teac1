@@ -1,17 +1,18 @@
 package com.wd.tech.mvp.model.bean
 
-data class LoginBean(
+data class UserInfoBean(
     val message: String,
-    val result: LoginBeanResult,
+    val result: UserInfoBeanResult,
     val status: String
 )
 
-data class LoginBeanResult(
+data class UserInfoBeanResult(
+    val headPic: String,
+    val integral: Int,
     val nickName: String,
     val phone: String,
-    val pwd: String,
-    val sessionId: String,
-    val userId: String,
+    val sex: Int,
+    val userId: Int,
     val userName: String,
     val whetherFaceId: Int,
     val whetherVip: Int

@@ -1,9 +1,9 @@
 package com.wd.tech.mvp.view.contract
 
-
 import com.wd.tech.mvp.model.bean.CommunityListBean
 import com.wd.tech.mvp.model.bean.LoginBean
 import com.wd.tech.mvp.model.bean.RegBean
+import com.wd.tech.mvp.model.bean.UserInfoBean
 
 class Contract
 {
@@ -39,7 +39,7 @@ class Contract
         fun onFail()
     }
     interface ICommunityListPre{
-        fun onICommunityListPre(hashMap: HashMap<String,Int>,page:Int,count:Int)
+        fun onICommunityListPre(hashMap: HashMap<String,String>,page:Int,count:Int)
     }
     /**
      * 咨询展示
@@ -69,6 +69,14 @@ class Contract
     interface IInfoDetailPre{
         fun onInfoDetailPre(id:Int)
     }
-
-
+    /**
+     * 主页查询用户
+     */
+    interface IUserInfoView {
+        fun onSuccess(userInfoBean: UserInfoBean)
+        fun onFail()
+    }
+    interface IUserInfoPre {
+        fun onIUserInfoPre(hashMap: HashMap<String,String>)
+    }
 }

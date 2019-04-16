@@ -7,6 +7,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.INFODETAIL
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.REG
+import com.wd.tech.mvp.model.api.Api.Companion.USERINFOBYUSERID
 import com.wd.tech.mvp.model.bean.*
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -40,6 +41,9 @@ interface ApiServer {
 
     //社区列表
     @GET(COMMUNITYLIST)
-    fun getCommunityList(@HeaderMap hashMap: HashMap<String,Int>,@Query("page")page:Int,@Query("count")count:Int): Observable<CommunityListBean>
+    fun getCommunityList(@HeaderMap hashMap: HashMap<String,String>,@Query("page")page:Int,@Query("count")count:Int): Observable<CommunityListBean>
 
+    //根据Id查询用户信息
+    @GET(USERINFOBYUSERID)
+    fun getUserInfo(@HeaderMap hashMap: HashMap<String,String>): Observable<UserInfoBean>
 }

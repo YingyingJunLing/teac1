@@ -56,9 +56,8 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
         if(loginBean.status.equals("0000"))
         {
             val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
-            sp.edit().putString("userId", loginBean.result.userId.toString()).putString("sessionId", loginBean.result.sessionId).commit()
+            sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).commit()
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            intent.putExtra("booles","1")
             startActivity(intent)
             Toast.makeText(this,loginBean.message,Toast.LENGTH_LONG).show()
             finish()

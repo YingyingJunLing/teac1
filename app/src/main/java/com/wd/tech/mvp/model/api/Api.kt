@@ -17,5 +17,7 @@ class Api {
         const val REG="techApi/user/v1/register"
         //社区列表
         const val COMMUNITYLIST="techApi/community/v1/findCommunityList"
+        //根据Id查询用户信息
+        const val USERINFOBYUSERID="techApi/user/verify/v1/getUserInfoByUserId"
     }
 }

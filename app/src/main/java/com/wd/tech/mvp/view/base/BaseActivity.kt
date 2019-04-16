@@ -30,6 +30,7 @@ abstract class BaseActivity<V,T : BasePresenter<V>> : AppCompatActivity(), Custo
         //加载数据
         initData()
         //绑定p
+
         if (null !=basePresenter)
         {
             basePresenter!!.attachView(this as V)
