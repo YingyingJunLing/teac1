@@ -1,9 +1,6 @@
 package com.wd.tech.mvp.view.contract
 
-import com.wd.tech.mvp.model.bean.CommunityListBean
-import com.wd.tech.mvp.model.bean.LoginBean
-import com.wd.tech.mvp.model.bean.RegBean
-import com.wd.tech.mvp.model.bean.UserInfoBean
+import com.wd.tech.mvp.model.bean.*
 
 class Contract
 {
@@ -74,9 +71,21 @@ class Contract
      */
     interface IUserInfoView {
         fun onSuccess(userInfoBean: UserInfoBean)
+        fun onSignSuccess(userSignBean: UserSignBean)
         fun onFail()
     }
     interface IUserInfoPre {
         fun onIUserInfoPre(hashMap: HashMap<String,String>)
+        fun onIUserSignPre(hashMap: HashMap<String,String>)
+    }
+    /**
+     *关注列表
+     */
+    interface IInfoCollectionView {
+        fun onInfoCollectionSuccess(infoCollectionBean: InfoCollectionBean)
+        fun onFail()
+    }
+    interface IInfoCollectionPre {
+        fun onIInfoCollectionPre(hashMap: HashMap<String,String>,page:Int,count:Int)
     }
 }

@@ -1,9 +1,12 @@
 package com.wd.tech.mvp.view.frag
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.LinearLayout
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.wd.tech.R
 import com.wd.tech.mvp.model.bean.CommunityListBean
@@ -21,6 +24,7 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
     lateinit var adapter : CommunityListAdapter
     var hashMap : HashMap<String,String> = HashMap()
     var xRecycle_community : XRecyclerView ?= null
+    var loading_linear : LinearLayout ?= null
     var page : Int = Random().nextInt(5)+1
 
     override fun setView(): Int {
@@ -28,12 +32,18 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
     }
 
     override fun initFragmentData(savedInstanceState: Bundle?) {
+        var sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("User", Context.MODE_PRIVATE)
+        var userId = sharedPreferences.getString("userId", "0")
+        var sessionId = sharedPreferences.getString("sessionId", "0")
+        hashMap.put("userId",userId)
+        hashMap.put("sessionId",sessionId)
         communityListPresenter.onICommunityListPre(hashMap,page,10)
     }
 
     override fun initFragmentChildView(view: View) {
         view.xRecycle_community.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
         xRecycle_community = view.xRecycle_community
+        loading_linear = view.loading_linear
     }
 
     override fun createPresenter(): CommunityListPresenter? {
@@ -42,6 +52,8 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
     }
 
     override fun onSuccess(communityListBean: CommunityListBean) {
+        xRecycle_community?.visibility = View.VISIBLE
+        loading_linear?.visibility = View.GONE
         val list = communityListBean.result
         adapter = CommunityListAdapter(this.requireContext(),list)
         xRecycle_community?.adapter = adapter
