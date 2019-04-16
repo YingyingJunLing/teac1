@@ -28,7 +28,7 @@ class ResultBean {
      */
 
     var collection: Int = 0
-    var id: String ?=null
+    var id: Int =0
     var releaseTime: Long = 0
     var share: Int = 0
     var source: String? = null

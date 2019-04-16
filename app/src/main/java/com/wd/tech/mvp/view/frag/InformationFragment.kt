@@ -74,29 +74,27 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
         informationPresenter = InformationPresenter(this)
         return informationPresenter
     }
-
-    override fun onSuccess(any: Any) {
-        if (any is BannerShowBean) {
-            if (any != null) {
-               bannerShowBean = any
-            }
-        }
-        if (any is InfoRecommendListBean) {
-            if(any !=null)
-            {
-                infoRecommendListBean = any
-                Log.e("1111112",infoRecommendListBean.toString())
-                infomation_recy.adapter = BannerAdapter(context,bannerShowBean, infoRecommendListBean!!)
-            }
-
-
-        }
-    }
-
     override fun onFail() {
 
     }
 
+    override fun onSuccessBanner(any: Any) {
+        if (any is BannerShowBean) {
+            if (any != null) {
+                bannerShowBean = any
+            }
+        }
+    }
+
+    override fun onSuccessInfoRecommendList(any: Any) {
+        if (any is InfoRecommendListBean) {
+            if(any !=null)
+            {
+                infoRecommendListBean = any
+                infomation_recy.adapter = BannerAdapter(context,bannerShowBean, infoRecommendListBean!!)
+            }
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
         if (informationPresenter != null) {

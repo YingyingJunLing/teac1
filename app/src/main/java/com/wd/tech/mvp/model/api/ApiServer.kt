@@ -27,7 +27,7 @@ interface ApiServer {
     fun getfindInfoAdvertising():Observable<InfoAdvertisingBean>
     //咨询详情页面
     @GET(INFODETAIL)
-    fun getInfoDetail(@Query("id")id:String):Observable<InfoDetailBean>
+    fun getInfoDetail(@Query("id")id:Int):Observable<InfoDetailBean>
     //登录
     @POST(LOGIN)
     @FormUrlEncoded

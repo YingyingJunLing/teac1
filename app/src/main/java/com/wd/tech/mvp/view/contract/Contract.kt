@@ -1,6 +1,6 @@
 package com.wd.tech.mvp.view.contract
 
-import com.wd.tech.mvp.model.bean.BannerShowBean
+
 import com.wd.tech.mvp.model.bean.CommunityListBean
 import com.wd.tech.mvp.model.bean.LoginBean
 import com.wd.tech.mvp.model.bean.RegBean
@@ -46,7 +46,8 @@ class Contract
      */
     interface  IInformationView
     {
-        fun onSuccess(any: Any)
+        fun onSuccessBanner(any: Any)
+        fun onSuccessInfoRecommendList(any: Any)
         fun onFail()
     }
     interface IInformationPre{
@@ -66,7 +67,7 @@ class Contract
         fun onFail()
     }
     interface IInfoDetailPre{
-        fun onInfoDetailPre(id:String)
+        fun onInfoDetailPre(id:Int)
     }
 
 
