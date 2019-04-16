@@ -51,4 +51,8 @@ interface ApiServer {
     //用户签到
     @POST(USERSIGN)
     fun getUserSign(@HeaderMap hashMap: HashMap<String,String>): Observable<UserSignBean>
+
+    //关注列表
+    @GET(INFORECOMMENEDLIST)
+    fun getInfoCollection(@HeaderMap hashMap: HashMap<String,String>,@Query("page")page:Int,@Query("count")count:Int): Observable<InfoCollectionBean>
 }

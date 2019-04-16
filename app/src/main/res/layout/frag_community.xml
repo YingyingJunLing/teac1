@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:layout_height="match_parent">
     <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:visibility="gone"
             android:id="@+id/xRecycle_community"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"></com.jcodecraeer.xrecyclerview.XRecyclerView>
-</LinearLayout>
+    <LinearLayout android:id="@+id/loading_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+        <pl.droidsonroids.gif.GifImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/loading"/>
+    </LinearLayout>
+</RelativeLayout>

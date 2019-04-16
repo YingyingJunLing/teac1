@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.widget.DrawerLayout
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
@@ -62,6 +63,24 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
     }
 
     override fun initView() {
+        drawer_layout.addDrawerListener(object : DrawerLayout.DrawerListener{
+            override fun onDrawerStateChanged(p0: Int) {
+                
+            }
+
+            override fun onDrawerSlide(p0: View, p1: Float) {
+
+            }
+
+            override fun onDrawerClosed(p0: View) {
+
+            }
+
+            override fun onDrawerOpened(p0: View) {
+                p0.isClickable = true
+            }
+
+        })
         ce_login.setOnClickListener(this)
         ce_reg.setOnClickListener(this)
         //初始化bottomBar
@@ -98,7 +117,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
     }
 
     override fun onSignSuccess(userSignBean: UserSignBean) {
-        Toast.makeText(this,userSignBean.message,Toast.LENGTH_LONG).show()
+        Toast.makeText(this@MainActivity,userSignBean.message,Toast.LENGTH_LONG).show()
     }
 
     override fun onFail() {

@@ -78,4 +78,14 @@ class Contract
         fun onIUserInfoPre(hashMap: HashMap<String,String>)
         fun onIUserSignPre(hashMap: HashMap<String,String>)
     }
+    /**
+     *关注列表
+     */
+    interface IInfoCollectionView {
+        fun onInfoCollectionSuccess(infoCollectionBean: InfoCollectionBean)
+        fun onFail()
+    }
+    interface IInfoCollectionPre {
+        fun onIInfoCollectionPre(hashMap: HashMap<String,String>,page:Int,count:Int)
+    }
 }

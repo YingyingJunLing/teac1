@@ -21,5 +21,7 @@ class Api {
         const val USERINFOBYUSERID="techApi/user/verify/v1/getUserInfoByUserId"
         //用户签到
         const val USERSIGN="techApi/user/verify/v1/userSign"
+        //关注列表
+        const val INFOCOLLECTIONLIST="techApi/user/verify/v1/findAllInfoCollection"
     }
 }
