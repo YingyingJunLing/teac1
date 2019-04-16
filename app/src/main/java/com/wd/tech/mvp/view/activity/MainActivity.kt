@@ -72,7 +72,8 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
             .addTabItem("咨询", R.mipmap.common_tab_informatiions,R.mipmap.common_tab_information, InformationFragment::class.java)
             .addTabItem("消息", R.mipmap.common_tab_messages, R.mipmap.common_tab_message, MessageFragment::class.java)
             .addTabItem("社区", R.mipmap.common_tab_communitys,R.mipmap.common_tab_community, CommunityFragment::class.java)
-        user_constraintLayout_show.maxHeight = height-360
+        user_head_constrain.maxHeight = height/4+80
+        user_constraintLayout_show.maxHeight = (height/4*3)
     }
 
     override fun onSuccess(userInfoBean: UserInfoBean) {

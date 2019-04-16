@@ -46,8 +46,9 @@ class InfoRecommendListAdapter(val context: Context?, val any: InfoRecommendList
             p0.itemView.info_zan_num.text=any.result!!.get(p1).collection.toString()
             p0.itemView.info_img.setImageURI(any.result!!.get(p1).thumbnail)
             var dateFormat= SimpleDateFormat(FORMAT_DATE_TIME_PATTERN, Locale.getDefault())
-            p0.itemView.info_source.text= any.result!!.get(p1).source
             p0.itemView.info_time.setText(dateFormat.format(any.result?.get(p1)?.releaseTime))
+            p0.itemView.info_source.text= any.result!!.get(p1).source
+
             if(any.result!!.get(p1).whetherPay == 2)
             {
                p0.itemView.pay_img.visibility =View.GONE
@@ -58,6 +59,7 @@ class InfoRecommendListAdapter(val context: Context?, val any: InfoRecommendList
             p0.itemView.setOnClickListener {
                 var intent =Intent(context, DetailsActivity::class.java)
                 intent.putExtra("id", any.result!!.get(p1).id)
+                intent.putExtra("whetherPay",any.result?.get(p1)?.whetherPay)
                 context!!.startActivity(intent)
             }
         }

@@ -8,6 +8,7 @@
         android:background="#00000000"
         android:id="@+id/relativeLayout">
     <android.support.constraint.ConstraintLayout
+            android:id="@+id/user_head_constrain"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             xmlns:app="http://schemas.android.com/apk/res-auto"
