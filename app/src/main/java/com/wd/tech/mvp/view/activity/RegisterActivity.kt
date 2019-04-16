@@ -1,17 +1,14 @@
 package com.wd.tech.mvp.view.activity
 
-import android.accounts.Account
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.os.TokenWatcher
 import android.view.View
 import android.widget.Toast
 import com.wd.tech.R
 import com.wd.tech.base.RsaCoder
 import com.wd.tech.mvp.model.bean.RegBean
 import com.wd.tech.mvp.model.utils.AccountValidatorUtil
-import com.wd.tech.mvp.presenter.base.RegPresenter
+import com.wd.tech.mvp.presenter.presenterimpl.RegPresenter
 import com.wd.tech.mvp.view.base.BaseActivity
 import com.wd.tech.mvp.view.contract.Contract
 import kotlinx.android.synthetic.main.activity_register.*
@@ -72,7 +69,6 @@ class RegisterActivity : BaseActivity<Contract.IRegView, RegPresenter>(), Contra
                 var reg_pwd = reg_pwd.text.toString().trim()
                 var passWord = RsaCoder.encryptByPublicKey(reg_pwd)
                 regPresenter!!.onIRegPre(phone,reg_nickName,passWord)
-
             }
             //短信验证码按钮点击事件
             R.id.login_reg_message -> {

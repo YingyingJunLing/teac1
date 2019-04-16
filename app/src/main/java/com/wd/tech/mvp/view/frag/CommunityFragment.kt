@@ -19,7 +19,7 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
 
     lateinit var communityListPresenter : CommunityListPresenter
     lateinit var adapter : CommunityListAdapter
-    var hashMap : HashMap<String,Int> = HashMap()
+    var hashMap : HashMap<String,String> = HashMap()
     var xRecycle_community : XRecyclerView ?= null
     var page : Int = Random().nextInt(5)+1
 

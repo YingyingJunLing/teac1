@@ -11,16 +11,15 @@ import com.wd.tech.R
 import com.wd.tech.base.RsaCoder
 import com.wd.tech.mvp.model.bean.LoginBean
 import com.wd.tech.mvp.model.utils.AccountValidatorUtil
-import com.wd.tech.mvp.presenter.base.LoginPresenter
+import com.wd.tech.mvp.presenter.presenterimpl.LoginPresenter
 import com.wd.tech.mvp.view.base.BaseActivity
 import com.wd.tech.mvp.view.contract.Contract
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
 
 
-class LoginActivity : BaseActivity<Contract.ILoginView,LoginPresenter>(),Contract.ILoginView, View.OnClickListener {
+class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contract.ILoginView, View.OnClickListener {
 
-    var loginPresenter :LoginPresenter?=null
+    var loginPresenter : LoginPresenter?=null
     var accountValidatorUtil:AccountValidatorUtil?=null
     private var sp: SharedPreferences? = null
 
@@ -57,9 +56,8 @@ class LoginActivity : BaseActivity<Contract.ILoginView,LoginPresenter>(),Contrac
         if(loginBean.status.equals("0000"))
         {
             val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
-            sp.edit().putString("userId", loginBean.result.userId.toString()).putString("sessionId", loginBean.result.sessionId).commit()
+            sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).commit()
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            intent.putExtra("booles","1")
             startActivity(intent)
             Toast.makeText(this,loginBean.message,Toast.LENGTH_LONG).show()
             finish()
