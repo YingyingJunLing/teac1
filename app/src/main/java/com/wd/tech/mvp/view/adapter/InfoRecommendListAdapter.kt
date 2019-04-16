@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.facebook.drawee.view.SimpleDraweeView
 import com.wd.tech.R
 import com.wd.tech.mvp.model.bean.InfoRecommendListBean
@@ -55,8 +56,9 @@ class InfoRecommendListAdapter(val context: Context?, val any: InfoRecommendList
             }
 
             p0.itemView.setOnClickListener {
-                EventBus.getDefault().postSticky(any.result!!.get(p1).id)
-                context!!.startActivity(Intent(context, DetailsActivity::class.java))
+                var intent =Intent(context, DetailsActivity::class.java)
+                intent.putExtra("id", any.result!!.get(p1).id)
+                context!!.startActivity(intent)
             }
         }
         if (any!!.result!![p1].whetherAdvertising==1){

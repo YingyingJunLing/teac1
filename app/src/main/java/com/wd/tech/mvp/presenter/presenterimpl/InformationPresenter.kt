@@ -28,12 +28,12 @@ class InformationPresenter(val infoFragment: InformationFragment) : BasePresente
                 }
 
                 override fun onNext(t: BannerShowBean) {
-                    infoFragment.onSuccess(t)
+                    infoFragment.onSuccessBanner(t)
 
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.e(TAG,"失败了")
+
 
                 }
             })
@@ -54,7 +54,7 @@ class InformationPresenter(val infoFragment: InformationFragment) : BasePresente
                 }
 
                 override fun onNext(t: InfoRecommendListBean) {
-                    infoFragment.onSuccess(t)
+                    infoFragment.onSuccessInfoRecommendList(t)
                 }
 
                 override fun onError(e: Throwable) {
@@ -77,7 +77,7 @@ class InformationPresenter(val infoFragment: InformationFragment) : BasePresente
 
                 }
                 override fun onNext(t: InfoAdvertisingBean) {
-                    infoFragment.onSuccess(t)
+
                 }
 
                 override fun onError(e: Throwable) {

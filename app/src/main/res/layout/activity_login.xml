@@ -18,7 +18,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="150dp"
-            android:hint="手机号"
+             android:hint="手机号"
             android:textColorHint="@color/text_color"
             android:inputType="number"
             android:paddingLeft="35dp"
@@ -28,6 +28,7 @@
             android:textSize="18sp"
             android:textColor="@color/text_color"
             android:background="#00000000"
+            tools:ignore="MissingConstraints"
     />
     <ImageView
             android:id="@+id/login_phone_img"

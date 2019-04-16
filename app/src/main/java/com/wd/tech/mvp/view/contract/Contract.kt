@@ -1,5 +1,9 @@
 package com.wd.tech.mvp.view.contract
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d99c81927f074a323819a1964df0f31f234b2798
 import com.wd.tech.mvp.model.bean.CommunityListBean
 import com.wd.tech.mvp.model.bean.LoginBean
 import com.wd.tech.mvp.model.bean.RegBean
@@ -46,7 +50,8 @@ class Contract
      */
     interface  IInformationView
     {
-        fun onSuccess(any: Any)
+        fun onSuccessBanner(any: Any)
+        fun onSuccessInfoRecommendList(any: Any)
         fun onFail()
     }
     interface IInformationPre{
@@ -66,7 +71,7 @@ class Contract
         fun onFail()
     }
     interface IInfoDetailPre{
-        fun onInfoDetailPre(id:String)
+        fun onInfoDetailPre(id:Int)
     }
     /**
      * 主页查询用户

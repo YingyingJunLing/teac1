@@ -65,7 +65,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         ce_reg.setOnClickListener(this)
         //初始化bottomBar
         bottomBar.init(supportFragmentManager)
-            .setImgSize(70F, 70F)
+            .setImgSize(60F, 60F)
             .setFontSize(10F)
             .setChangeColor(Color.BLACK,Color.GRAY)
             .setTabPadding(4F, 5F, 12F)

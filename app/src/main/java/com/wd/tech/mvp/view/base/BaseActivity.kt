@@ -23,12 +23,12 @@ abstract class BaseActivity<V,T : BasePresenter<V>> : AppCompatActivity(), Custo
         //加载布局
         initActivityView(savedInstanceState)
         mContext = this@BaseActivity
+        //创建层
+        basePresenter = createPresenter()
         //加载控件
         initView()
         //加载数据
         initData()
-        //创建层
-        basePresenter = createPresenter()
         //绑定p
         if (null !=basePresenter)
         {

@@ -1,5 +1,6 @@
 package com.wd.tech.mvp.presenter.presenterimpl
 
+import android.util.Log
 import com.wd.tech.mvp.model.bean.InfoDetailBean
 import com.wd.tech.mvp.model.utils.RetrofitUtil
 import com.wd.tech.mvp.presenter.base.BasePresenter
@@ -10,7 +11,7 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
 class InfoDetailPresenter (val detailsActivity: DetailsActivity): BasePresenter<Contract.IInfoDetailView>(),Contract.IInfoDetailPre {
-    override fun onInfoDetailPre(id: String) {
+    override fun onInfoDetailPre(id: Int) {
         val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
         sslRetrofit.getInfoDetail(id)
             .subscribeOn(Schedulers.io())
@@ -21,11 +22,12 @@ class InfoDetailPresenter (val detailsActivity: DetailsActivity): BasePresenter<
                 }
 
                 override fun onNext(t: InfoDetailBean) {
-
-
+                    Log.e("onNext",t.toString())
+                    detailsActivity.onSuccess(t)
                 }
 
                 override fun onError(e: Throwable) {
+                    Log.e("失败了","失败了")
 
                 }
             })
