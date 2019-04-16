@@ -19,5 +19,7 @@ class Api {
         const val COMMUNITYLIST="techApi/community/v1/findCommunityList"
         //根据Id查询用户信息
         const val USERINFOBYUSERID="techApi/user/verify/v1/getUserInfoByUserId"
+        //用户签到
+        const val USERSIGN="techApi/user/verify/v1/userSign"
     }
 }

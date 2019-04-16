@@ -6,11 +6,12 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import com.wd.tech.R
 import com.wd.tech.mvp.model.bean.UserInfoBean
+import com.wd.tech.mvp.model.bean.UserSignBean
 import com.wd.tech.mvp.model.utils.FrescoUtil
 import com.wd.tech.mvp.presenter.presenterimpl.UserInfoPresenter
 import com.wd.tech.mvp.view.base.BaseActivity
@@ -72,7 +73,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
             .addTabItem("咨询", R.mipmap.common_tab_informatiions,R.mipmap.common_tab_information, InformationFragment::class.java)
             .addTabItem("消息", R.mipmap.common_tab_messages, R.mipmap.common_tab_message, MessageFragment::class.java)
             .addTabItem("社区", R.mipmap.common_tab_communitys,R.mipmap.common_tab_community, CommunityFragment::class.java)
-        user_head_constrain.maxHeight = height/4+80
+        user_head_constrain.maxHeight = height/4+100
         user_constraintLayout_show.maxHeight = (height/4*3)
     }
 
@@ -89,10 +90,15 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
             my_notice_next.setOnClickListener(this)
             my_task_next.setOnClickListener(this)
             my_setting_next.setOnClickListener(this)
+            my_qiandao.setOnClickListener(this)
         }else{
             wei_login.visibility=View.VISIBLE
             my_content.visibility=View.GONE
         }
+    }
+
+    override fun onSignSuccess(userSignBean: UserSignBean) {
+        Toast.makeText(this,userSignBean.message,Toast.LENGTH_LONG).show()
     }
 
     override fun onFail() {
@@ -137,11 +143,14 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
                 startActivity(Intent(this@MainActivity, MyNoticeActivity::class.java))
             }
             R.id.my_task_next->{
-            startActivity(Intent(this@MainActivity, MyTaskActivity::class.java))
+                startActivity(Intent(this@MainActivity, MyTaskActivity::class.java))
             }
             R.id.my_setting_next->{
-            startActivity(Intent(this@MainActivity, MySettingActivity::class.java))
-          }
+                startActivity(Intent(this@MainActivity, MySettingActivity::class.java))
+            }
+            R.id.my_qiandao->{
+                userInfoPresenter.onIUserSignPre(hashMap)
+            }
         }
     }
 }

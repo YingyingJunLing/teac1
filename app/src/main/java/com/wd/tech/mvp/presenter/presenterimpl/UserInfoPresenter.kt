@@ -10,9 +10,18 @@ import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 
 class UserInfoPresenter(var mainActivity: MainActivity) : BasePresenter<Contract.IUserInfoView>(),Contract.IUserInfoPre {
+    var apiServer : ApiServer = RetrofitUtil.instant.SSLRetrofit()
+
+    override fun onIUserSignPre(hashMap: HashMap<String, String>) {
+        apiServer.getUserSign(hashMap)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(Consumer {
+
+            })
+    }
 
     override fun onIUserInfoPre(hashMap: HashMap<String, String>) {
-        var apiServer : ApiServer = RetrofitUtil.instant.SSLRetrofit()
         apiServer.getUserInfo(hashMap)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
