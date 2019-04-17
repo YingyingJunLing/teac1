@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.view.contract
 
 import com.wd.tech.mvp.model.bean.*
+import java.io.File
 
 class Contract
 {
@@ -101,5 +102,17 @@ class Contract
     }
     interface IWechatLoginPre{
         fun onIWechatLoginPre(code:String)
+    }
+    /**
+     * 设置主页查询用户
+     */
+    interface ISettingUserInfoView {
+        fun onSuccess(userInfoBean: UserInfoBean)
+        fun onModifyHeadPicSuccess(modifyHeadPicBean: ModifyHeadPicBean)
+        fun onFail()
+    }
+    interface ISettingUserInfoPre {
+        fun onSettingIUserInfoPre(hashMap: HashMap<String,String>)
+        fun onModifyHeadPicPre(hashMap: HashMap<String,String>,file: File)
     }
 }

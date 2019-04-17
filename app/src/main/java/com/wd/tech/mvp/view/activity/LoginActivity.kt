@@ -21,10 +21,11 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contract.ILoginView, View.OnClickListener {
-     var wxapi: IWXAPI? = null
+    var wxapi: IWXAPI? = null
     var loginPresenter : LoginPresenter?=null
     var accountValidatorUtil:AccountValidatorUtil?=null
     private var sp: SharedPreferences? = null
+    var b : Boolean = false
 
     override fun createPresenter(): LoginPresenter? {
          loginPresenter = LoginPresenter(this);
@@ -40,7 +41,7 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
     }
 
     override fun initData() {
-        val b = sp!!.getBoolean("记住", false)
+        b = sp!!.getBoolean("记住", false)
         if (b) {
             login_phone.setText(sp!!.getString("name", ""))
             login_pwd.setText(sp!!.getString("pass", ""))
@@ -56,13 +57,17 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
         sp = getSharedPreferences("LOGIN", Context.MODE_PRIVATE)
     }
 
-    override fun onSuccess(loginBean: LoginBean)
-    {
+    override fun onSuccess(loginBean: LoginBean){
 
         if(loginBean.status.equals("0000"))
         {
             val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
             sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).commit()
+            if(b==true){
+                sp.edit().putString("type","1").commit()
+            }else{
+                sp.edit().putString("type","2").commit()
+            }
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
             Toast.makeText(this,loginBean.message,Toast.LENGTH_LONG).show()

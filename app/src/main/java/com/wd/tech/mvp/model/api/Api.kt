@@ -27,5 +27,7 @@ class Api {
         const val USERSIGN="techApi/user/verify/v1/userSign"
         //关注列表
         const val INFOCOLLECTIONLIST="techApi/user/verify/v1/findAllInfoCollection"
+        //用户上传头像
+        const val MODIFYHEADPIC="techApi/user/verify/v1/modifyHeadPic"
     }
 }
