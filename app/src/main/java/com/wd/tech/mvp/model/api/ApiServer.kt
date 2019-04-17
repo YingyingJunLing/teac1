@@ -40,7 +40,7 @@ interface ApiServer {
     //微信登录
     @POST(WECHATLOGIN)
     @FormUrlEncoded
-    fun getWeChatLogin(@Field("code") code: String): Observable<LoginBean>
+    fun getWeChatLogin(@Header("ak") ak:String ,@Field("code") code: String): Observable<LoginBean>
 
     //登录
     @POST(LOGIN)

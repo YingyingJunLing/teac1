@@ -100,6 +100,6 @@ class Contract
         fun onIWechatLoginFail()
     }
     interface IWechatLoginPre{
-        fun onIWechatLoginPre(code:String)
+        fun onIWechatLoginPre(ak:String,code:String)
     }
 }

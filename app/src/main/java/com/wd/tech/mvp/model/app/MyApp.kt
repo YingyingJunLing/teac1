@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.IntentFilter
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.wd.tech.mvp.model.utils.NetworkChangeReceiverUtil
-
 class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
@@ -13,5 +12,6 @@ class MyApp : Application() {
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
         var networkChangeReceiverUtil : NetworkChangeReceiverUtil = NetworkChangeReceiverUtil()
         registerReceiver(networkChangeReceiverUtil,intentFilter)
+
     }
 }
