@@ -21,7 +21,7 @@ class AlterAndAnimationUtil {
         dialogWindow!!.setGravity(Gravity.BOTTOM)
         var lp : WindowManager.LayoutParams = dialogWindow.attributes
         lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
         //将属性设置给窗体
         dialogWindow.attributes = lp
         dialog!!.setCanceledOnTouchOutside(true)

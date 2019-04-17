@@ -81,4 +81,10 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (communityListPresenter != null){
+            communityListPresenter.detachView()
+        }
+    }
 }

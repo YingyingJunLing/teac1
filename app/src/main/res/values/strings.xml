@@ -6,4 +6,20 @@
     <string name="navigation_drawer_close">关闭</string>
     <string name="comment_text_show">点击查看更多评论</string>
     <string name="nickName">昵称</string>
+    <string name="my_collection">我的收藏</string>
+    <string name="setting">设置</string>
+    <string name="user_head">头像</string>
+    <string name="user_name">昵称</string>
+    <string name="user_sex">性别</string>
+    <string name="user_sign">签名</string>
+    <string name="user_bir">生日</string>
+    <string name="user_tel">电话</string>
+    <string name="user_emile">邮箱</string>
+    <string name="user_num">积分</string>
+    <string name="user_vip">VIP</string>
+    <string name="Face_ID">Face ID</string>
+    <string name="end_login">退出登录</string>
+    <string name="user_film">拍摄</string>
+    <string name="user_head_finsh">取消</string>
+    <string name="user_photo">相册</string>
 </resources>

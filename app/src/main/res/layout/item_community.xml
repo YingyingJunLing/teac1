@@ -91,7 +91,7 @@
         <LinearLayout android:id="@+id/comment_linear"
                 android:layout_width="match_parent"
                 android:layout_height="250px"
-                android:layout_marginBottom="20px"
+                android:layout_marginBottom="100px"
                 android:paddingTop="30px"
                 android:background="@mipmap/comment_9"
                 android:orientation="vertical">
