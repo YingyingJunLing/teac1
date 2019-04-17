@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.wd.tech.R
 import com.wd.tech.mvp.model.bean.InfoCollectionBean
 import com.wd.tech.mvp.presenter.presenterimpl.InfoCollectionPre
-import com.wd.tech.mvp.view.adapter.CollectionListAdapter
 import com.wd.tech.mvp.view.base.BaseActivity
 import com.wd.tech.mvp.view.contract.Contract
 import kotlinx.android.synthetic.main.activity_my_collection.*
@@ -55,5 +53,12 @@ class MyCollectionActivity : BaseActivity<Contract.IInfoCollectionView,InfoColle
 
     override fun onFail() {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (infoCollectionPre != null){
+            infoCollectionPre.detachView()
+        }
     }
 }

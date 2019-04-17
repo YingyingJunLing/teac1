@@ -29,7 +29,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         var width : Int = 0
         var height : Int = 0
     }
-    var userInfoPresenter : UserInfoPresenter = UserInfoPresenter(this)
+    var userInfoPresenter : UserInfoPresenter = UserInfoPresenter(this,null)
     var hashMap : HashMap<String,String> = HashMap()
 
     override fun createPresenter(): UserInfoPresenter? {
@@ -100,7 +100,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         if (userInfoBean.status == "0000"){
             FrescoUtil.setPic(userInfoBean.result.headPic,my_header)
             my_nickName.setText(userInfoBean.result.nickName)
-            my_qianming.setText(userInfoBean.result.userName)
+            my_qianming.setText(userInfoBean.result.signature)
             //按钮点击事件
             my_collection_next.setOnClickListener(this)
             my_attention_next.setOnClickListener(this)
