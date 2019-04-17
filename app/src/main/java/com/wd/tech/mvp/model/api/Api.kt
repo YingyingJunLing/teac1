@@ -11,6 +11,10 @@ class Api {
         const val FINDINFOADVERTISING="techApi/information/v1/findInfoAdvertising"
         //咨询详情页面
         const val INFODETAIL="techApi/information/v1/findInformationDetails"
+        //咨询详情评论列表
+        const val DETALICOMMENT="techApi/information/v1/findAllInfoCommentList"
+        //微信登录
+        const val WECHATLOGIN="techApi/user/v1/weChatLogin"
         //登录
         const val LOGIN:String="techApi/user/v1/login"
         //注册

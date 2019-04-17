@@ -6,6 +6,7 @@
     <color name="color_text">#131313</color>
     <!-- 字体大小 -->
     <dimen name="text_size">14sp</dimen>
+    <dimen name="text_size1">16sp</dimen>
     <!-- 字符串 -->
     <string name="text_camera">拍照</string>
     <string name="text_photo">从相册选择</string>

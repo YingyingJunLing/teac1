@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/detail_tuijian_img"
+            android:layout_width="200dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:roundedCornerRadius="8dp"
+    />
+    <TextView
+            android:id="@+id/detail_tuijian_title"
+            android:layout_width="200dp"
+            android:layout_height="28dp"
+            app:layout_constraintTop_toBottomOf="@id/detail_tuijian_img"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:layout_marginLeft="12dp"
+            android:textColor="#666666"
+            android:text="推荐内容"
+    />
+
+</android.support.constraint.ConstraintLayout>

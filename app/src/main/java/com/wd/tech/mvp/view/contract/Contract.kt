@@ -61,10 +61,14 @@ class Contract
     interface  IInfoDetailView
     {
         fun onSuccess(any: Any)
+        fun onDetailCommentSuccess(any: Any)
         fun onFail()
     }
     interface IInfoDetailPre{
+        //详情
         fun onInfoDetailPre(id:Int)
+        //详情评论
+        fun onDetailCommentPre(infoId:Int,page: Int,count: Int)
     }
     /**
      * 主页查询用户
@@ -87,5 +91,15 @@ class Contract
     }
     interface IInfoCollectionPre {
         fun onIInfoCollectionPre(hashMap: HashMap<String,String>,page:Int,count:Int)
+    }
+    /**
+     * 微信登录
+     */
+    interface IWechatLoginView{
+        fun onIWechatLoginSuccess(any: Any)
+        fun onIWechatLoginFail()
+    }
+    interface IWechatLoginPre{
+        fun onIWechatLoginPre(code:String)
     }
 }

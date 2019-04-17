@@ -56,14 +56,7 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
                 infomation_recy.refreshComplete()
             }
             override fun onLoadMore() {
-                Handler().postDelayed(object : Runnable {
-                    override fun run() {
-                        page++
-                        count++
-                        informationPresenter?.onInfoRecommendList(plateId, page, count)
-                    }
-                }, 1500)
-                infomation_recy.loadMoreComplete()
+
             }
 
         })
@@ -87,6 +80,8 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
     }
 
     override fun onSuccessInfoRecommendList(any: Any) {
+        infomation_recy?.visibility = View.VISIBLE
+        loading_linear_info?.visibility = View.GONE
         if (any is InfoRecommendListBean) {
             if(any !=null)
             {

@@ -7,6 +7,9 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.tencent.mm.opensdk.modelmsg.SendAuth
+import com.tencent.mm.opensdk.openapi.IWXAPI
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.wd.tech.R
 import com.wd.tech.base.RsaCoder
 import com.wd.tech.mvp.model.bean.LoginBean
@@ -18,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contract.ILoginView, View.OnClickListener {
-
+     var wxapi: IWXAPI? = null
     var loginPresenter : LoginPresenter?=null
     var accountValidatorUtil:AccountValidatorUtil?=null
     private var sp: SharedPreferences? = null
@@ -27,10 +30,13 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
          loginPresenter = LoginPresenter(this);
         return loginPresenter
     }
-
     override fun initActivityView(savedInstanceState: Bundle?)
     {
         setContentView(R.layout.activity_login)
+        //通过WXAPIFactory工厂获取IWXApI的示例
+        wxapi = WXAPIFactory.createWXAPI(this, "wxb3852e6a6b7d9516", true)
+        //将应用的appid注册到微信
+        wxapi!!.registerApp("wx4c96b6b8da494224")
     }
 
     override fun initData() {
@@ -99,6 +105,12 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
             }
             R.id.login_reg->{
                 startActivity(Intent(this@LoginActivity, LoginActivity::class.java))
+            }
+            R.id.wei_login->{
+                val req = SendAuth.Req()
+                req.scope = "snsapi_userinfo"
+                req.state = "diandi_wx_login"
+                wxapi!!.sendReq(req)
             }
 
         }

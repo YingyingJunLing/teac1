@@ -46,4 +46,14 @@
            android:layout_height="wrap_content"
            android:id="@+id/infomation_recy"
            tools:ignore="MissingConstraints"/>
+   <LinearLayout android:id="@+id/loading_linear_info"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:gravity="center">
+      <pl.droidsonroids.gif.GifImageView
+              android:layout_width="25dp"
+              android:layout_height="25dp"
+              android:layout_gravity="center"
+              android:src="@mipmap/loading"/>
+   </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+<com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/detail_comment_recy_hedaer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="12dp"
+        app:roundAsCircle="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detail_comment_recy_nickName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="60dp"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:text="昵称"
+            android:layout_marginTop="10dp"
+    />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detail_comment_recy_time"
+            app:layout_constraintTop_toBottomOf="@id/detail_comment_recy_nickName"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="60dp"
+            android:text="昵称"
+            android:textSize="10sp"
+            android:textColor="#999999"
+            android:layout_marginTop="10dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detail_comment_recy_content"
+            app:layout_constraintTop_toBottomOf="@id/detail_comment_recy_time"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="60dp"
+            android:text="昵称"
+            android:textSize="12sp"
+            android:textColor="#666666"
+            android:layout_marginTop="10dp"/>
+</android.support.constraint.ConstraintLayout>

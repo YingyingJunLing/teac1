@@ -180,7 +180,7 @@ class InfoDetailBean
      * status : 0000
      */
 
-    private var result: ResultBean? = null
+    internal var result: ResultBean? = null
     private var message: String? = null
     private var status: String? = null
 
