@@ -32,8 +32,7 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
          loginPresenter = LoginPresenter(this);
         return loginPresenter
     }
-    override fun initActivityView(savedInstanceState: Bundle?)
-    {
+    override fun initActivityView(savedInstanceState: Bundle?){
         setContentView(R.layout.activity_login)
     }
     override fun initData() {
@@ -55,16 +54,16 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
 
     override fun onSuccess(loginBean: LoginBean){
 
-        if(loginBean.status.equals("0000"))
-        {
+        if(loginBean.status.equals("0000")) {
             val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
             sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).commit()
-            if(b==true){
+            if(login_remember_pwd.isChecked){
                 sp.edit().putString("type","1").commit()
             }else{
                 sp.edit().putString("type","2").commit()
             }
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent.putExtra("first","1")
             startActivity(intent)
             Toast.makeText(this,loginBean.message,Toast.LENGTH_LONG).show()
             finish()
