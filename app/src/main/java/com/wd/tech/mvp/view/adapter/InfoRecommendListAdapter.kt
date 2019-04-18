@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.facebook.drawee.gestures.GestureDetector
 import com.facebook.drawee.view.SimpleDraweeView
 import com.wd.tech.R
 import com.wd.tech.mvp.model.bean.InfoRecommendListBean
@@ -48,7 +49,22 @@ class InfoRecommendListAdapter(val context: Context?, val any: InfoRecommendList
             var dateFormat= SimpleDateFormat(FORMAT_DATE_TIME_PATTERN, Locale.getDefault())
             p0.itemView.info_time.setText(dateFormat.format(any.result?.get(p1)?.releaseTime))
             p0.itemView.info_source.text= any.result!!.get(p1).source
+            if (any.result!!.get(p1).whetherCollection ==2)
+            {
+                p0.itemView.info_zan.setImageResource(R.mipmap.common_icon_collect)
+            }else{
+                p0.itemView.info_zan.setImageResource(R.mipmap.common_icon_collect_s)
+            }
+                //点赞按钮  收藏
+           p0.itemView.info_zan.setOnClickListener(object :View.OnClickListener{
+               override fun onClick(v: View?) {
+                   if(mOnClick !=null)
+                   {
+                       mOnClick!!.getdata(any.result!!.get(p1).id, any.result!!.get(p1).whetherCollection,p1)
+                   }
 
+               }
+           })
             if(any.result!!.get(p1).whetherPay == 2)
             {
                p0.itemView.pay_img.visibility =View.GONE
@@ -97,6 +113,16 @@ class InfoRecommendListAdapter(val context: Context?, val any: InfoRecommendList
             info_zan = itemView.info_zan
             pay_img = itemView.pay_img
         }
+    }
+
+    private var mOnClick: OnClick? = null
+    fun setOnClick(mOnClick: OnClick) {
+        this.mOnClick = mOnClick
+    }
+
+
+    interface OnClick {
+        fun getdata(id: Int, great: Int, position: Int)
     }
 }
 

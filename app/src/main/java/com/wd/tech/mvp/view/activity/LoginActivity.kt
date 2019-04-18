@@ -23,10 +23,10 @@ import com.wd.tech.mvp.model.utils.WeiXinUtil
 
 
 class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contract.ILoginView, View.OnClickListener {
-
     var loginPresenter : LoginPresenter?=null
     var accountValidatorUtil:AccountValidatorUtil?=null
     private var sp: SharedPreferences? = null
+    var b : Boolean = false
 
     override fun createPresenter(): LoginPresenter? {
          loginPresenter = LoginPresenter(this);
@@ -36,16 +36,14 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
     {
         setContentView(R.layout.activity_login)
     }
-
     override fun initData() {
-        val b = sp!!.getBoolean("记住", false)
+        b = sp!!.getBoolean("记住", false)
         if (b) {
             login_phone.setText(sp!!.getString("name", ""))
             login_pwd.setText(sp!!.getString("pass", ""))
             login_remember_pwd.setChecked(b)
         }
     }
-
     override fun initView() {
         login_btn.setOnClickListener(this)
         login_reg.setOnClickListener(this)
@@ -55,13 +53,17 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
         sp = getSharedPreferences("LOGIN", Context.MODE_PRIVATE)
     }
 
-    override fun onSuccess(loginBean: LoginBean)
-    {
+    override fun onSuccess(loginBean: LoginBean){
 
         if(loginBean.status.equals("0000"))
         {
             val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
             sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).commit()
+            if(b==true){
+                sp.edit().putString("type","1").commit()
+            }else{
+                sp.edit().putString("type","2").commit()
+            }
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             startActivity(intent)
             Toast.makeText(this,loginBean.message,Toast.LENGTH_LONG).show()

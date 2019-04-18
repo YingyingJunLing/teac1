@@ -29,7 +29,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         var width : Int = 0
         var height : Int = 0
     }
-    var userInfoPresenter : UserInfoPresenter = UserInfoPresenter(this,null)
+    var userInfoPresenter : UserInfoPresenter = UserInfoPresenter(this)
     var hashMap : HashMap<String,String> = HashMap()
 
     override fun createPresenter(): UserInfoPresenter? {
@@ -46,11 +46,17 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
     }
 
     override fun initData() {
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         var sharedPreferences : SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         var userId = sharedPreferences.getString("userId", "0")
         var sessionId = sharedPreferences.getString("sessionId", "0")
+        var type = sharedPreferences.getString("type","0")
         //我的页面处理
-        if (userId != "0" && sessionId != "0"){
+        if (userId != "0" && sessionId != "0" && type == "1"){
             wei_login.visibility=View.GONE
             my_content.visibility=View.VISIBLE
             hashMap.put("userId",userId)

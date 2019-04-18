@@ -6,10 +6,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.jcodecraeer.xrecyclerview.ProgressStyle
 import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.wd.tech.R
+import com.wd.tech.mvp.model.bean.AddGreatRecordBean
 import com.wd.tech.mvp.model.bean.BannerShowBean
+import com.wd.tech.mvp.model.bean.CancelGreateBean
 import com.wd.tech.mvp.model.bean.InfoRecommendListBean
 import com.wd.tech.mvp.presenter.presenterimpl.InformationPresenter
 import com.wd.tech.mvp.view.adapter.BannerAdapter
@@ -71,6 +74,9 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
 
     }
 
+    /**
+     * 轮播图
+     */
     override fun onSuccessBanner(any: Any) {
         if (any is BannerShowBean) {
             if (any != null) {
@@ -79,6 +85,9 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
         }
     }
 
+    /**
+     * 咨询展示
+     */
     override fun onSuccessInfoRecommendList(any: Any) {
         infomation_recy?.visibility = View.VISIBLE
         loading_linear_info?.visibility = View.GONE
@@ -88,6 +97,27 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
                 infoRecommendListBean = any
                 infomation_recy.adapter = BannerAdapter(context,bannerShowBean, infoRecommendListBean!!)
             }
+        }
+    }
+
+    /**
+     * 咨询点赞
+     */
+    override fun onIAddGreatRecordSucccess(any: Any) {
+        if(any is AddGreatRecordBean)
+        {
+            Toast.makeText(activity,any.message,Toast.LENGTH_LONG).show()
+        }
+
+    }
+
+    /**
+     * 咨询取消点赞
+     */
+    override fun onICancelGreaSucccess(any: Any) {
+       if(any is CancelGreateBean)
+        {
+            Toast.makeText(activity,any.message,Toast.LENGTH_LONG).show()
         }
     }
     override fun onDestroy() {

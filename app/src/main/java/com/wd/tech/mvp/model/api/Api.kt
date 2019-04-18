@@ -13,6 +13,10 @@ class Api {
         const val INFODETAIL="techApi/information/v1/findInformationDetails"
         //咨询详情评论列表
         const val DETALICOMMENT="techApi/information/v1/findAllInfoCommentList"
+        //咨询点赞
+        const val ADDGREATERECORD="techApi/information/verify/v1/addGreatRecord"
+        //咨询取消点赞
+        const val CANCELGREATE="techApi/information/verify/v1/cancelGreat"
         //微信登录
         const val WECHATLOGIN="techApi/user/v1/weChatLogin"
         //登录
@@ -27,5 +31,7 @@ class Api {
         const val USERSIGN="techApi/user/verify/v1/userSign"
         //关注列表
         const val INFOCOLLECTIONLIST="techApi/user/verify/v1/findAllInfoCollection"
+        //用户上传头像
+        const val MODIFYHEADPIC="techApi/user/verify/v1/modifyHeadPic"
     }
 }

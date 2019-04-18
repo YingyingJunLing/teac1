@@ -1,18 +1,22 @@
 package com.wd.tech.mvp.model.api
 
+import com.wd.tech.mvp.model.api.Api.Companion.ADDGREATERECORD
 import com.wd.tech.mvp.model.api.Api.Companion.BANNERSHOW
+import com.wd.tech.mvp.model.api.Api.Companion.CANCELGREATE
 import com.wd.tech.mvp.model.api.Api.Companion.COMMUNITYLIST
 import com.wd.tech.mvp.model.api.Api.Companion.DETALICOMMENT
 import com.wd.tech.mvp.model.api.Api.Companion.FINDINFOADVERTISING
 import com.wd.tech.mvp.model.api.Api.Companion.INFODETAIL
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
+import com.wd.tech.mvp.model.api.Api.Companion.MODIFYHEADPIC
 import com.wd.tech.mvp.model.api.Api.Companion.REG
 import com.wd.tech.mvp.model.api.Api.Companion.USERINFOBYUSERID
 import com.wd.tech.mvp.model.api.Api.Companion.USERSIGN
 import com.wd.tech.mvp.model.api.Api.Companion.WECHATLOGIN
 import com.wd.tech.mvp.model.bean.*
 import io.reactivex.Observable
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 
@@ -36,6 +40,17 @@ interface ApiServer {
     //咨询详情评论列表
     @GET(DETALICOMMENT)
     fun getInfoDetailComment(@Query("infoId") id: Int, @Query("page") page: Int, @Query("count") count: Int): Observable<DetailCommentBean>
+
+    //咨询点赞
+    @POST(ADDGREATERECORD)
+    @FormUrlEncoded
+    fun getAddGreatRecord(@HeaderMap hashMap: HashMap<String, String>, @Field("infoId")infoId:Int):Observable<AddGreatRecordBean>
+
+    //咨询取消点赞
+    @POST(CANCELGREATE)
+    @FormUrlEncoded
+    fun getCancelGreate(@HeaderMap hashMap: HashMap<String, String>, @Field("infoId")infoId:Int):Observable<CancelGreateBean>
+
 
     //微信登录
     @POST(WECHATLOGIN)
@@ -67,4 +82,9 @@ interface ApiServer {
     //关注列表
     @GET(INFORECOMMENEDLIST)
     fun getInfoCollection(@HeaderMap hashMap: HashMap<String, String>, @Query("page") page: Int, @Query("count") count: Int): Observable<InfoCollectionBean>
+
+    //用户上传头像
+    @POST(MODIFYHEADPIC)
+    @Multipart
+    fun getModifyHeadPic(@HeaderMap hashMap: HashMap<String, String>,@Part part : MultipartBody.Part): Observable<ModifyHeadPicBean>
 }

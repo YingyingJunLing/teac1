@@ -1,9 +1,7 @@
 package com.wd.tech.mvp.presenter.presenterimpl
 
 import android.util.Log
-import com.wd.tech.mvp.model.bean.BannerShowBean
-import com.wd.tech.mvp.model.bean.InfoAdvertisingBean
-import com.wd.tech.mvp.model.bean.InfoRecommendListBean
+import com.wd.tech.mvp.model.bean.*
 import com.wd.tech.mvp.model.utils.RetrofitUtil
 import com.wd.tech.mvp.presenter.base.BasePresenter
 import com.wd.tech.mvp.view.contract.Contract
@@ -13,6 +11,51 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
 class InformationPresenter(val infoFragment: InformationFragment) : BasePresenter<Contract.IInformationView>(),Contract.IInformationPre {
+    override fun onIAddGreatRecordPre(hashMap: HashMap<String, String>, infoId: Int) {
+        val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
+        sslRetrofit.getAddGreatRecord(hashMap,infoId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableObserver<AddGreatRecordBean>() {
+                override fun onComplete() {
+
+                }
+
+                override fun onNext(t: AddGreatRecordBean) {
+
+
+                }
+
+                override fun onError(e: Throwable) {
+
+
+                }
+            })
+    }
+
+    override fun onICancelGreaPre(hashMap: HashMap<String, String>, infoId: Int) {
+        val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
+        sslRetrofit.getCancelGreate(hashMap,infoId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableObserver<CancelGreateBean>() {
+                override fun onComplete() {
+
+                }
+
+                override fun onNext(t: CancelGreateBean) {
+
+
+                }
+
+                override fun onError(e: Throwable) {
+
+
+                }
+            })
+
+    }
+
     val TAG="InformationPresenter"
     /**
      * 轮播图

@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.view.contract
 
 import com.wd.tech.mvp.model.bean.*
+import java.io.File
 
 class Contract
 {
@@ -43,8 +44,14 @@ class Contract
      */
     interface  IInformationView
     {
+        //轮播图
         fun onSuccessBanner(any: Any)
+        //资讯推荐展示列表(包含单独板块列表展示)
         fun onSuccessInfoRecommendList(any: Any)
+        //咨询点赞
+        fun onIAddGreatRecordSucccess(any: Any)
+        //取消点赞
+        fun onICancelGreaSucccess(any: Any)
         fun onFail()
     }
     interface IInformationPre{
@@ -54,6 +61,10 @@ class Contract
         fun onInfoRecommendList(plateId:Int,page:Int,count:Int)
         //广告
         fun onInfoAdvertising()
+        //咨询点赞
+        fun onIAddGreatRecordPre(hashMap: HashMap<String, String>,infoId:Int)
+        //取消点赞
+        fun onICancelGreaPre(hashMap: HashMap<String, String>,infoId:Int)
     }
     /**
      * 咨询详情页面
@@ -101,5 +112,17 @@ class Contract
     }
     interface IWechatLoginPre{
         fun onIWechatLoginPre(ak:String,code:String)
+    }
+    /**
+     * 设置主页查询用户
+     */
+    interface ISettingUserInfoView {
+        fun onSuccess(userInfoBean: UserInfoBean)
+        fun onModifyHeadPicSuccess(modifyHeadPicBean: ModifyHeadPicBean)
+        fun onFail()
+    }
+    interface ISettingUserInfoPre {
+        fun onSettingIUserInfoPre(hashMap: HashMap<String,String>)
+        fun onModifyHeadPicPre(hashMap: HashMap<String,String>,file: File)
     }
 }

@@ -75,6 +75,11 @@ class BannerAdapter(
             var adapter = InfoRecommendListAdapter(context, infoRecommendListBean)
             Log.e("111111",infoRecommendListBean.toString())
             p0.info_list?.setAdapter(adapter)
+            adapter.setOnClick(object :InfoRecommendListAdapter.OnClick{
+                override fun getdata(id: Int, great: Int, position: Int) {
+
+                }
+            })
         }
     }
     override fun getItemCount(): Int {
