@@ -30,6 +30,7 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
     var hashMap : HashMap<String,String> = HashMap()
     val PHOTO_REQUEST_CAREMA : Int = 1
     val PHOTO_REQUEST_GALLERY : Int = 2
+    var alterAndAnimationUtil : AlterAndAnimationUtil = AlterAndAnimationUtil()
 
     override fun createPresenter(): SettingUserInfoPresenter? {
         return settingUserInfoPresenter
@@ -73,7 +74,6 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
             user_head_linear.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     var view : View = View.inflate(this@MySettingActivity,R.layout.dialog_camera_layout,null)
-                    var alterAndAnimationUtil : AlterAndAnimationUtil = AlterAndAnimationUtil()
                     alterAndAnimationUtil.AlterDialog(this@MySettingActivity,view)
                     //点击拍摄
                     view.film_head_linear.setOnClickListener(object : View.OnClickListener{
@@ -102,6 +102,7 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
             })
         }else{
             Toast.makeText(this,userInfoBean.message,Toast.LENGTH_LONG).show()
+            end_login_linear.visibility = View.GONE
         }
     }
 
@@ -161,7 +162,11 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK){
-
+            if (AlterAndAnimationUtil.type=="1"){
+                alterAndAnimationUtil.hideDialog()
+            }else{
+                finish()
+            }
         }
         return super.onKeyDown(keyCode, event)
     }

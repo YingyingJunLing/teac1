@@ -31,6 +31,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
     }
     var userInfoPresenter : UserInfoPresenter = UserInfoPresenter(this)
     var hashMap : HashMap<String,String> = HashMap()
+    var first : String ?= null
 
     override fun createPresenter(): UserInfoPresenter? {
         return userInfoPresenter
@@ -65,6 +66,14 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         }else{
             wei_login.visibility=View.VISIBLE
             my_content.visibility=View.GONE
+        }
+        first = intent.getStringExtra("first")
+        if(userId != "0" && sessionId != "0" && first == "1"){
+            wei_login.visibility=View.GONE
+            my_content.visibility=View.VISIBLE
+            hashMap.put("userId",userId)
+            hashMap.put("sessionId",sessionId)
+            userInfoPresenter.onIUserInfoPre(hashMap)
         }
     }
 

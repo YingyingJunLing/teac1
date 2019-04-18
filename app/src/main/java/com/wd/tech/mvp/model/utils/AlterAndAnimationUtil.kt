@@ -10,6 +10,9 @@ import com.wd.tech.R
 
 class AlterAndAnimationUtil {
     private var dialog : Dialog ?= null
+    companion object{
+        var type : String = "1"
+    }
     public fun AlterDialog(context: Context,view: View){
         dialog = Dialog(context, R.style.ActionSheetDialogStyle)
         //填充对话框的布局
@@ -27,9 +30,11 @@ class AlterAndAnimationUtil {
         dialog!!.setCanceledOnTouchOutside(true)
         dialog!!.show()
         dialog!!.setCancelable(false)
+        type="1"
     }
 
     public fun hideDialog(){
         dialog!!.dismiss()
+        type="2"
     }
 }
