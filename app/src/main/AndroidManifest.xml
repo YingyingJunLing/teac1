@@ -40,7 +40,8 @@
         </activity>
         <activity android:name=".mvp.view.activity.LoginActivity">
         </activity>
-        <activity android:name=".mvp.view.activity.MainActivity">
+        <activity android:name=".mvp.view.activity.MainActivity"
+        android:launchMode="singleTop">
         </activity>
         <activity android:name=".mvp.view.activity.StartActivity">
             <intent-filter>
