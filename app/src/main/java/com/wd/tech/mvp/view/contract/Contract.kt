@@ -125,4 +125,14 @@ class Contract
         fun onSettingIUserInfoPre(hashMap: HashMap<String,String>)
         fun onModifyHeadPicPre(hashMap: HashMap<String,String>,file: File)
     }
+    /**
+     * 用户发布帖子
+     */
+    interface IUserPushCommentView {
+        fun onSuccess(releasePostBean: ReleasePostBean)
+        fun onFail()
+    }
+    interface IUserPushCommentPre{
+        fun onIUserPushCommentPre(hashMap: HashMap<String,String>,content: String,file: File)
+    }
 }

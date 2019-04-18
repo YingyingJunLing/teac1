@@ -11,6 +11,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.MODIFYHEADPIC
 import com.wd.tech.mvp.model.api.Api.Companion.REG
+import com.wd.tech.mvp.model.api.Api.Companion.RELEASEPOST
 import com.wd.tech.mvp.model.api.Api.Companion.USERINFOBYUSERID
 import com.wd.tech.mvp.model.api.Api.Companion.USERSIGN
 import com.wd.tech.mvp.model.api.Api.Companion.WECHATLOGIN
@@ -87,4 +88,10 @@ interface ApiServer {
     @POST(MODIFYHEADPIC)
     @Multipart
     fun getModifyHeadPic(@HeaderMap hashMap: HashMap<String, String>,@Part part : MultipartBody.Part): Observable<ModifyHeadPicBean>
+
+    //用户发布帖子
+    @POST(RELEASEPOST)
+    @FormUrlEncoded
+    @Multipart
+    fun getReleasePost(@HeaderMap hashMap: HashMap<String, String>, @Field("content")content : String, @Part part : MultipartBody.Part): Observable<ReleasePostBean>
 }

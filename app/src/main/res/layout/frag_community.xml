@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.jcodecraeer.xrecyclerview.XRecyclerView
             android:visibility="gone"
             android:id="@+id/xRecycle_community"
@@ -17,4 +17,14 @@
                 android:layout_height="25dp"
                 android:src="@mipmap/loading"/>
     </LinearLayout>
+    <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/user_push_comment_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:roundAsCircle="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="20dp"
+            android:background="@mipmap/com_icon_publish_default"/>
 </RelativeLayout>

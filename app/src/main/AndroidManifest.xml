@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="permission.READ_PHONE_STATE"/>
 
-
     <application
             android:name=".mvp.model.app.MyApp"
             android:allowBackup="true"
@@ -18,6 +17,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".mvp.view.activity.UserPushCommentActivity">
+        </activity>
         <activity android:name=".mvp.view.activity.DetailsActivity">
         </activity>
         <activity android:name=".mvp.view.activity.MySettingActivity">
@@ -40,8 +41,9 @@
         </activity>
         <activity android:name=".mvp.view.activity.LoginActivity">
         </activity>
-        <activity android:name=".mvp.view.activity.MainActivity"
-        android:launchMode="singleTop">
+        <activity
+                android:name=".mvp.view.activity.MainActivity"
+                android:launchMode="singleTop">
         </activity>
         <activity android:name=".mvp.view.activity.StartActivity">
             <intent-filter>
@@ -50,25 +52,54 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
                 android:name=".wxapi.WXEntryActivity"
                 android:exported="true"
                 android:launchMode="singleTop">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
 
-                <data android:scheme="wx4c96b6b8da494224" />
+                <data android:scheme="wx4c96b6b8da494224"/>
             </intent-filter>
         </activity>
+
         <meta-data
                 android:name="design_width_in_dp"
                 android:value="375"/>
         <meta-data
                 android:name="design_height_in_dp"
                 android:value="667"/>
+        <!--//图片选择Activity-->
+        <activity android:name="com.donkingliang.imageselector.ImageSelectorActivity"/>
+        <!--//去掉Activity的ActionBar。
+        //使用者可以根据自己的项目去配置，不一定要这样写，只要不Activity的ActionBar去掉就可以了。
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        //横竖屏切换处理。
+        //如果要支持横竖屏切换，一定要加上这句，否则在切换横竖屏的时候会发生异常。
+        android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        //图片预览Activity-->
+        <activity android:name="com.donkingliang.imageselector.PreviewActivity"
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+                  android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <!--//图片剪切Activity-->
+        <activity
+                android:name="com.donkingliang.imageselector.ClipImageActivity"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!-- Android 7.0 文件共享配置，必须配置 -->
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="${applicationId}.fileprovider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

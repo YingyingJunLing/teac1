@@ -55,6 +55,11 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
     }
 
     override fun initView() {
+        image_finsh.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                finish()
+            }
+        })
         user_head_linear.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 if (status=="0000"){

@@ -33,5 +33,7 @@ class Api {
         const val INFOCOLLECTIONLIST="techApi/user/verify/v1/findAllInfoCollection"
         //用户上传头像
         const val MODIFYHEADPIC="techApi/user/verify/v1/modifyHeadPic"
+        //用户发布帖子
+        const val RELEASEPOST="techApi/community/verify/v1/releasePost"
     }
 }
