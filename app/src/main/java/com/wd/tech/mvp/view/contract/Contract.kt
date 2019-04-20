@@ -133,6 +133,6 @@ class Contract
         fun onFail()
     }
     interface IUserPushCommentPre{
-        fun onIUserPushCommentPre(hashMap: HashMap<String,String>,content: String,file: File)
+        fun onIUserPushCommentPre(hashMap: HashMap<String,String>,content: String,list : ArrayList<File>)
     }
 }

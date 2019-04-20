@@ -76,7 +76,7 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
 
             override fun onRefresh() {
                 Handler().postDelayed({
-                    page = Random().nextInt(5)+1
+                    page = 1
                     communityListPresenter.onICommunityListPre(hashMap,page,10)
                     xRecycle_community?.refreshComplete()
                 }, 1000)

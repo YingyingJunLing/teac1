@@ -29,4 +29,5 @@
     <string name="cancel_comment">取消</string>
     <string name="push_comment">发表</string>
     <string name="char_num">0/300</string>
+    <string name="del_collection">删除</string>
 </resources>

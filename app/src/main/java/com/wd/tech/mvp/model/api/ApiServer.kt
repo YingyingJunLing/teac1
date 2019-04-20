@@ -6,6 +6,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.CANCELGREATE
 import com.wd.tech.mvp.model.api.Api.Companion.COMMUNITYLIST
 import com.wd.tech.mvp.model.api.Api.Companion.DETALICOMMENT
 import com.wd.tech.mvp.model.api.Api.Companion.FINDINFOADVERTISING
+import com.wd.tech.mvp.model.api.Api.Companion.INFOCOLLECTIONLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFODETAIL
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
@@ -81,7 +82,7 @@ interface ApiServer {
     fun getUserSign(@HeaderMap hashMap: HashMap<String, String>): Observable<UserSignBean>
 
     //关注列表
-    @GET(INFORECOMMENEDLIST)
+    @GET(INFOCOLLECTIONLIST)
     fun getInfoCollection(@HeaderMap hashMap: HashMap<String, String>, @Query("page") page: Int, @Query("count") count: Int): Observable<InfoCollectionBean>
 
     //用户上传头像
@@ -91,7 +92,6 @@ interface ApiServer {
 
     //用户发布帖子
     @POST(RELEASEPOST)
-    @FormUrlEncoded
     @Multipart
-    fun getReleasePost(@HeaderMap hashMap: HashMap<String, String>, @Field("content")content : String, @Part part : MultipartBody.Part): Observable<ReleasePostBean>
+    fun getReleasePost(@HeaderMap hashMap: HashMap<String, String>, @Query("content")content : String, @Part list : List<MultipartBody.Part>): Observable<ReleasePostBean>
 }

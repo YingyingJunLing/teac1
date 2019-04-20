@@ -1,5 +1,6 @@
 package com.wd.tech.mvp.presenter.presenterimpl
 
+import android.util.Log
 import com.wd.tech.mvp.model.api.ApiServer
 import com.wd.tech.mvp.model.bean.ModifyHeadPicBean
 import com.wd.tech.mvp.model.bean.UserInfoBean

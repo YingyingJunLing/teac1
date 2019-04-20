@@ -33,7 +33,7 @@
             android:padding="1dp">
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="137dp"
+                android:layout_height="187dp"
                 android:background="#fff"
                 android:orientation="vertical">
             <EditText android:id="@+id/char_edit"
@@ -43,7 +43,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:background="#00000000"
-                    android:inputType="textFilter"
+                    android:inputType="textMultiLine"
                     android:maxLength="300"
                     android:gravity="start"
                     android:layout_weight="1"/>
@@ -55,7 +55,6 @@
                     android:text="@string/char_num"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-    <ImageView android:id="@+id/add_image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@mipmap/common_nav_btn_add_n"/>
     <android.support.v7.widget.RecyclerView
             android:id="@+id/user_push_comment_image_recycle"
             android:layout_width="match_parent"
