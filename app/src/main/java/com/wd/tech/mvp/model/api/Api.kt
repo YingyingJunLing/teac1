@@ -35,5 +35,7 @@ class Api {
         const val MODIFYHEADPIC="techApi/user/verify/v1/modifyHeadPic"
         //用户发布帖子
         const val RELEASEPOST="techApi/community/verify/v1/releasePost"
+        //查询用户所有分组
+        const val FRIENDGROUPLIST="techApi/chat/verify/v1/findFriendGroupList"
     }
 }

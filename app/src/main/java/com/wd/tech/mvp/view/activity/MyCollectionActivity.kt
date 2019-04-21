@@ -19,6 +19,7 @@ class MyCollectionActivity : BaseActivity<Contract.IInfoCollectionView,InfoColle
     var infoCollectionPre : InfoCollectionPre = InfoCollectionPre(this)
     var hashMap : HashMap<String,String> = HashMap()
     lateinit var type : String
+    lateinit var adapter : CollectionListAdapter
 
     override fun initActivityView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_my_collection)
@@ -39,14 +40,6 @@ class MyCollectionActivity : BaseActivity<Contract.IInfoCollectionView,InfoColle
 
     override fun initView() {
         my_collection_rcycle.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
-        my_collection_del.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                collection_del.visibility = View.VISIBLE
-                my_collection_del.visibility = View.GONE
-                type = "1"
-
-            }
-        })
     }
 
     override fun onInfoCollectionSuccess(infoCollectionBean: InfoCollectionBean) {
@@ -54,7 +47,28 @@ class MyCollectionActivity : BaseActivity<Contract.IInfoCollectionView,InfoColle
         val list = infoCollectionBean.result
         if (list.size>0){
             my_collection_rcycle.visibility = View.VISIBLE
-            my_collection_rcycle.adapter = CollectionListAdapter(this,list)
+            adapter = CollectionListAdapter(this,list,"2")
+            my_collection_rcycle.adapter = adapter
+            my_collection_del.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(v: View?) {
+                    collection_del.visibility = View.VISIBLE
+                    my_collection_del.visibility = View.GONE
+                    type = "1"
+                    adapter = CollectionListAdapter(this@MyCollectionActivity,list,type)
+                    my_collection_rcycle.adapter = adapter
+                    adapter.notifyDataSetChanged()
+                }
+            })
+            collection_del.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(v: View?) {
+                    collection_del.visibility = View.GONE
+                    my_collection_del.visibility = View.VISIBLE
+                    type = "2"
+                    adapter = CollectionListAdapter(this@MyCollectionActivity,list,type)
+                    my_collection_rcycle.adapter = adapter
+                    adapter.notifyDataSetChanged()
+                }
+            })
         }else{
             no_sreach_img.visibility = View.VISIBLE
         }

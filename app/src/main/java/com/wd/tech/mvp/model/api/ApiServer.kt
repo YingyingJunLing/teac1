@@ -6,6 +6,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.CANCELGREATE
 import com.wd.tech.mvp.model.api.Api.Companion.COMMUNITYLIST
 import com.wd.tech.mvp.model.api.Api.Companion.DETALICOMMENT
 import com.wd.tech.mvp.model.api.Api.Companion.FINDINFOADVERTISING
+import com.wd.tech.mvp.model.api.Api.Companion.FRIENDGROUPLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFOCOLLECTIONLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFODETAIL
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
@@ -93,5 +94,9 @@ interface ApiServer {
     //用户发布帖子
     @POST(RELEASEPOST)
     @Multipart
-    fun getReleasePost(@HeaderMap hashMap: HashMap<String, String>, @Query("content")content : String, @Part list : List<MultipartBody.Part>): Observable<ReleasePostBean>
+    fun getReleasePost(@HeaderMap hashMap: HashMap<String, String>, @Query("content")content: String, @Part list : List<MultipartBody.Part>): Observable<ReleasePostBean>
+
+    //查询用户所有分组
+    @GET(FRIENDGROUPLIST)
+    fun getFriendGroupList(@HeaderMap hashMap: HashMap<String, String>): Observable<FriendGroupListBean>
 }
