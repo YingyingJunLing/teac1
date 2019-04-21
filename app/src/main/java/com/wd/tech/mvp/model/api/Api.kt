@@ -17,12 +17,22 @@ class Api {
         const val ADDGREATERECORD="techApi/information/verify/v1/addGreatRecord"
         //咨询取消点赞
         const val CANCELGREATE="techApi/information/verify/v1/cancelGreat"
+        //根据咨询标题查询
+        const val BYTITLE="techApi/information/v1/findInformationByTitle"
+        //根据咨询作者名查询
+        const val BYSOURCE="techApi/information/v1/findInformationBySource"
+        //所有版块的查询
+        const val FINDAllINFOPLATE="techApi/information/v1/findAllInfoPlate"
+        //根据版块的id进行查询
+        const val INFORECOMMENEDLISTBYID="techApi/information/v1/infoRecommendList"
         //微信登录
         const val WECHATLOGIN="techApi/user/v1/weChatLogin"
         //登录
         const val LOGIN:String="techApi/user/v1/login"
         //注册
         const val REG="techApi/user/v1/register"
+        //添加用户对咨询详情的评论
+        const val AddInfoComment="techApi/information/verify/v1/addInfoComment"
         //社区列表
         const val COMMUNITYLIST="techApi/community/v1/findCommunityList"
         //根据Id查询用户信息
@@ -33,5 +43,10 @@ class Api {
         const val INFOCOLLECTIONLIST="techApi/user/verify/v1/findAllInfoCollection"
         //用户上传头像
         const val MODIFYHEADPIC="techApi/user/verify/v1/modifyHeadPic"
+        //咨询收藏
+        const val ADDCPPLECTION="techApi/user/verify/v1/addCollection"
+        //咨询取消收藏
+        const val CANCELCLOOECTION="techApi/user/verify/v1/cancelCollection"
     }
+
 }

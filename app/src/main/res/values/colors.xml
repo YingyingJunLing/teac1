@@ -6,4 +6,12 @@
     <color name="search_textColor">#666</color>
     <color name="text_color">#ffffff</color>
     <color name="hgray">#D1CECE</color>
+    <color name="time">#999999</color>
+    <color name="red" >#ff00</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="dark_grey">#666666</color>
+    <color name="balck3">#333333</color>
+    <color name="grey">#666666</color>
+    <color name="pop">#cccc</color>
 </resources>

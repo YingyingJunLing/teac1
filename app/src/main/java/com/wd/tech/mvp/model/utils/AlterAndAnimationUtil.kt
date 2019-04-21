@@ -13,7 +13,7 @@ class AlterAndAnimationUtil {
     companion object{
         var type : String = "1"
     }
-    public fun AlterDialog(context: Context,view: View){
+     fun AlterDialog(context: Context,view: View){
         dialog = Dialog(context, R.style.ActionSheetDialogStyle)
         //填充对话框的布局
         //将布局设置给Dialog

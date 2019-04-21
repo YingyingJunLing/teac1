@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+    <View
+        android:layout_width="230dp"
+        android:layout_height="80dp"
+        android:background="@color/pop"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+
+        ></View>
+  <EditText
+    android:id="@+id/edit_comment"
+    android:layout_width="265dp"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:hint=""
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="20dp"
+      android:textSize="12sp"
+      android:maxWidth="240dp"
+      android:padding="10dp"
+    />
+    <TextView
+        android:id="@+id/text_comment_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提交"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="4dp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/time"
+        android:padding="7dp"
+        android:textSize="16sp"
+        />
+
+</RelativeLayout>
+</RelativeLayout>

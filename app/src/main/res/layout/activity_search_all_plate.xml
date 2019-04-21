@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".mvp.view.activity.SearchActivity"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -42,21 +42,12 @@
                   android:textColor="#888"
                   android:text="@string/finsh"/>
     </LinearLayout>
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="热搜词"
-            android:textSize="12sp"
-            android:textColor="#666666"
-            android:layout_marginLeft="12px"
-            android:layout_marginTop="20px"
-    />
     <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="10sp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/sou_recy"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="12px"
-            android:layout_marginRight="12px"
+            android:id="@+id/search_all_plate_recy"
     ></android.support.v7.widget.RecyclerView>
 </LinearLayout>

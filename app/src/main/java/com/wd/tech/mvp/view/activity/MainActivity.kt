@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.wd.tech.R
 import com.wd.tech.mvp.model.bean.UserInfoBean
@@ -44,6 +45,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         windowManager.defaultDisplay.getMetrics(metrics)
         width = metrics.widthPixels
         height = metrics.heightPixels
+
     }
 
     override fun initData() {

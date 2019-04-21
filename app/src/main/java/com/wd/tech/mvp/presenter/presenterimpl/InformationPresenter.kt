@@ -11,19 +11,19 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
 class InformationPresenter(val infoFragment: InformationFragment) : BasePresenter<Contract.IInformationView>(),Contract.IInformationPre {
-    override fun onIAddGreatRecordPre(hashMap: HashMap<String, String>, infoId: Int) {
+    override fun onIAddCollectionPre(hashMap: HashMap<String, String>, infoId: Int) {
         val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
-        sslRetrofit.getAddGreatRecord(hashMap,infoId)
+        sslRetrofit.getAddCollection(hashMap,infoId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableObserver<AddGreatRecordBean>() {
+            .subscribe(object : DisposableObserver<InformationCollcetionBean>() {
                 override fun onComplete() {
 
                 }
 
-                override fun onNext(t: AddGreatRecordBean) {
+                override fun onNext(t: InformationCollcetionBean) {
 
-
+                    infoFragment.onIAddGreatRecordSucccess(t)
                 }
 
                 override fun onError(e: Throwable) {
@@ -33,18 +33,17 @@ class InformationPresenter(val infoFragment: InformationFragment) : BasePresente
             })
     }
 
-    override fun onICancelGreaPre(hashMap: HashMap<String, String>, infoId: Int) {
+    override fun onICancelCollectionPre(hashMap: HashMap<String, String>, infoId: Int) {
         val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
-        sslRetrofit.getCancelGreate(hashMap,infoId)
+        sslRetrofit.getCancelcollection(hashMap,infoId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableObserver<CancelGreateBean>() {
+            .subscribe(object : DisposableObserver<InformationCollcetionBeanNo>() {
                 override fun onComplete() {
 
                 }
-
-                override fun onNext(t: CancelGreateBean) {
-
+                override fun onNext(t: InformationCollcetionBeanNo) {
+                    infoFragment.onICancelGreaSucccess(t)
 
                 }
 
@@ -86,9 +85,9 @@ class InformationPresenter(val infoFragment: InformationFragment) : BasePresente
     /**
      * 咨询展示页面
      */
-    override fun onInfoRecommendList(plateId:Int,page:Int,count:Int) {
+    override fun onInfoRecommendList(hashMap: HashMap<String, String>,page:Int,count:Int) {
         val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
-        sslRetrofit.getInfoRecommendList(plateId,page,count)
+        sslRetrofit.getInfoRecommendList(hashMap,page,count)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : DisposableObserver<InfoRecommendListBean>() {

@@ -58,13 +58,13 @@ class Contract
         //轮播图
         fun onIBannerPre()
         //资讯推荐展示列表(包含单独板块列表展示)
-        fun onInfoRecommendList(plateId:Int,page:Int,count:Int)
+        fun onInfoRecommendList(hashMap: HashMap<String, String>,page:Int,count:Int)
         //广告
         fun onInfoAdvertising()
-        //咨询点赞
-        fun onIAddGreatRecordPre(hashMap: HashMap<String, String>,infoId:Int)
-        //取消点赞
-        fun onICancelGreaPre(hashMap: HashMap<String, String>,infoId:Int)
+        //咨询收藏
+        fun onIAddCollectionPre(hashMap: HashMap<String, String>,infoId:Int)
+        //取消收藏
+        fun onICancelCollectionPre(hashMap: HashMap<String, String>,infoId:Int)
     }
     /**
      * 咨询详情页面
@@ -77,9 +77,71 @@ class Contract
     }
     interface IInfoDetailPre{
         //详情
-        fun onInfoDetailPre(id:Int)
+        fun onInfoDetailPre(map: HashMap<String, String>,id:Int)
         //详情评论
         fun onDetailCommentPre(infoId:Int,page: Int,count: Int)
+        //详情咨询点赞
+        fun onIAddGreatRecordPre(hashMap: HashMap<String, String>,map: HashMap<String, String>)
+        //详情取消点赞
+        fun onICancelGreaPre(hashMap: HashMap<String, String>,map: HashMap<String, String>)
+        //咨询收藏
+        fun onIAddCollectionPre(hashMap: HashMap<String, String>,infoId:Int)
+        //取消收藏
+        fun onICancelCollectionPre(hashMap: HashMap<String, String>,infoId:Int)
+        //添加评论
+        fun onIAddInfoCommentPre(hashMap: HashMap<String, String>,infoId:Int,content: String)
+    }
+    /**
+     * 咨询搜索item展示
+     */
+    interface  IInfoSelectView
+    {
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface oInfoSelectPre
+    {
+        fun onfindAllInfoPlate(hashMap: HashMap<String, String>)
+
+    }
+    /**
+     * 搜索的item点击展示列表
+     */
+    interface  IInfoSelectPlateView
+    {
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface oInfoSelectPlatePre
+    {
+        fun onByTitle(title:String,page:Int,count:Int)
+        fun onBySource(source:String,page:Int,count:Int)
+        fun onfindAllInfoPlateByID(hashMap: HashMap<String, String>,plateId:Int,page:Int,count:Int)
+
+    }
+    /**
+     * 所有版块查询
+     */
+    interface  IfindAllInfoPlateView
+    {
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface ofindAllInfoPlatePre
+    {
+        fun onfindAllInfoPlate(hashMap: HashMap<String,String>)
+    }
+    /**
+     * 根据版块id进行查询
+     */
+    interface  IfindAllInfoPlateByIDView
+    {
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface ofindAllInfoPlateByIDPre
+    {
+        fun onfindAllInfoPlateByID( hashMap: HashMap<String,String>,plateId:Int,page:Int,count:Int)
     }
     /**
      * 主页查询用户

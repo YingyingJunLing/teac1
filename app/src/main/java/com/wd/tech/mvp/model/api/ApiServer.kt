@@ -1,13 +1,20 @@
 package com.wd.tech.mvp.model.api
 
+import com.wd.tech.mvp.model.api.Api.Companion.ADDCPPLECTION
 import com.wd.tech.mvp.model.api.Api.Companion.ADDGREATERECORD
+import com.wd.tech.mvp.model.api.Api.Companion.AddInfoComment
 import com.wd.tech.mvp.model.api.Api.Companion.BANNERSHOW
+import com.wd.tech.mvp.model.api.Api.Companion.BYSOURCE
+import com.wd.tech.mvp.model.api.Api.Companion.BYTITLE
+import com.wd.tech.mvp.model.api.Api.Companion.CANCELCLOOECTION
 import com.wd.tech.mvp.model.api.Api.Companion.CANCELGREATE
 import com.wd.tech.mvp.model.api.Api.Companion.COMMUNITYLIST
 import com.wd.tech.mvp.model.api.Api.Companion.DETALICOMMENT
+import com.wd.tech.mvp.model.api.Api.Companion.FINDAllINFOPLATE
 import com.wd.tech.mvp.model.api.Api.Companion.FINDINFOADVERTISING
 import com.wd.tech.mvp.model.api.Api.Companion.INFODETAIL
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
+import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLISTBYID
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.MODIFYHEADPIC
 import com.wd.tech.mvp.model.api.Api.Companion.REG
@@ -27,7 +34,7 @@ interface ApiServer {
 
     //资讯推荐展示列表(包含单独板块列表展示)
     @GET(INFORECOMMENEDLIST)
-    fun getInfoRecommendList(@Query("plateId") plateId: Int, @Query("page") page: Int, @Query("count") count: Int): Observable<InfoRecommendListBean>
+    fun getInfoRecommendList(@HeaderMap hashMap: HashMap<String, String>,@Query("page") page: Int, @Query("count") count: Int): Observable<InfoRecommendListBean>
 
     //咨询广告
     @GET(FINDINFOADVERTISING)
@@ -35,7 +42,7 @@ interface ApiServer {
 
     //咨询详情页面
     @GET(INFODETAIL)
-    fun getInfoDetail(@Query("id") id: Int): Observable<InfoDetailBean>
+    fun getInfoDetail(@HeaderMap hashMap: HashMap<String, String>,@Query("id") id: Int): Observable<InfoDetailBean>
 
     //咨询详情评论列表
     @GET(DETALICOMMENT)
@@ -43,15 +50,35 @@ interface ApiServer {
 
     //咨询点赞
     @POST(ADDGREATERECORD)
-    @FormUrlEncoded
-    fun getAddGreatRecord(@HeaderMap hashMap: HashMap<String, String>, @Field("infoId")infoId:Int):Observable<AddGreatRecordBean>
+    fun getAddGreatRecord(@HeaderMap hashMap: HashMap<String, String>, @QueryMap map: HashMap<String, String>):Observable<AddGreatRecordBean>
 
     //咨询取消点赞
-    @POST(CANCELGREATE)
+    @DELETE(CANCELGREATE)
+    fun getCancelGreate(@HeaderMap hashMap: HashMap<String, String>, @QueryMap map: HashMap<String, String>):Observable<CancelGreateBean>
+    //咨询收藏
+    @POST(ADDCPPLECTION)
     @FormUrlEncoded
-    fun getCancelGreate(@HeaderMap hashMap: HashMap<String, String>, @Field("infoId")infoId:Int):Observable<CancelGreateBean>
+    fun getAddCollection(@HeaderMap hashMap: HashMap<String, String>, @Field("infoId")infoId:Int):Observable<InformationCollcetionBean>
 
-
+    //咨询取消收藏
+    @DELETE(CANCELCLOOECTION)
+    fun getCancelcollection(@HeaderMap hashMap: HashMap<String, String>, @Query("infoId")infoId:Int):Observable<InformationCollcetionBeanNo>
+    //用户评论
+    @POST(AddInfoComment)
+    @FormUrlEncoded
+    fun getAddInfoComment(@HeaderMap hashMap: HashMap<String, String>, @Field("infoId")infoId:Int, @Field("content")content:String):Observable<AddInfoCommentBean>
+    //所有的版块查询
+    @GET(FINDAllINFOPLATE)
+    fun getfindAllInfoPlate(@HeaderMap hashMap: HashMap<String, String>):Observable<FindAllInfoPlate>
+    //资讯推荐展示列表(包含单独板块列表展示)
+    @GET(INFORECOMMENEDLISTBYID)
+    fun getInfoById(@HeaderMap hashMap: HashMap<String, String>,@Query("plateId") plateId: Int, @Query("page") page: Int, @Query("count") count: Int): Observable<InfoRecommendListBean>
+    //根据作者名称进行查询
+   @GET(BYSOURCE)
+   fun getBySource(@Query("source")source:String,@Query("page")  page:Int,@Query("count")count:Int):Observable<BySourceBean>
+    //根据标题名称进行查询
+    @GET(BYTITLE)
+    fun getByTitle(@Query("title")title:String,@Query("page")  page:Int,@Query("count")count:Int):Observable<ByTitelBean>
     //微信登录
     @POST(WECHATLOGIN)
     @FormUrlEncoded

@@ -36,9 +36,11 @@ class ResultBean {
     var thumbnail: String? = null
     var title: String? = null
     var whetherAdvertising: Int = 0
-    var whetherCollection: Int = 0
+    var whetherCollection: Int?=null
     var whetherPay: Int = 0
     var infoAdvertisingVo: InfoAdvertisingVoBean? = null
+
+
 
     class InfoAdvertisingVoBean {
         /**
