@@ -12,12 +12,15 @@ import com.wd.tech.mvp.model.api.Api.Companion.COMMUNITYLIST
 import com.wd.tech.mvp.model.api.Api.Companion.DETALICOMMENT
 import com.wd.tech.mvp.model.api.Api.Companion.FINDAllINFOPLATE
 import com.wd.tech.mvp.model.api.Api.Companion.FINDINFOADVERTISING
+import com.wd.tech.mvp.model.api.Api.Companion.FRIENDGROUPLIST
+import com.wd.tech.mvp.model.api.Api.Companion.INFOCOLLECTIONLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFODETAIL
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLISTBYID
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.MODIFYHEADPIC
 import com.wd.tech.mvp.model.api.Api.Companion.REG
+import com.wd.tech.mvp.model.api.Api.Companion.RELEASEPOST
 import com.wd.tech.mvp.model.api.Api.Companion.USERINFOBYUSERID
 import com.wd.tech.mvp.model.api.Api.Companion.USERSIGN
 import com.wd.tech.mvp.model.api.Api.Companion.WECHATLOGIN
@@ -107,11 +110,20 @@ interface ApiServer {
     fun getUserSign(@HeaderMap hashMap: HashMap<String, String>): Observable<UserSignBean>
 
     //关注列表
-    @GET(INFORECOMMENEDLIST)
+    @GET(INFOCOLLECTIONLIST)
     fun getInfoCollection(@HeaderMap hashMap: HashMap<String, String>, @Query("page") page: Int, @Query("count") count: Int): Observable<InfoCollectionBean>
 
     //用户上传头像
     @POST(MODIFYHEADPIC)
     @Multipart
     fun getModifyHeadPic(@HeaderMap hashMap: HashMap<String, String>,@Part part : MultipartBody.Part): Observable<ModifyHeadPicBean>
+
+    //用户发布帖子
+    @POST(RELEASEPOST)
+    @Multipart
+    fun getReleasePost(@HeaderMap hashMap: HashMap<String, String>, @Query("content")content: String, @Part list : List<MultipartBody.Part>): Observable<ReleasePostBean>
+
+    //查询用户所有分组
+    @GET(FRIENDGROUPLIST)
+    fun getFriendGroupList(@HeaderMap hashMap: HashMap<String, String>): Observable<FriendGroupListBean>
 }

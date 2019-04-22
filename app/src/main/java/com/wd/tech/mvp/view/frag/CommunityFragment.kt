@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.view.frag
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView
 import com.wd.tech.R
 import com.wd.tech.mvp.model.bean.CommunityListBean
 import com.wd.tech.mvp.presenter.presenterimpl.CommunityListPresenter
+import com.wd.tech.mvp.view.activity.UserPushCommentActivity
 import com.wd.tech.mvp.view.adapter.CommunityListAdapter
 import com.wd.tech.mvp.view.base.BaseFragment
 import com.wd.tech.mvp.view.contract.Contract
@@ -44,6 +46,12 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
         view.xRecycle_community.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
         xRecycle_community = view.xRecycle_community
         loading_linear = view.loading_linear
+        view.user_push_comment_image.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                var intent : Intent = Intent(activity,UserPushCommentActivity::class.java)
+                startActivity(intent)
+            }
+        })
     }
 
     override fun createPresenter(): CommunityListPresenter? {
@@ -60,7 +68,7 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
         xRecycle_community?.setLoadingListener(object : XRecyclerView.LoadingListener{
             override fun onLoadMore() {
                 Handler().postDelayed({
-                    page = Random().nextInt(3)+1
+                    page = Random().nextInt(5)+1
                     communityListPresenter.onICommunityListPre(hashMap,page,10)
                     xRecycle_community?.loadMoreComplete()
                 }, 1000)
@@ -68,7 +76,7 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
 
             override fun onRefresh() {
                 Handler().postDelayed({
-                    page = Random().nextInt(3)+1
+                    page = 1
                     communityListPresenter.onICommunityListPre(hashMap,page,10)
                     xRecycle_community?.refreshComplete()
                 }, 1000)

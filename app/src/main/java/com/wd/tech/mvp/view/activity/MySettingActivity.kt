@@ -1,5 +1,6 @@
 package com.wd.tech.mvp.view.activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -21,6 +22,7 @@ import com.wd.tech.mvp.view.base.BaseActivity
 import com.wd.tech.mvp.view.contract.Contract
 import kotlinx.android.synthetic.main.activity_my_setting.*
 import kotlinx.android.synthetic.main.dialog_camera_layout.view.*
+import kotlinx.android.synthetic.main.dialog_end_login_layout.view.*
 import java.io.File
 import java.util.ArrayList
 
@@ -31,6 +33,7 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
     val PHOTO_REQUEST_CAREMA : Int = 1
     val PHOTO_REQUEST_GALLERY : Int = 2
     var alterAndAnimationUtil : AlterAndAnimationUtil = AlterAndAnimationUtil()
+    lateinit var status : String
 
     override fun createPresenter(): SettingUserInfoPresenter? {
         return settingUserInfoPresenter
@@ -52,27 +55,14 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
     }
 
     override fun initView() {
-
-    }
-
-    override fun onSuccess(userInfoBean: UserInfoBean) {
-        if (userInfoBean.status=="0000"){
-            FrescoUtil.setPic(userInfoBean.result.headPic,user_head_simple)
-            user_name_text.setText(userInfoBean.result.nickName)
-            if (userInfoBean.result.sex == 1){
-                user_sex_text.setText("男")
-            }else{
-                user_sex_text.setText("女")
+        image_finsh.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                finish()
             }
-            user_sign_text.setText(userInfoBean.result.signature)
-            user_bir_text.setText("")
-            user_tel_text.setText(userInfoBean.result.phone)
-            user_emile_text.setText(userInfoBean.result.email)
-            user_num_text.setText(userInfoBean.result.integral.toString())
-            user_vip_text.setText(userInfoBean.result.whetherVip.toString())
-            Face_ID_text.setText("")
-            user_head_linear.setOnClickListener(object : View.OnClickListener{
-                override fun onClick(v: View?) {
+        })
+        user_head_linear.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                if (status=="0000"){
                     var view : View = View.inflate(this@MySettingActivity,R.layout.dialog_camera_layout,null)
                     alterAndAnimationUtil.AlterDialog(this@MySettingActivity,view)
                     //点击拍摄
@@ -98,11 +88,71 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
                             alterAndAnimationUtil.hideDialog()
                         }
                     })
+                }else{
+                    Toast.makeText(this@MySettingActivity,"请先登录",Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+    }
+
+    override fun onSuccess(userInfoBean: UserInfoBean) {
+        status = userInfoBean.status
+        if (userInfoBean.status=="0000"){
+            FrescoUtil.setPic(userInfoBean.result.headPic,user_head_simple)
+            user_name_text.setText(userInfoBean.result.nickName)
+            if (userInfoBean.result.sex == 1){
+                user_sex_text.setText("男")
+            }else{
+                user_sex_text.setText("女")
+            }
+            user_sign_text.setText(userInfoBean.result.signature)
+            user_bir_text.setText("")
+            user_tel_text.setText(userInfoBean.result.phone)
+            user_emile_text.setText(userInfoBean.result.email)
+            user_num_text.setText(userInfoBean.result.integral.toString())
+            user_vip_text.setText(userInfoBean.result.whetherVip.toString())
+            Face_ID_text.setText("")
+            end_login_linear.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(v: View?) {
+                    var view : View = View.inflate(this@MySettingActivity,R.layout.dialog_end_login_layout,null)
+                    var bulider : AlertDialog.Builder = AlertDialog.Builder(this@MySettingActivity)
+                    var alertDialog = bulider.create()
+                    alertDialog.setView(view)
+                    alertDialog.setCanceledOnTouchOutside(true)
+                    alertDialog.show()
+                    view.end_login_true_text.setOnClickListener(object : View.OnClickListener{
+                        override fun onClick(v: View?) {
+                            var sharedPreferences : SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+                            sharedPreferences.edit().putString("userId", "0").putString("sessionId", "0").commit()
+                            var userId = sharedPreferences.getString("userId", "0")
+                            var sessionId = sharedPreferences.getString("sessionId", "0")
+                            var hashMapEnd : HashMap<String,String> = HashMap()
+                            hashMapEnd.put("userId",userId)
+                            hashMapEnd.put("sessionId",sessionId)
+                            alertDialog.dismiss()
+                            settingUserInfoPresenter.onSettingIUserInfoPre(hashMapEnd)
+                        }
+                    })
+                    view.end_login_false_text.setOnClickListener(object : View.OnClickListener{
+                        override fun onClick(v: View?) {
+                            alertDialog.dismiss()
+                        }
+                    })
                 }
             })
         }else{
             Toast.makeText(this,userInfoBean.message,Toast.LENGTH_LONG).show()
             end_login_linear.visibility = View.GONE
+            FrescoUtil.setPic("",user_head_simple)
+            user_name_text.setText("")
+            user_sex_text.setText("")
+            user_sign_text.setText("")
+            user_bir_text.setText("")
+            user_tel_text.setText("")
+            user_emile_text.setText("")
+            user_num_text.setText("")
+            user_vip_text.setText("")
+            Face_ID_text.setText("")
         }
     }
 

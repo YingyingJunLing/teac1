@@ -12,6 +12,5 @@ class MyApp : Application() {
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
         var networkChangeReceiverUtil : NetworkChangeReceiverUtil = NetworkChangeReceiverUtil()
         registerReceiver(networkChangeReceiverUtil,intentFilter)
-
     }
 }

@@ -22,4 +22,12 @@
     <string name="user_film">拍摄</string>
     <string name="user_head_finsh">取消</string>
     <string name="user_photo">相册</string>
+    <string name="alert_text">提示</string>
+    <string name="true_end">确认</string>
+    <string name="cancel_end">取消</string>
+    <string name="choose_login_boolean">该操作会退出登录,请选择</string>
+    <string name="cancel_comment">取消</string>
+    <string name="push_comment">发表</string>
+    <string name="char_num">0/300</string>
+    <string name="del_collection">删除</string>
 </resources>

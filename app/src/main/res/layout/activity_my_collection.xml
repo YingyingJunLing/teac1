@@ -29,6 +29,14 @@
                 android:layout_height="24dp"
                 android:layout_marginRight="12dp"
                 android:src="@mipmap/common_nav_delete_n"/>
+        <TextView android:id="@+id/collection_del"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="12dp"
+                android:visibility="gone"
+                android:gravity="center"
+                android:text="@string/del_collection"/>
     </LinearLayout>
     <RelativeLayout
             android:layout_width="match_parent"

@@ -157,7 +157,6 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
             //登录
             R.id.ce_login -> {
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-                finish()
             }
             //注册
             R.id.ce_reg -> {

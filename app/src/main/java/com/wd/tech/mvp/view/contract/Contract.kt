@@ -187,4 +187,24 @@ class Contract
         fun onSettingIUserInfoPre(hashMap: HashMap<String,String>)
         fun onModifyHeadPicPre(hashMap: HashMap<String,String>,file: File)
     }
+    /**
+     * 用户发布帖子
+     */
+    interface IUserPushCommentView {
+        fun onSuccess(releasePostBean: ReleasePostBean)
+        fun onFail()
+    }
+    interface IUserPushCommentPre{
+        fun onIUserPushCommentPre(hashMap: HashMap<String,String>,content: String,list : ArrayList<File>)
+    }
+    /**
+     * 消息、好友
+     */
+    interface IMessageView {
+        fun onSuccess(friendGroupListBean: FriendGroupListBean)
+        fun onFail()
+    }
+    interface IMessagePre{
+        fun onIMessagePre(hashMap: HashMap<String,String>)
+    }
 }

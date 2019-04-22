@@ -43,10 +43,17 @@ class Api {
         const val INFOCOLLECTIONLIST="techApi/user/verify/v1/findAllInfoCollection"
         //用户上传头像
         const val MODIFYHEADPIC="techApi/user/verify/v1/modifyHeadPic"
+
         //咨询收藏
         const val ADDCPPLECTION="techApi/user/verify/v1/addCollection"
         //咨询取消收藏
         const val CANCELCLOOECTION="techApi/user/verify/v1/cancelCollection"
+
+        //用户发布帖子
+        const val RELEASEPOST="techApi/community/verify/v1/releasePost"
+        //查询用户所有分组
+        const val FRIENDGROUPLIST="techApi/chat/verify/v1/findFriendGroupList"
+
     }
 
 }
