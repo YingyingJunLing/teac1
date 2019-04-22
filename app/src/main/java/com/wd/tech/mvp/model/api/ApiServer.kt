@@ -13,10 +13,12 @@ import com.wd.tech.mvp.model.api.Api.Companion.DETALICOMMENT
 import com.wd.tech.mvp.model.api.Api.Companion.FINDAllINFOPLATE
 import com.wd.tech.mvp.model.api.Api.Companion.FINDINFOADVERTISING
 import com.wd.tech.mvp.model.api.Api.Companion.FRIENDGROUPLIST
+import com.wd.tech.mvp.model.api.Api.Companion.FRIENDLISTBYGROUPID
 import com.wd.tech.mvp.model.api.Api.Companion.INFOCOLLECTIONLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFODETAIL
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLISTBYID
+import com.wd.tech.mvp.model.api.Api.Companion.INITFRIENDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.MODIFYHEADPIC
 import com.wd.tech.mvp.model.api.Api.Companion.REG
@@ -126,4 +128,12 @@ interface ApiServer {
     //查询用户所有分组
     @GET(FRIENDGROUPLIST)
     fun getFriendGroupList(@HeaderMap hashMap: HashMap<String, String>): Observable<FriendGroupListBean>
+
+    //查询分组下的好友列表信息
+    @GET(FRIENDLISTBYGROUPID)
+    fun getFriendListGroupById(@HeaderMap hashMap: HashMap<String, String>,@Query("groupId")groupId: String): Observable<FriendListGroupByIdBean>
+
+    //初始化好友类表
+    @GET(INITFRIENDLIST)
+    fun getInitFriendList(@HeaderMap hashMap: HashMap<String, String>): Observable<InitFriendListBean>
 }

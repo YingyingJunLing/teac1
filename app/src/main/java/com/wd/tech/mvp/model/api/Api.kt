@@ -53,7 +53,10 @@ class Api {
         const val RELEASEPOST="techApi/community/verify/v1/releasePost"
         //查询用户所有分组
         const val FRIENDGROUPLIST="techApi/chat/verify/v1/findFriendGroupList"
-
+        //查询分组下的好友列表信息
+        const val FRIENDLISTBYGROUPID="techApi/chat/verify/v1/findFriendListByGroupId"
+        //初始化好友列表
+        const val INITFRIENDLIST="techApi/chat/verify/v1/initFriendList"
     }
 
 }

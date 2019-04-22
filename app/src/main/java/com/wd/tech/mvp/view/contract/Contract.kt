@@ -198,10 +198,10 @@ class Contract
         fun onIUserPushCommentPre(hashMap: HashMap<String,String>,content: String,list : ArrayList<File>)
     }
     /**
-     * 消息、好友
+     * 好友分组
      */
     interface IMessageView {
-        fun onSuccess(friendGroupListBean: FriendGroupListBean)
+        fun onSuccess(initFriendListBean: InitFriendListBean)
         fun onFail()
     }
     interface IMessagePre{

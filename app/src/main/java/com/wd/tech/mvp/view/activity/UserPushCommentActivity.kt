@@ -151,4 +151,9 @@ class UserPushCommentActivity : BaseActivity<Contract.IUserPushCommentView,UserP
             }
         })
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        userPushCommentPresenter.detachView()
+    }
 }

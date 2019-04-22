@@ -63,8 +63,7 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
         xRecycle_community?.visibility = View.VISIBLE
         loading_linear?.visibility = View.GONE
         val list = communityListBean.result
-        adapter = CommunityListAdapter(this.requireContext(),list)
-        xRecycle_community?.adapter = adapter
+        xRecycle_community?.adapter = context?.let { CommunityListAdapter(it,list) }
         xRecycle_community?.setLoadingListener(object : XRecyclerView.LoadingListener{
             override fun onLoadMore() {
                 Handler().postDelayed({

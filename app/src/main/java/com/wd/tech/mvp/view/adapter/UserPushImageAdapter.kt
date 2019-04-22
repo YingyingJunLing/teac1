@@ -38,7 +38,7 @@ class UserPushImageAdapter(context: Context,list: List<String>) : RecyclerView.A
         p0.community_image_show.setLayoutParams(para)
         p0.community_image_show.scaleType = ImageView.ScaleType.CENTER_CROP
         if (p1 == list.size){
-            p0.community_image_show.setImageResource(R.mipmap.common_nav_btn_add_n)
+            p0.community_image_show.setImageResource(R.mipmap.community_btn_add_n)
             p0.community_image_show.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     iClickListener.setIClickListener()
