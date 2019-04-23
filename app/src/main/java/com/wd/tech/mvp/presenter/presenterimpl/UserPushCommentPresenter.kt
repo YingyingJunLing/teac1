@@ -19,7 +19,7 @@ import java.io.File
 class UserPushCommentPresenter(var userPushCommentActivity: UserPushCommentActivity) : BasePresenter<Contract.IUserPushCommentView>(),Contract.IUserPushCommentPre {
 
     var apiServer : ApiServer = RetrofitUtil.instant.SSLRetrofit()
-    var partMap = HashMap<String,List<MultipartBody.Part>>()
+    //var partMap = HashMap<String,List<MultipartBody.Part>>()
     var partList = ArrayList<MultipartBody.Part>()
 
     override fun onIUserPushCommentPre(hashMap: HashMap<String, String>, content: String, list : ArrayList<File>) {
@@ -28,7 +28,7 @@ class UserPushCommentPresenter(var userPushCommentActivity: UserPushCommentActiv
             val body = RequestBody.create(MediaType.parse("multipart/form-data"), file)
             val filePart = MultipartBody.Part.createFormData("file", file.name, body)
             partList.add(filePart)
-            partMap.put("file",partList)
+            //partMap.put("file",partList)
         }
         apiServer.getReleasePost(hashMap,content,partList)
             .subscribeOn(Schedulers.io())

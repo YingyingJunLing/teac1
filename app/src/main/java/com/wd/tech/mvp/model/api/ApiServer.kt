@@ -1,5 +1,7 @@
 package com.wd.tech.mvp.model.api
 
+import com.wd.tech.mvp.model.api.Api.Companion.ADDCOMMUNITYCOMMENT
+import com.wd.tech.mvp.model.api.Api.Companion.ADDCOMMUNITYGREAT
 import com.wd.tech.mvp.model.api.Api.Companion.ADDCPPLECTION
 import com.wd.tech.mvp.model.api.Api.Companion.ADDGREATERECORD
 import com.wd.tech.mvp.model.api.Api.Companion.AddInfoComment
@@ -8,6 +10,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.BYSOURCE
 import com.wd.tech.mvp.model.api.Api.Companion.BYTITLE
 import com.wd.tech.mvp.model.api.Api.Companion.BuyVip
 import com.wd.tech.mvp.model.api.Api.Companion.CANCELCLOOECTION
+import com.wd.tech.mvp.model.api.Api.Companion.CANCELCOMMUNITYGREAT
 import com.wd.tech.mvp.model.api.Api.Companion.CANCELGREATE
 import com.wd.tech.mvp.model.api.Api.Companion.COMMUNITYLIST
 import com.wd.tech.mvp.model.api.Api.Companion.DETALICOMMENT
@@ -15,10 +18,12 @@ import com.wd.tech.mvp.model.api.Api.Companion.FINDAllINFOPLATE
 import com.wd.tech.mvp.model.api.Api.Companion.FINDINFOADVERTISING
 import com.wd.tech.mvp.model.api.Api.Companion.FRIENDGROUPLIST
 import com.wd.tech.mvp.model.api.Api.Companion.FindVipCommodityList
+import com.wd.tech.mvp.model.api.Api.Companion.FRIENDLISTBYGROUPID
 import com.wd.tech.mvp.model.api.Api.Companion.INFOCOLLECTIONLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFODETAIL
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLISTBYID
+import com.wd.tech.mvp.model.api.Api.Companion.INITFRIENDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.MODIFYHEADPIC
 import com.wd.tech.mvp.model.api.Api.Companion.PAY
@@ -128,6 +133,7 @@ interface ApiServer {
     //查询用户所有分组
     @GET(FRIENDGROUPLIST)
     fun getFriendGroupList(@HeaderMap hashMap: HashMap<String, String>): Observable<FriendGroupListBean>
+
     //积分兑换
     @POST(infoPayByIntegral)
     @FormUrlEncoded
@@ -148,4 +154,23 @@ interface ApiServer {
     @FormUrlEncoded
     fun getZhiPay(@HeaderMap hashMap: HashMap<String, String>, @Field("orderId") orderId: String?, @Field("payType") payType:Int):Observable<ZhiFuBaoBean>
 
+    //查询分组下的好友列表信息
+    @GET(FRIENDLISTBYGROUPID)
+    fun getFriendListGroupById(@HeaderMap hashMap: HashMap<String, String>,@Query("groupId")groupId: String): Observable<FriendListGroupByIdBean>
+
+    //初始化好友类表
+    @GET(INITFRIENDLIST)
+    fun getInitFriendList(@HeaderMap hashMap: HashMap<String, String>): Observable<InitFriendListBean>
+
+    //点赞
+    @POST(ADDCOMMUNITYGREAT)
+    fun getAddCommunityGreat(@HeaderMap hashMap: HashMap<String, String>,@Query("communityId")communityId : Int): Observable<CommunityGreatBean>
+
+    //取消点赞
+    @DELETE(CANCELCOMMUNITYGREAT)
+    fun getCancelCommunityGreat(@HeaderMap hashMap: HashMap<String, String>,@Query("communityId")communityId : Int): Observable<CommunityGreatBean>
+
+    //社区评论
+    @POST(ADDCOMMUNITYCOMMENT)
+    fun getAddCommunityComment(@HeaderMap hashMap: HashMap<String, String>,@Query("communityId")communityId: Int,@Query("content")content: String): Observable<CommunityGreatBean>
 }

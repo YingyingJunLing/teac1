@@ -34,10 +34,12 @@ class Contract
      */
     interface ICommunityListView{
         fun onSuccess(communityListBean: CommunityListBean)
+        fun onIPushSuccess(communityListBean: CommunityListBean)
         fun onFail()
     }
     interface ICommunityListPre{
         fun onICommunityListPre(hashMap: HashMap<String,String>,page:Int,count:Int)
+        fun onIPushCommunityListPre(hashMap: HashMap<String,String>,page:Int,count:Int)
     }
     /**
      * 咨询展示
@@ -198,10 +200,10 @@ class Contract
         fun onIUserPushCommentPre(hashMap: HashMap<String,String>,content: String,list : ArrayList<File>)
     }
     /**
-     * 消息、好友
+     * 好友分组
      */
     interface IMessageView {
-        fun onSuccess(friendGroupListBean: FriendGroupListBean)
+        fun onSuccess(initFriendListBean: InitFriendListBean)
         fun onFail()
     }
     interface IMessagePre{

@@ -40,6 +40,11 @@ class MyCollectionActivity : BaseActivity<Contract.IInfoCollectionView,InfoColle
 
     override fun initView() {
         my_collection_rcycle.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        image_finsh.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                finish()
+            }
+        })
     }
 
     override fun onInfoCollectionSuccess(infoCollectionBean: InfoCollectionBean) {

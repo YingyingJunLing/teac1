@@ -59,7 +59,16 @@ class Api {
         const val BuyVip="techApi/tool/verify/v1/buyVip"
         //支付
         const val PAY="techApi/tool/verify/v1/pay"
-
+        //查询分组下的好友列表信息
+        const val FRIENDLISTBYGROUPID="techApi/chat/verify/v1/findFriendListByGroupId"
+        //初始化好友列表
+        const val INITFRIENDLIST="techApi/chat/verify/v1/initFriendList"
+        //点赞
+        const val ADDCOMMUNITYGREAT="techApi/community/verify/v1/addCommunityGreat"
+        //点赞
+        const val CANCELCOMMUNITYGREAT="techApi/community/verify/v1/cancelCommunityGreat"
+        // 社区评论
+        const val ADDCOMMUNITYCOMMENT="techApi/community/verify/v1/addCommunityComment"
     }
 
 }

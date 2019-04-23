@@ -17,9 +17,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
         <activity android:name=".mvp.view.activity.PayVipActivity">
         </activity>
-        <activity android:name=".mvp.view.activity.ScoreDuiHuanActivity">
+        <activity android:name=".mvp.view.activity.ScoreDuiHuanActivity"></activity>
+
+        <activity android:name=".mvp.view.activity.FriendMessageActivity">
+
         </activity>
         <activity android:name=".mvp.view.activity.SearchAllPlateActivity">
         </activity>

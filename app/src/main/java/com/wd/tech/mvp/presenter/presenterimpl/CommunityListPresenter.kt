@@ -13,8 +13,9 @@ import io.reactivex.schedulers.Schedulers
 
 class CommunityListPresenter(val communityFragment: CommunityFragment) : BasePresenter<Contract.ICommunityListView>(),Contract.ICommunityListPre {
 
+    val apiServer : ApiServer = RetrofitUtil.instant.SSLRetrofit()
+
     override fun onICommunityListPre(hashMap: HashMap<String, String>, page: Int, count: Int) {
-        val apiServer : ApiServer = RetrofitUtil.instant.SSLRetrofit()
         apiServer.getCommunityList(hashMap,page,count)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -25,6 +26,25 @@ class CommunityListPresenter(val communityFragment: CommunityFragment) : BasePre
 
                 override fun onNext(t: CommunityListBean) {
                     communityFragment.onSuccess(t)
+                }
+
+                override fun onError(e: Throwable) {
+
+                }
+            })
+    }
+
+    override fun onIPushCommunityListPre(hashMap: HashMap<String, String>, page: Int, count: Int) {
+        apiServer.getCommunityList(hashMap,page,count)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(object : DisposableObserver<CommunityListBean>(){
+                override fun onComplete() {
+
+                }
+
+                override fun onNext(t: CommunityListBean) {
+                    communityFragment.onIPushSuccess(t)
                 }
 
                 override fun onError(e: Throwable) {
