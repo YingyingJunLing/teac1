@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
@@ -58,6 +59,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         var userId = sharedPreferences.getString("userId", "0")
         var sessionId = sharedPreferences.getString("sessionId", "0")
         var type = sharedPreferences.getString("type","0")
+        Log.e("userallalalla",userId  +"用户id" +sessionId   +"登录状态"  +type   +  "类型")
         //我的页面处理
         if (userId != "0" && sessionId != "0" && type == "1"){
             wei_login.visibility=View.GONE
@@ -68,6 +70,14 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         }else{
             wei_login.visibility=View.VISIBLE
             my_content.visibility=View.GONE
+        }
+        if(userId !="0"&& sessionId !="0")
+        {
+            wei_login.visibility=View.GONE
+            my_content.visibility=View.VISIBLE
+            hashMap.put("userId",userId)
+            hashMap.put("sessionId",sessionId)
+            userInfoPresenter.onIUserInfoPre(hashMap)
         }
         first = intent.getStringExtra("first")
         if(userId != "0" && sessionId != "0" && first == "1"){

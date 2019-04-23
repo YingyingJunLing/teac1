@@ -207,4 +207,25 @@ class Contract
     interface IMessagePre{
         fun onIMessagePre(hashMap: HashMap<String,String>)
     }
+    /**
+     * 积分兑换
+     */
+    interface IInfoPayByIntegralView{
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface IInfoPayByIntegralPre{
+        fun onIInfoPayByIntegralPre(hashMap: HashMap<String,String>,infoId: Int,integralCost:Int)
+    }
+    /**
+     * 购买会员所有接口
+     */
+    interface IVipView{
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface IVipPre{
+        fun onIFindVipCommodityListPre()
+        fun onIByVip(hashMap: HashMap<String, String>,commodityId: Int,sign:String)
+    }
 }

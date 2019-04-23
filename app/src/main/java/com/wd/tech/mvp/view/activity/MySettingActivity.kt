@@ -23,6 +23,7 @@ import com.wd.tech.mvp.view.contract.Contract
 import kotlinx.android.synthetic.main.activity_my_setting.*
 import kotlinx.android.synthetic.main.dialog_camera_layout.view.*
 import kotlinx.android.synthetic.main.dialog_end_login_layout.view.*
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.util.ArrayList
 
@@ -112,6 +113,7 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
             user_num_text.setText(userInfoBean.result.integral.toString())
             user_vip_text.setText(userInfoBean.result.whetherVip.toString())
             Face_ID_text.setText("")
+            EventBus.getDefault().postSticky(userInfoBean)
             end_login_linear.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     var view : View = View.inflate(this@MySettingActivity,R.layout.dialog_end_login_layout,null)

@@ -38,6 +38,7 @@ class SearchAllPlateAdapter(
             var intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra("id", any!!.result!!.get(p1).id)
             intent.putExtra("whetherPay",any.result?.get(p1)?.whetherPay)
+            intent.putExtra("whetherCollection",any.result?.get(p1)?.whetherCollection)
             context!!.startActivity(intent)
         }
     }

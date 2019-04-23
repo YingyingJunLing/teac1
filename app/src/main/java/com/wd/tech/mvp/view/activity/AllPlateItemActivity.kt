@@ -54,7 +54,6 @@ class AllPlateItemActivity : BaseActivity<Contract.IfindAllInfoPlateByIDView,Fin
 
     override fun initData() {
         findAllInfoPlateByIDPresenter!!.onfindAllInfoPlateByID(hashMap,sid,page = 1,count = 10)
-
     }
 
     override fun initView() {

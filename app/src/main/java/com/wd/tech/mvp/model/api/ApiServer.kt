@@ -6,6 +6,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.AddInfoComment
 import com.wd.tech.mvp.model.api.Api.Companion.BANNERSHOW
 import com.wd.tech.mvp.model.api.Api.Companion.BYSOURCE
 import com.wd.tech.mvp.model.api.Api.Companion.BYTITLE
+import com.wd.tech.mvp.model.api.Api.Companion.BuyVip
 import com.wd.tech.mvp.model.api.Api.Companion.CANCELCLOOECTION
 import com.wd.tech.mvp.model.api.Api.Companion.CANCELGREATE
 import com.wd.tech.mvp.model.api.Api.Companion.COMMUNITYLIST
@@ -13,17 +14,20 @@ import com.wd.tech.mvp.model.api.Api.Companion.DETALICOMMENT
 import com.wd.tech.mvp.model.api.Api.Companion.FINDAllINFOPLATE
 import com.wd.tech.mvp.model.api.Api.Companion.FINDINFOADVERTISING
 import com.wd.tech.mvp.model.api.Api.Companion.FRIENDGROUPLIST
+import com.wd.tech.mvp.model.api.Api.Companion.FindVipCommodityList
 import com.wd.tech.mvp.model.api.Api.Companion.INFOCOLLECTIONLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFODETAIL
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLISTBYID
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.MODIFYHEADPIC
+import com.wd.tech.mvp.model.api.Api.Companion.PAY
 import com.wd.tech.mvp.model.api.Api.Companion.REG
 import com.wd.tech.mvp.model.api.Api.Companion.RELEASEPOST
 import com.wd.tech.mvp.model.api.Api.Companion.USERINFOBYUSERID
 import com.wd.tech.mvp.model.api.Api.Companion.USERSIGN
 import com.wd.tech.mvp.model.api.Api.Companion.WECHATLOGIN
+import com.wd.tech.mvp.model.api.Api.Companion.infoPayByIntegral
 import com.wd.tech.mvp.model.bean.*
 import io.reactivex.Observable
 import okhttp3.MultipartBody
@@ -117,13 +121,31 @@ interface ApiServer {
     @POST(MODIFYHEADPIC)
     @Multipart
     fun getModifyHeadPic(@HeaderMap hashMap: HashMap<String, String>,@Part part : MultipartBody.Part): Observable<ModifyHeadPicBean>
-
     //用户发布帖子
     @POST(RELEASEPOST)
     @Multipart
     fun getReleasePost(@HeaderMap hashMap: HashMap<String, String>, @Query("content")content: String, @Part list : List<MultipartBody.Part>): Observable<ReleasePostBean>
-
     //查询用户所有分组
     @GET(FRIENDGROUPLIST)
     fun getFriendGroupList(@HeaderMap hashMap: HashMap<String, String>): Observable<FriendGroupListBean>
+    //积分兑换
+    @POST(infoPayByIntegral)
+    @FormUrlEncoded
+    fun getinfoPayByIntegral(@HeaderMap hashMap: HashMap<String, String>,@Field("infoId")infoId: Int,@Field("integralCost")integralCost:Int):Observable<InfoPayByIntegralBean>
+    //查询会员所有商品
+    @GET(FindVipCommodityList)
+    fun getFindVipCommodityList():Observable<FindVipCommodityListBean>
+    //购买vip生成订单
+    @POST(BuyVip)
+    @FormUrlEncoded
+    fun getByVip(@HeaderMap hashMap: HashMap<String, String>,@Field("commodityId")commodityId: Int,@Field("sign")sign:String):Observable<ByVipBean>
+    //微信支付
+    @POST(PAY)
+    @FormUrlEncoded
+    fun getWechatPay(@HeaderMap hashMap: HashMap<String, String>, @Field("orderId") orderId: String?, @Field("payType") payType:Int):Observable<WechatPayBean>
+    //支付宝支付
+    @POST(PAY)
+    @FormUrlEncoded
+    fun getZhiPay(@HeaderMap hashMap: HashMap<String, String>, @Field("orderId") orderId: String?, @Field("payType") payType:Int):Observable<ZhiFuBaoBean>
+
 }

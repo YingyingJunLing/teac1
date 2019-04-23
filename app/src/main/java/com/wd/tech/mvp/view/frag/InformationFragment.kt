@@ -78,8 +78,6 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
                     override fun run() {
                         page = 1
                         count = 10
-                        plateId = 1
-                        bannerAdapter.notifyDataSetChanged()
                         informationPresenter?.onInfoRecommendList(hashMap,page, count)
                     }
                 }, 1500)
@@ -88,10 +86,8 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
             override fun onLoadMore() {
                 Handler().postDelayed(object : Runnable {
                     override fun run() {
-                       page ++
-                       count++
+                        count++
                         informationPresenter?.onInfoRecommendList( hashMap,page, count)
-                        bannerAdapter.notifyDataSetChanged()
                         infomation_recy.loadMoreComplete()
                     }
                 }, 1500)
@@ -167,9 +163,11 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
     {
         when(v!!.id)
         {
+            //搜索
             R.id.inform_fdj->{
                 startActivity(Intent(activity,SearchActivity::class.java))
             }
+            //兴趣分类
             R.id.inform_sdg->
             {
                 startActivity(Intent(activity, SearchActivity1::class.java))
@@ -212,8 +210,7 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
     //分享的点击事件
     fun onShareClick() {
         val view = View.inflate(context, R.layout.pop_share, null)
-//        R.id.share_friendcricle_image
-//        R.id.share_friend_image
+
         val popupWindow = PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true)
         val cdw = ColorDrawable(resources.getColor(R.color.time))
         //设置颜色

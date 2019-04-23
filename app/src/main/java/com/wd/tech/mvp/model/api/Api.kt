@@ -43,16 +43,22 @@ class Api {
         const val INFOCOLLECTIONLIST="techApi/user/verify/v1/findAllInfoCollection"
         //用户上传头像
         const val MODIFYHEADPIC="techApi/user/verify/v1/modifyHeadPic"
-
         //咨询收藏
         const val ADDCPPLECTION="techApi/user/verify/v1/addCollection"
         //咨询取消收藏
         const val CANCELCLOOECTION="techApi/user/verify/v1/cancelCollection"
-
         //用户发布帖子
         const val RELEASEPOST="techApi/community/verify/v1/releasePost"
         //查询用户所有分组
         const val FRIENDGROUPLIST="techApi/chat/verify/v1/findFriendGroupList"
+        //积分兑换
+        const val infoPayByIntegral="techApi/information/verify/v1/infoPayByIntegral"
+        //查询会员所有商品
+        const val FindVipCommodityList="techApi/tool/v1/findVipCommodityList"
+        //购买生成订单
+        const val BuyVip="techApi/tool/verify/v1/buyVip"
+        //支付
+        const val PAY="techApi/tool/verify/v1/pay"
 
     }
 

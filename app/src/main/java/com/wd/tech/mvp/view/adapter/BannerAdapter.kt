@@ -137,6 +137,7 @@ class BannerAdapter(
                     intent.putExtra("id", infoRecommendListBean!!.result!!.get(p1-1).id)
                     intent.putExtra("whetherPay",infoRecommendListBean.result?.get(p1-1)?.whetherPay)
                     intent.putExtra("whetherCollection",infoRecommendListBean.result?.get(p1-1)?.whetherCollection)
+
                     context!!.startActivity(intent)
                 }
             // 收藏

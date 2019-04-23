@@ -69,6 +69,7 @@ class AllPlateItemAdapter(val context: Context , val  infoRecommendListBean: Inf
                 var intent = Intent(context, DetailsActivity::class.java)
                 intent.putExtra("id", infoRecommendListBean!!.result!!.get(p1).id)
                 intent.putExtra("whetherPay",infoRecommendListBean.result?.get(p1)?.whetherPay)
+                intent.putExtra("whetherCollection",infoRecommendListBean.result?.get(p1)?.whetherCollection)
                 context!!.startActivity(intent)
             }
         }
@@ -93,6 +94,7 @@ class AllPlateItemAdapter(val context: Context , val  infoRecommendListBean: Inf
             var intent = Intent(context, DetailsActivity::class.java)
             intent.putExtra("id", infoRecommendListBean!!.result!!.get(p1).id)
             intent.putExtra("whetherPay",infoRecommendListBean!!.result?.get(p1)?.whetherPay)
+            intent.putExtra("whetherCollection",infoRecommendListBean.result?.get(p1)?.whetherCollection)
             context!!.startActivity(intent)
         }
     }

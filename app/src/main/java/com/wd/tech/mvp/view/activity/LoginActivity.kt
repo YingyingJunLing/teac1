@@ -56,7 +56,7 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
 
         if(loginBean.status.equals("0000")) {
             val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
-            sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).commit()
+            sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).putInt("vip",loginBean.result.whetherVip).commit()
             if(login_remember_pwd.isChecked){
                 sp.edit().putString("type","1").commit()
             }else{

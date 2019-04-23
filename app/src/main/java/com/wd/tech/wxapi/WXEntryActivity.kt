@@ -40,8 +40,10 @@ class WXEntryActivity : IWXAPIEventHandler, BaseActivity<Contract.IWechatLoginVi
         if(any is LoginBean)
         {
             Toast.makeText(this, any.message, Toast.LENGTH_SHORT).show()
+            val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
+            sp.edit().putString("userId", any.result.userId).putString("sessionId", any.result.sessionId).putInt("vip",any.result.whetherVip).commit()
             startActivity(Intent(this@WXEntryActivity, MainActivity::class.java))
-
+            finish()
         }else{
             Toast.makeText(this, "登录失败", Toast.LENGTH_SHORT).show()
         }
