@@ -3,6 +3,8 @@ package com.wd.tech.mvp.view.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.widget.GridLayoutManager
@@ -85,6 +87,7 @@ class UserPushCommentActivity : BaseActivity<Contract.IUserPushCommentView,UserP
                     flieList.add(file)
                 }
                 userPushCommentPresenter.onIUserPushCommentPre(hashMap,char_edit.text.toString(),flieList)
+                flieList == null
             }
         })
     }
@@ -92,7 +95,24 @@ class UserPushCommentActivity : BaseActivity<Contract.IUserPushCommentView,UserP
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         list == null
-        if (requestCode == REQUEST_CODE && data != null) {
+        if (requestCode == PHOTO_REQUEST_CAREMA && data != null){
+            val bitmap : Bitmap = data!!.getParcelableExtra("data")
+            //将bitmap转换为uri
+            var uri : Uri = Uri.parse(MediaStore.Images.Media.insertImage(this.contentResolver,bitmap,null,null))
+            val proj = arrayOf(MediaStore.Images.Media.DATA)
+            var actualimagecursor = contentResolver.query(uri,proj,null,null,null)
+            var actual_image_column_index : Int = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            actualimagecursor.moveToFirst()
+            var img_path : String = actualimagecursor.getString(actual_image_column_index)
+            list.add(img_path)
+            mAdapter = UserPushImageAdapter(this,list)
+            user_push_comment_image_recycle.adapter = mAdapter
+            mAdapter.setUserPushImageOnClick(object : UserPushImageAdapter.IClickListener{
+                override fun setIClickListener() {
+                    dialogShow()
+                }
+            })
+        }else if (requestCode == REQUEST_CODE && data != null) {
             //获取选择器返回的数据
             list = data.getStringArrayListExtra(
                 ImageSelector.SELECT_RESULT

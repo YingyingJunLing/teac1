@@ -57,6 +57,12 @@ class Api {
         const val FRIENDLISTBYGROUPID="techApi/chat/verify/v1/findFriendListByGroupId"
         //初始化好友列表
         const val INITFRIENDLIST="techApi/chat/verify/v1/initFriendList"
+        //点赞
+        const val ADDCOMMUNITYGREAT="techApi/community/verify/v1/addCommunityGreat"
+        //点赞
+        const val CANCELCOMMUNITYGREAT="techApi/community/verify/v1/cancelCommunityGreat"
+        // 社区评论
+        const val ADDCOMMUNITYCOMMENT="techApi/community/verify/v1/addCommunityComment"
     }
 
 }

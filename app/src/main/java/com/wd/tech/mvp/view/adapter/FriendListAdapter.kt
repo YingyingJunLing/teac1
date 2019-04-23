@@ -37,7 +37,7 @@ class FriendListAdapter(context: Context,list: List<FriendListGroupByIdBeanResul
     override fun onBindViewHolder(p0: MyViewHolder, p1: Int) {
         FrescoUtil.setPic(list.get(p1).headPic,p0.friend_head_image)
         p0.friend_name_text.setText(list.get(p1).nickName)
-        p0.friend_sign_text.setText(list.get(p1).remarkName)
+        p0.friend_sign_text.setText("")
         p0.friend_linear.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 var intent : Intent = Intent(context,FriendMessageActivity::class.java)

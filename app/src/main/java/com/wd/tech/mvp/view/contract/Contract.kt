@@ -34,10 +34,12 @@ class Contract
      */
     interface ICommunityListView{
         fun onSuccess(communityListBean: CommunityListBean)
+        fun onIPushSuccess(communityListBean: CommunityListBean)
         fun onFail()
     }
     interface ICommunityListPre{
         fun onICommunityListPre(hashMap: HashMap<String,String>,page:Int,count:Int)
+        fun onIPushCommunityListPre(hashMap: HashMap<String,String>,page:Int,count:Int)
     }
     /**
      * 咨询展示
