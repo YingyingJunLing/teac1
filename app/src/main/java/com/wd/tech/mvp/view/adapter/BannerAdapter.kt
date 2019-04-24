@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.information_list_advertisement_item.view.*
 
 class BannerAdapter(
     val context: Context?,
-    val bannerShowBean: BannerShowBean?,
+    val bannerBean: BannerShowBean?,
     val infoRecommendListBean: InfoRecommendListBean?
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -75,10 +75,19 @@ class BannerAdapter(
         if (p0 is ViewHolder) {
             val images = ArrayList<String>()
             val titles = ArrayList<String>()
-            bannerShowBean?.result?.forEach {
-                images.add(it.imageUrl!!)
-                titles.add(it.title)
-            }
+
+            images.add(bannerBean?.result?.get(0)?.imageUrl!!)
+            images.add(bannerBean?.result.get(1).imageUrl)
+            images.add(bannerBean.result.get(2).imageUrl)
+            images.add(bannerBean.result.get(3).imageUrl)
+            images.add(bannerBean.result.get(4).imageUrl)
+            images.add(bannerBean.result.get(5).imageUrl)
+            titles.add(bannerBean.result.get(0).title)
+            titles.add(bannerBean.result.get(1).title)
+            titles.add(bannerBean.result.get(2).title)
+            titles.add(bannerBean.result.get(3).title)
+            titles.add(bannerBean.result.get(4).title)
+            titles.add(bannerBean.result.get(5).title)
             // 为XBanner绑定数据
             p0.banner?.setData(images, titles)
             p0.banner?.run {
@@ -179,9 +188,9 @@ class BannerAdapter(
         }
     }
     override fun getItemCount(): Int {
-        if (bannerShowBean?.result?.size!=0&&infoRecommendListBean?.result?.size!=0) {
+        if (bannerBean?.result?.size!=0&&infoRecommendListBean?.result?.size!=0) {
             return infoRecommendListBean?.result!!.size+1
-        }else if (bannerShowBean?.result?.size!=0&&infoRecommendListBean?.result?.size==0){
+        }else if (bannerBean?.result?.size!=0&&infoRecommendListBean?.result?.size==0){
             return 1
         }
         return 0
