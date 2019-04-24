@@ -42,7 +42,6 @@ class WXEntryActivity : IWXAPIEventHandler, BaseActivity<Contract.IWechatLoginVi
             Toast.makeText(this, any.message, Toast.LENGTH_SHORT).show()
             val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
             sp.edit().putString("userId", any.result.userId).putString("sessionId", any.result.sessionId).putInt("vip",any.result.whetherVip).commit()
-            startActivity(Intent(this@WXEntryActivity, MainActivity::class.java))
             finish()
         }else{
             Toast.makeText(this, "登录失败", Toast.LENGTH_SHORT).show()
@@ -57,7 +56,6 @@ class WXEntryActivity : IWXAPIEventHandler, BaseActivity<Contract.IWechatLoginVi
             BaseResp.ErrCode.ERR_OK -> {
                 code = (p0 as SendAuth.Resp).code
                 var ak:String = "0110010010000"
-                Log.e("jjajjajjaj",code)
                 wechatLoginPresenter?.onIWechatLoginPre(ak,code!!)
             }
             else -> {

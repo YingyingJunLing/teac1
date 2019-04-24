@@ -115,6 +115,7 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
                     req.scope = "snsapi_userinfo"
                     req.state = "wechat_sdk_demo_test_neng"
                     WeiXinUtil.reg(this@LoginActivity)!!.sendReq(req)
+                    finish()
                 }
 
             }

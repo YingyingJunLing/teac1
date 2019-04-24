@@ -58,7 +58,7 @@
         </activity>
         <activity
                 android:name=".mvp.view.activity.MainActivity"
-                android:launchMode="singleTop">
+                android:launchMode="singleTask">
         </activity>
         <activity android:name=".mvp.view.activity.StartActivity">
             <intent-filter>
