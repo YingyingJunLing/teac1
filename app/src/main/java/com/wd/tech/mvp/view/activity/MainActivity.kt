@@ -7,9 +7,12 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v4.widget.DrawerLayout
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.DatePicker
@@ -27,21 +30,30 @@ import com.wd.tech.mvp.view.frag.InformationFragment
 import com.wd.tech.mvp.view.frag.MessageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.ceshi.*
+import java.lang.System.exit
 import java.util.*
 
-class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Contract.IUserInfoView,View.OnClickListener {
+class MainActivity : BaseActivity<Contract.IUserInfoView, UserInfoPresenter>(), Contract.IUserInfoView,
+    View.OnClickListener {
 
-    companion object{
-        var width : Int = 0
-        var height : Int = 0
+    companion object {
+        var width: Int = 0
+        var height: Int = 0
     }
-    var userInfoPresenter : UserInfoPresenter = UserInfoPresenter(this)
-    var hashMap : HashMap<String,String> = HashMap()
-    var first : String ?= null
-    var mMonth:Int ?=null
-    var mDay:Int ?=null
-    var mYear:Int ?=null
-    var mBirthDay :String ?=null
+
+    var userInfoPresenter: UserInfoPresenter = UserInfoPresenter(this)
+    var hashMap: HashMap<String, String> = HashMap()
+    var first: String? = null
+    var mMonth: Int? = null
+    var mDay: Int? = null
+    var mYear: Int? = null
+    var mBirthDay: String? = null
+    var isExit: Boolean = false
+    var handler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            isExit = false
+        }
+    }
 
     override fun createPresenter(): UserInfoPresenter? {
         return userInfoPresenter
@@ -49,8 +61,8 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
 
     override fun initActivityView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_main)
-        var windowManager : WindowManager = getWindowManager()
-        var metrics : DisplayMetrics = DisplayMetrics()
+        var windowManager: WindowManager = getWindowManager()
+        var metrics: DisplayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(metrics)
         width = metrics.widthPixels
         height = metrics.heightPixels
@@ -63,44 +75,42 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
 
     override fun onResume() {
         super.onResume()
-        var sharedPreferences : SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+        var sharedPreferences: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         var userId = sharedPreferences.getString("userId", "0")
         var sessionId = sharedPreferences.getString("sessionId", "0")
-        var type = sharedPreferences.getString("type","0")
-        Log.e("userallalalla",userId  +"用户id" +sessionId   +"登录状态"  +type   +  "类型")
+        var type = sharedPreferences.getString("type", "0")
         //我的页面处理
-        if (userId != "0" && sessionId != "0" && type == "1"){
-            wei_login.visibility=View.GONE
-            my_content.visibility=View.VISIBLE
-            hashMap.put("userId",userId)
-            hashMap.put("sessionId",sessionId)
+        if (userId != "0" && sessionId != "0" && type == "1") {
+            wei_login.visibility = View.GONE
+            my_content.visibility = View.VISIBLE
+            hashMap.put("userId", userId)
+            hashMap.put("sessionId", sessionId)
             userInfoPresenter.onIUserInfoPre(hashMap)
-        }else{
-            wei_login.visibility=View.VISIBLE
-            my_content.visibility=View.GONE
+        } else {
+            wei_login.visibility = View.VISIBLE
+            my_content.visibility = View.GONE
         }
-        if(userId !="0"&& sessionId !="0")
-        {
-            wei_login.visibility=View.GONE
-            my_content.visibility=View.VISIBLE
-            hashMap.put("userId",userId)
-            hashMap.put("sessionId",sessionId)
+        if (userId != "0" && sessionId != "0") {
+            wei_login.visibility = View.GONE
+            my_content.visibility = View.VISIBLE
+            hashMap.put("userId", userId)
+            hashMap.put("sessionId", sessionId)
             userInfoPresenter.onIUserInfoPre(hashMap)
         }
         first = intent.getStringExtra("first")
-        if(userId != "0" && sessionId != "0" && first == "1"){
-            wei_login.visibility=View.GONE
-            my_content.visibility=View.VISIBLE
-            hashMap.put("userId",userId)
-            hashMap.put("sessionId",sessionId)
+        if (userId != "0" && sessionId != "0" && first == "1") {
+            wei_login.visibility = View.GONE
+            my_content.visibility = View.VISIBLE
+            hashMap.put("userId", userId)
+            hashMap.put("sessionId", sessionId)
             userInfoPresenter.onIUserInfoPre(hashMap)
         }
     }
 
     override fun initView() {
-        drawer_layout.addDrawerListener(object : DrawerLayout.DrawerListener{
+        drawer_layout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerStateChanged(p0: Int) {
-                
+
             }
 
             override fun onDrawerSlide(p0: View, p1: Float) {
@@ -122,18 +132,28 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         bottomBar.init(supportFragmentManager)
             .setImgSize(60F, 60F)
             .setFontSize(10F)
-            .setChangeColor(Color.BLACK,Color.GRAY)
+            .setChangeColor(Color.BLACK, Color.GRAY)
             .setTabPadding(4F, 5F, 12F)
-            .addTabItem("咨询", R.mipmap.common_tab_informatiions,R.mipmap.common_tab_information, InformationFragment::class.java)
+            .addTabItem(
+                "咨询",
+                R.mipmap.common_tab_informatiions,
+                R.mipmap.common_tab_information,
+                InformationFragment::class.java
+            )
             .addTabItem("消息", R.mipmap.common_tab_messages, R.mipmap.common_tab_message, MessageFragment::class.java)
-            .addTabItem("社区", R.mipmap.common_tab_communitys,R.mipmap.common_tab_community, CommunityFragment::class.java)
-        user_head_constrain.maxHeight = height/4+100
-        user_constraintLayout_show.maxHeight = (height/4*3)
+            .addTabItem(
+                "社区",
+                R.mipmap.common_tab_communitys,
+                R.mipmap.common_tab_community,
+                CommunityFragment::class.java
+            )
+        user_head_constrain.maxHeight = height / 4 + 100
+        user_constraintLayout_show.maxHeight = (height / 4 * 3)
     }
 
     override fun onSuccess(userInfoBean: UserInfoBean) {
-        if (userInfoBean.status == "0000"){
-            FrescoUtil.setPic(userInfoBean.result.headPic,my_header)
+        if (userInfoBean.status == "0000") {
+            FrescoUtil.setPic(userInfoBean.result.headPic, my_header)
             my_nickName.setText(userInfoBean.result.nickName)
             my_qianming.setText(userInfoBean.result.signature)
             //按钮点击事件
@@ -145,14 +165,14 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
             my_task_next.setOnClickListener(this)
             my_setting_next.setOnClickListener(this)
             my_qiandao.setOnClickListener(this)
-        }else{
-            wei_login.visibility=View.VISIBLE
-            my_content.visibility=View.GONE
+        } else {
+            wei_login.visibility = View.VISIBLE
+            my_content.visibility = View.GONE
         }
     }
 
     override fun onSignSuccess(userSignBean: UserSignBean) {
-        Toast.makeText(this@MainActivity,userSignBean.message,Toast.LENGTH_LONG).show()
+        Toast.makeText(this@MainActivity, userSignBean.message, Toast.LENGTH_LONG).show()
     }
 
     override fun onFail() {
@@ -167,11 +187,12 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
             decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         }
     }
+
     /**
      * 按钮点击事件
      */
     override fun onClick(v: View?) {
-        when(v!!.id) {
+        when (v!!.id) {
             //登录
             R.id.ce_login -> {
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
@@ -180,28 +201,28 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
             R.id.ce_reg -> {
                 startActivity(Intent(this@MainActivity, RegisterActivity::class.java))
             }
-            R.id.my_collection_next->{
+            R.id.my_collection_next -> {
                 startActivity(Intent(this@MainActivity, MyCollectionActivity::class.java))
             }
-            R.id.my_attention_next->{
+            R.id.my_attention_next -> {
                 startActivity(Intent(this@MainActivity, MyAttentionActivity::class.java))
             }
-            R.id.my_score_next->{
+            R.id.my_score_next -> {
                 startActivity(Intent(this@MainActivity, MyScoreActivity::class.java))
             }
-            R.id.my_card_next->{
+            R.id.my_card_next -> {
                 startActivity(Intent(this@MainActivity, MyCardActivity::class.java))
             }
-            R.id.my_notice_next->{
+            R.id.my_notice_next -> {
                 startActivity(Intent(this@MainActivity, MyNoticeActivity::class.java))
             }
-            R.id.my_task_next->{
+            R.id.my_task_next -> {
                 startActivity(Intent(this@MainActivity, MyTaskActivity::class.java))
             }
-            R.id.my_setting_next->{
+            R.id.my_setting_next -> {
                 startActivity(Intent(this@MainActivity, MySettingActivity::class.java))
             }
-            R.id.my_qiandao->{
+            R.id.my_qiandao -> {
                 ShowBirthDialog()
             }
         }
@@ -213,7 +234,14 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         mMonth = c.get(Calendar.MONTH)
         mDay = c.get(Calendar.DAY_OF_MONTH)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            DatePickerDialog(this@MainActivity, R.style.DatePickThemeDialog, mDateSetListener, mYear!!, mMonth!!, mDay!!)
+            DatePickerDialog(
+                this@MainActivity,
+                R.style.DatePickThemeDialog,
+                mDateSetListener,
+                mYear!!,
+                mMonth!!,
+                mDay!!
+            )
                 .show()
         } else
             DatePickerDialog(this@MainActivity, mDateSetListener, mYear!!, mMonth!!, mDay!!)
@@ -246,7 +274,30 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
             mMonth = monthOfYear
             mBirthDay = mYear.toString() + mm + dd
             Log.e("birthday", mBirthDay.toString())
-            userInfoPresenter.onIUserSignPre(hashMap)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        userInfoPresenter.detachView()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit()
+            return false
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    fun exit() {
+        if (!isExit) {
+            isExit = true
+            Toast.makeText(applicationContext, "再按一次退出程序", Toast.LENGTH_SHORT).show()
+            handler.sendEmptyMessageDelayed(0, 2000)
+        } else {
+            finish()
+            System.exit(0)
         }
     }
 }

@@ -46,11 +46,7 @@ class MyCardActivity : BaseActivity<Contract.IMyCardView,MyCardPresenter>(),Cont
             }
         })
         //删除的方法
-        my_card_item_delete.setOnClickListener(object :View.OnClickListener{
-            override fun onClick(v: View?) {
 
-            }
-        })
     }
 
     override fun onSuccess(any: Any) {
