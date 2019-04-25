@@ -73,6 +73,8 @@ class Api {
         const val MyCard="techApi/community/verify/v1/findMyPostById"
         //查询我的通知
         const val MyNotice="techApi/tool/verify/v1/findSysNoticeList"
+        //删除帖子
+        const val DELETEPIST="techApi/community/verify/v1/deletePost"
     }
 
 }

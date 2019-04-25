@@ -5,14 +5,17 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.facebook.drawee.gestures.GestureDetector
+import android.widget.Toast
 import com.wd.tech.R
+import com.wd.tech.mvp.model.bean.DeletePostBean
 import com.wd.tech.mvp.presenter.presenterimpl.MyCardPresenter
 import com.wd.tech.mvp.view.adapter.MyCardAdapter
 import com.wd.tech.mvp.view.base.BaseActivity
 import com.wd.tech.mvp.view.contract.Contract
 import kotlinx.android.synthetic.main.activity_my_card.*
-import kotlinx.android.synthetic.main.my_card_item.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.HashMap
 
 class MyCardActivity : BaseActivity<Contract.IMyCardView,MyCardPresenter>(),Contract.IMyCardView {
@@ -20,6 +23,8 @@ class MyCardActivity : BaseActivity<Contract.IMyCardView,MyCardPresenter>(),Cont
     var hashMap: HashMap<String, String> = HashMap()
     var page :Int = 1
     var count :Int =10
+    var cid :String ? =null
+    var adapter :MyCardAdapter?=null
     override fun createPresenter(): MyCardPresenter? {
         myCardPresenter = MyCardPresenter(this)
         return myCardPresenter
@@ -27,6 +32,7 @@ class MyCardActivity : BaseActivity<Contract.IMyCardView,MyCardPresenter>(),Cont
 
     override fun initActivityView(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_my_card)
+        EventBus.getDefault().register(this)
     }
 
     override fun initData() {
@@ -45,20 +51,45 @@ class MyCardActivity : BaseActivity<Contract.IMyCardView,MyCardPresenter>(),Cont
                 finish()
             }
         })
-        //删除的方法
-
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
+    fun getEventBus(id:String)
+    {
+        cid = id
     }
 
     override fun onSuccess(any: Any) {
         if(any is MyCardActivityBean)
         {
             val result = any.getResult()
-            my_card_recy.adapter= MyCardAdapter(this,result)
+            my_card_recy. adapter= MyCardAdapter(this,result)
+            adapter = MyCardAdapter(this,result)
+            adapter?.setCallBackDelete(object :MyCardAdapter.CallBackDelelte{
+                override fun setDelete() {
+
+                  myCardPresenter?.onIDeleltePost(hashMap, cid.toString())
+                    adapter?.notifyDataSetChanged()
+                }
+            })
+
+        }
+        if(any is DeletePostBean)
+        {
+            Toast.makeText(this@MyCardActivity,any.message,Toast.LENGTH_LONG).show()
         }
     }
 
     override fun onFail() {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(myCardPresenter !=null)
+        {
+            myCardPresenter!!.detachView()
+        }
+        EventBus.getDefault().unregister(this)
     }
 
 }

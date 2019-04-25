@@ -38,7 +38,7 @@ class MyCardActivityBean
         var content: String? = null
         var file: String? = null
         var headPic: String? = null
-        var id: Int = 0
+        var id: String ?=null
         var nickName: String? = null
         var praise: Int = 0
         var publishTime: Long = 0

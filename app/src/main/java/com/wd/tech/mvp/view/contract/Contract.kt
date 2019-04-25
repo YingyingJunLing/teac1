@@ -1,7 +1,6 @@
 package com.wd.tech.mvp.view.contract
 
 import com.wd.tech.mvp.model.bean.*
-import retrofit2.http.Query
 import java.io.File
 
 class Contract
@@ -240,5 +239,6 @@ class Contract
     }
     interface IMyCardPre{
         fun onIMyCardPre(hashMap: HashMap<String, String>, page: Int, count: Int)
+        fun onIDeleltePost(hashMap: HashMap<String, String>, id: String)
     }
 }

@@ -13,6 +13,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.CANCELCLOOECTION
 import com.wd.tech.mvp.model.api.Api.Companion.CANCELCOMMUNITYGREAT
 import com.wd.tech.mvp.model.api.Api.Companion.CANCELGREATE
 import com.wd.tech.mvp.model.api.Api.Companion.COMMUNITYLIST
+import com.wd.tech.mvp.model.api.Api.Companion.DELETEPIST
 import com.wd.tech.mvp.model.api.Api.Companion.DETALICOMMENT
 import com.wd.tech.mvp.model.api.Api.Companion.FINDAllINFOPLATE
 import com.wd.tech.mvp.model.api.Api.Companion.FINDINFOADVERTISING
@@ -182,4 +183,7 @@ interface ApiServer {
     //我的通知
     @GET(MyNotice)
     fun getMyNotice(@HeaderMap hashMap: HashMap<String, String>,@Query("page") page: Int, @Query("count") count: Int)
+    //删除我的帖子
+    @DELETE(DELETEPIST)
+    fun getDeleltPost(@HeaderMap hashMap: HashMap<String, String>, @Query("communityId") id: String?):Observable<DeletePostBean>
 }
