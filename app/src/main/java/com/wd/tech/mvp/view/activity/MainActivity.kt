@@ -5,9 +5,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v4.widget.DrawerLayout
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
@@ -34,6 +37,12 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
     var userInfoPresenter : UserInfoPresenter = UserInfoPresenter(this)
     var hashMap : HashMap<String,String> = HashMap()
     var first : String ?= null
+    var isExit : Boolean = false
+    var handler : Handler = object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            isExit = false
+        }
+    }
 
     override fun createPresenter(): UserInfoPresenter? {
         return userInfoPresenter
@@ -59,7 +68,6 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
         var userId = sharedPreferences.getString("userId", "0")
         var sessionId = sharedPreferences.getString("sessionId", "0")
         var type = sharedPreferences.getString("type","0")
-        Log.e("userallalalla",userId  +"用户id" +sessionId   +"登录状态"  +type   +  "类型")
         //我的页面处理
         if (userId != "0" && sessionId != "0" && type == "1"){
             wei_login.visibility=View.GONE
@@ -196,6 +204,30 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
             R.id.my_qiandao->{
                 userInfoPresenter.onIUserSignPre(hashMap)
             }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        userInfoPresenter.detachView()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            exit()
+            return false
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    fun exit(){
+        if (!isExit){
+            isExit = true
+            Toast.makeText(applicationContext,"再按一次退出程序", Toast.LENGTH_SHORT).show()
+            handler.sendEmptyMessageDelayed(0,2000)
+        }else{
+            finish()
+            System.exit(0)
         }
     }
 }
