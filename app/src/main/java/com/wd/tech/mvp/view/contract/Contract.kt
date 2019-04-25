@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.view.contract
 
 import com.wd.tech.mvp.model.bean.*
+import retrofit2.http.Query
 import java.io.File
 
 class Contract
@@ -229,5 +230,15 @@ class Contract
     interface IVipPre{
         fun onIFindVipCommodityListPre()
         fun onIByVip(hashMap: HashMap<String, String>,commodityId: Int,sign:String)
+    }
+    /**
+     * 我的积分
+     */
+    interface IMyCardView{
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface IMyCardPre{
+        fun onIMyCardPre(hashMap: HashMap<String, String>, page: Int, count: Int)
     }
 }

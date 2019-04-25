@@ -14,4 +14,5 @@
     <color name="balck3">#333333</color>
     <color name="grey">#666666</color>
     <color name="pop">#CCF8F4F4</color>
+    <color name="theme_color_day" >#3E6588</color>
 </resources>

@@ -114,6 +114,7 @@ class PayVipActivity : BaseActivity<Contract.IVipView, VipPresenter>() ,Contract
             {
                 var signn =  Md5.MD5(useId+cid+"tech")
                 vipPresenter?.onIByVip(hashMap,cid, signn)
+                //微信支付
                 if(type ==1)
                 {
                     val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
@@ -146,6 +147,7 @@ class PayVipActivity : BaseActivity<Contract.IVipView, VipPresenter>() ,Contract
                             }
                         })
                 }else if(type ==2)
+                    //支付宝支付
                 {
                     val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
                     sslRetrofit.getZhiPay(hashMap,orderByID,2)

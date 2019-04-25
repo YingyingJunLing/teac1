@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -21,7 +21,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/white</item>
     </style>
+    <style name="DatePickThemeDialog" parent="android:Theme.Material.Light.Dialog" tools:targetApi="lollipop">
+        <item name="android:colorAccent" >@color/theme_color_day</item>
+        <item name="android:colorPrimary">@color/theme_color_day</item>
+        <item name="android:colorPrimaryDark">@color/theme_color_day</item>
 
+    </style>
 
 
 </resources>

@@ -69,6 +69,10 @@ class Api {
         const val CANCELCOMMUNITYGREAT="techApi/community/verify/v1/cancelCommunityGreat"
         // 社区评论
         const val ADDCOMMUNITYCOMMENT="techApi/community/verify/v1/addCommunityComment"
+        //查询我的帖子
+        const val MyCard="techApi/community/verify/v1/findMyPostById"
+        //查询我的通知
+        const val MyNotice="techApi/tool/verify/v1/findSysNoticeList"
     }
 
 }

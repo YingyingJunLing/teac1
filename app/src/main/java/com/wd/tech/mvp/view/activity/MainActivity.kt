@@ -1,15 +1,18 @@
 package com.wd.tech.mvp.view.activity
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.DatePicker
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.wd.tech.R
@@ -24,6 +27,7 @@ import com.wd.tech.mvp.view.frag.InformationFragment
 import com.wd.tech.mvp.view.frag.MessageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.ceshi.*
+import java.util.*
 
 class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Contract.IUserInfoView,View.OnClickListener {
 
@@ -34,6 +38,10 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
     var userInfoPresenter : UserInfoPresenter = UserInfoPresenter(this)
     var hashMap : HashMap<String,String> = HashMap()
     var first : String ?= null
+    var mMonth:Int ?=null
+    var mDay:Int ?=null
+    var mYear:Int ?=null
+    var mBirthDay :String ?=null
 
     override fun createPresenter(): UserInfoPresenter? {
         return userInfoPresenter
@@ -194,8 +202,51 @@ class MainActivity : BaseActivity<Contract.IUserInfoView,UserInfoPresenter>(),Co
                 startActivity(Intent(this@MainActivity, MySettingActivity::class.java))
             }
             R.id.my_qiandao->{
-                userInfoPresenter.onIUserSignPre(hashMap)
+                ShowBirthDialog()
             }
+        }
+    }
+
+    private fun ShowBirthDialog() {
+        val c = Calendar.getInstance()
+        mYear = c.get(Calendar.YEAR)
+        mMonth = c.get(Calendar.MONTH)
+        mDay = c.get(Calendar.DAY_OF_MONTH)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            DatePickerDialog(this@MainActivity, R.style.DatePickThemeDialog, mDateSetListener, mYear!!, mMonth!!, mDay!!)
+                .show()
+        } else
+            DatePickerDialog(this@MainActivity, mDateSetListener, mYear!!, mMonth!!, mDay!!)
+                .show()
+
+    }
+
+    /**
+     * 选择日期
+     */
+    private val mDateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+        if (view.isShown) {
+            mYear = year
+            val mm: String
+            val dd: String
+            if (monthOfYear < 9) {
+                mMonth = monthOfYear + 1
+                mm = "0$mMonth"
+            } else {
+                mMonth = monthOfYear + 1
+                mm = mMonth.toString()
+            }
+            if (dayOfMonth < 10) {
+                mDay = dayOfMonth
+                dd = "0$mDay"
+            } else {
+                mDay = dayOfMonth
+                dd = mDay.toString()
+            }
+            mMonth = monthOfYear
+            mBirthDay = mYear.toString() + mm + dd
+            Log.e("birthday", mBirthDay.toString())
+            userInfoPresenter.onIUserSignPre(hashMap)
         }
     }
 }

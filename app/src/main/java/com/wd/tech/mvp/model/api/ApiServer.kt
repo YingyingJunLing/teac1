@@ -26,6 +26,8 @@ import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLISTBYID
 import com.wd.tech.mvp.model.api.Api.Companion.INITFRIENDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.MODIFYHEADPIC
+import com.wd.tech.mvp.model.api.Api.Companion.MyCard
+import com.wd.tech.mvp.model.api.Api.Companion.MyNotice
 import com.wd.tech.mvp.model.api.Api.Companion.PAY
 import com.wd.tech.mvp.model.api.Api.Companion.REG
 import com.wd.tech.mvp.model.api.Api.Companion.RELEASEPOST
@@ -34,6 +36,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.USERSIGN
 import com.wd.tech.mvp.model.api.Api.Companion.WECHATLOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.infoPayByIntegral
 import com.wd.tech.mvp.model.bean.*
+import com.wd.tech.mvp.view.activity.MyCardActivityBean
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -173,4 +176,10 @@ interface ApiServer {
     //社区评论
     @POST(ADDCOMMUNITYCOMMENT)
     fun getAddCommunityComment(@HeaderMap hashMap: HashMap<String, String>,@Query("communityId")communityId: Int,@Query("content")content: String): Observable<CommunityGreatBean>
+    //我的帖子
+    @GET(MyCard)
+    fun getMyCard(@HeaderMap hashMap: HashMap<String, String>,@Query("page") page: Int, @Query("count") count: Int):Observable<MyCardActivityBean>
+    //我的通知
+    @GET(MyNotice)
+    fun getMyNotice(@HeaderMap hashMap: HashMap<String, String>,@Query("page") page: Int, @Query("count") count: Int)
 }
