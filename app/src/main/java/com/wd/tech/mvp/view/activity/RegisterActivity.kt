@@ -2,8 +2,11 @@ package com.wd.tech.mvp.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import cn.jpush.im.android.api.JMessageClient
+import cn.jpush.im.api.BasicCallback
 import com.wd.tech.R
 import com.wd.tech.base.RsaCoder
 import com.wd.tech.mvp.model.bean.RegBean
@@ -17,6 +20,9 @@ class RegisterActivity : BaseActivity<Contract.IRegView, RegPresenter>(), Contra
 
     var regPresenter: RegPresenter? = null
     var accountValidatorUtil: AccountValidatorUtil? = null
+    var phone : String ?= null
+    var passWord : String ?= null
+    var pwd : String ?= null
     override fun createPresenter(): RegPresenter? {
         regPresenter = RegPresenter(this)
         return regPresenter
@@ -40,6 +46,11 @@ class RegisterActivity : BaseActivity<Contract.IRegView, RegPresenter>(), Contra
     override fun onSuccess(regBean: RegBean) {
         if (regBean.status.equals("0000")) {
             Toast.makeText(this, regBean.message, Toast.LENGTH_LONG).show()
+            JMessageClient.register(phone,pwd,object : BasicCallback(){
+                override fun gotResult(p0: Int, p1: String?) {
+                    Log.i("极光",p0.toString()+"--------"+p1)
+                }
+            })
             startActivity(Intent(this@RegisterActivity,LoginActivity::class.java))
             finish()
         } else {
@@ -60,15 +71,15 @@ class RegisterActivity : BaseActivity<Contract.IRegView, RegPresenter>(), Contra
 
                 var reg_nickName = reg_nickName.text.toString().trim()
                 //验证手机号
-                var phone = reg_phone.text.toString().trim()
-                val mobile = accountValidatorUtil!!.isMobile(phone)
+                phone = reg_phone.text.toString().trim()
+                val mobile = accountValidatorUtil!!.isMobile(phone!!)
                 if (!mobile) {
                     Toast.makeText(this, "输入的手机号不合法", Toast.LENGTH_LONG).show()
                 }
                 //验证密码
-                var reg_pwd = reg_pwd.text.toString().trim()
-                var passWord = RsaCoder.encryptByPublicKey(reg_pwd)
-                regPresenter!!.onIRegPre(phone,reg_nickName,passWord)
+                pwd = reg_pwd.text.toString().trim()
+                passWord = RsaCoder.encryptByPublicKey(pwd)
+                regPresenter!!.onIRegPre(phone!!,reg_nickName,passWord!!)
             }
             //短信验证码按钮点击事件
             R.id.login_reg_message -> {
