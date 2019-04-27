@@ -8,6 +8,7 @@
         tools:context=".mvp.view.activity.StartActivity"
         android:background="@mipmap/bitmap"
         android:orientation="horizontal"
+        android:fitsSystemWindows="true"
         android:gravity="center_horizontal"
         >
     <ImageView

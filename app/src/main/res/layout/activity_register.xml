@@ -6,6 +6,7 @@
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@mipmap/bitmap"
+        android:fitsSystemWindows="true"
         tools:context=".mvp.view.activity.RegisterActivity">
     <ImageView
             android:id="@+id/reg_head_img"
