@@ -12,18 +12,14 @@ import cn.jpush.im.android.api.model.Conversation
 import com.wd.tech.R
 import com.wd.tech.mvp.model.api.ApiServer
 import com.wd.tech.mvp.model.bean.FriendInfoMationBean
-import com.wd.tech.mvp.model.bean.FriendListGroupByIdBeanResult
 import com.wd.tech.mvp.model.utils.RetrofitUtil
 import com.wd.tech.mvp.view.adapter.FriendMessageAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_friend_message.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.util.HashMap
-import cn.jmessage.biz.httptask.task.GetEventNotificationTaskMng.EventEntity
+import cn.jpush.im.android.api.event.MessageEvent
 
 
 class FriendMessageActivity : AppCompatActivity() {
@@ -33,16 +29,11 @@ class FriendMessageActivity : AppCompatActivity() {
     var hashMap: HashMap<String, String> = HashMap()
     lateinit var phone : String
 
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    fun getEvent(friendListGroupByIdBeanResult : FriendListGroupByIdBeanResult){
-        friendUid = friendListGroupByIdBeanResult.friendUid
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend_message)
         JMessageClient.registerEventReceiver(this)
-        EventBus.getDefault().register(this)
+        friendUid = intent.getIntExtra("friendUid", 0)
         Log.i("用户ID",friendUid.toString())
         var apiServer : ApiServer = RetrofitUtil.instant.SSLRetrofit()
         var sharedPreferences: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
@@ -63,15 +54,19 @@ class FriendMessageActivity : AppCompatActivity() {
                     var createSingleConversation = Conversation.createSingleConversation(phone)
                     val singleConversation = JMessageClient.getSingleConversation(phone)
                     var list = singleConversation.allMessage
+                    friend_message_recycle.layoutManager = LinearLayoutManager(this@FriendMessageActivity,LinearLayoutManager.VERTICAL,false)
                     adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
                     friend_message_recycle.adapter = adapter
-                    friend_message_recycle.layoutManager = LinearLayoutManager(this@FriendMessageActivity,LinearLayoutManager.VERTICAL,false)
                     user_push_text.setOnClickListener(object : View.OnClickListener{
                         override fun onClick(v: View?) {
                             var edit_text = user_push_edit.text.toString()
                             if (user_push_edit.text.toString().length!=0){
                                 var message = JMessageClient.createSingleTextMessage(phone, edit_text)
                                 JMessageClient.sendMessage(message)
+                                val singleConversation = JMessageClient.getSingleConversation(phone)
+                                var list = singleConversation.allMessage
+                                adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
+                                friend_message_recycle.adapter = adapter
                                 user_push_edit.setText(null)
                             }
                         }
@@ -84,7 +79,7 @@ class FriendMessageActivity : AppCompatActivity() {
             })
     }
 
-    fun onEventMainThread(event: EventEntity) {
+    fun onEventMainThread(event: MessageEvent) {
         val singleConversation = JMessageClient.getSingleConversation(phone)
         var list = singleConversation.allMessage
         adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
@@ -93,7 +88,6 @@ class FriendMessageActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().unregister(this)
         JMessageClient.unRegisterEventReceiver(this)
     }
 
