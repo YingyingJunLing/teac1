@@ -17,4 +17,8 @@ class MyApp : Application() {
         JMessageClient.setDebugMode(true)
         JMessageClient.init(this)
     }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+    }
 }

@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
+import cn.jpush.im.android.api.JMessageClient
 import com.wd.tech.R
 import com.wd.tech.mvp.model.bean.ModifyHeadPicBean
 import com.wd.tech.mvp.model.bean.UserInfoBean
@@ -131,6 +132,7 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
                             var hashMapEnd : HashMap<String,String> = HashMap()
                             hashMapEnd.put("userId",userId)
                             hashMapEnd.put("sessionId",sessionId)
+                            JMessageClient.logout();
                             alertDialog.dismiss()
                             settingUserInfoPresenter.onSettingIUserInfoPre(hashMapEnd)
                         }
@@ -215,7 +217,7 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK){
             if (AlterAndAnimationUtil.type=="1"){
-                alterAndAnimationUtil.hideDialog()
+
             }else{
                 finish()
             }

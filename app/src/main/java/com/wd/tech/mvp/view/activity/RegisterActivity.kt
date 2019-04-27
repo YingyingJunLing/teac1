@@ -2,11 +2,8 @@ package com.wd.tech.mvp.view.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
-import cn.jpush.im.android.api.JMessageClient
-import cn.jpush.im.api.BasicCallback
 import com.wd.tech.R
 import com.wd.tech.base.RsaCoder
 import com.wd.tech.mvp.model.bean.RegBean
@@ -46,11 +43,6 @@ class RegisterActivity : BaseActivity<Contract.IRegView, RegPresenter>(), Contra
     override fun onSuccess(regBean: RegBean) {
         if (regBean.status.equals("0000")) {
             Toast.makeText(this, regBean.message, Toast.LENGTH_LONG).show()
-            JMessageClient.register(phone,pwd,object : BasicCallback(){
-                override fun gotResult(p0: Int, p1: String?) {
-                    Log.i("极光",p0.toString()+"--------"+p1)
-                }
-            })
             startActivity(Intent(this@RegisterActivity,LoginActivity::class.java))
             finish()
         } else {

@@ -58,7 +58,6 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
     }
 
     override fun onSuccess(loginBean: LoginBean){
-
         if(loginBean.status.equals("0000")) {
             val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
             sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).putString("phone", phone).putString("pwd", pwd).putInt("vip",loginBean.result.whetherVip).commit()
@@ -67,28 +66,17 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
             }else{
                 sp.edit().putString("type","2").commit()
             }
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            intent.putExtra("first","1")
-            Log.i("极光用户名",phone)
-            JMessageClient.login(phone,pwd,object : BasicCallback(){
+            JMessageClient.register(phone,pwd,object : BasicCallback(){
                 override fun gotResult(p0: Int, p1: String?) {
-                    Log.i("极光",p0.toString()+"--------"+p1)
-                    if (p1 == "user not exist"){
-                        JMessageClient.register(phone,pwd,object : BasicCallback(){
-                            override fun gotResult(p0: Int, p1: String?) {
-                                Log.i("极光",p0.toString()+"--------"+p1)
-                                if(p0 == 0){
-                                    JMessageClient.login(phone,pwd,object : BasicCallback(){
-                                        override fun gotResult(p0: Int, p1: String?) {
-                                            Log.i("极光",p0.toString()+"--------"+p1)
-                                        }
-                                    })
-                                }
-                            }
-                        })
-                    }
+                    JMessageClient.login(phone,pwd,object : BasicCallback(){
+                        override fun gotResult(p0: Int, p1: String?) {
+                            Log.i("极光",p1)
+                        }
+                    })
                 }
             })
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent.putExtra("first","1")
             startActivity(intent)
             Toast.makeText(this,loginBean.message,Toast.LENGTH_LONG).show()
             finish()
