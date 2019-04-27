@@ -18,6 +18,8 @@ import android.view.WindowManager
 import android.widget.DatePicker
 import android.widget.LinearLayout
 import android.widget.Toast
+import cn.jpush.im.android.api.JMessageClient
+import cn.jpush.im.api.BasicCallback
 import com.wd.tech.R
 import com.wd.tech.mvp.model.bean.UserInfoBean
 import com.wd.tech.mvp.model.bean.UserSignBean
@@ -28,6 +30,7 @@ import com.wd.tech.mvp.view.contract.Contract
 import com.wd.tech.mvp.view.frag.CommunityFragment
 import com.wd.tech.mvp.view.frag.InformationFragment
 import com.wd.tech.mvp.view.frag.MessageFragment
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.ceshi.*
 import java.lang.System.exit
@@ -75,9 +78,12 @@ class MainActivity : BaseActivity<Contract.IUserInfoView, UserInfoPresenter>(), 
 
     override fun onResume() {
         super.onResume()
+        first = intent.getStringExtra("first")
         var sharedPreferences: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         var userId = sharedPreferences.getString("userId", "0")
         var sessionId = sharedPreferences.getString("sessionId", "0")
+        var phone = sharedPreferences.getString("phone", "0")
+        var pwd = sharedPreferences.getString("pwd", "0")
         var type = sharedPreferences.getString("type", "0")
         //我的页面处理
         if (userId != "0" && sessionId != "0" && type == "1") {
@@ -86,24 +92,31 @@ class MainActivity : BaseActivity<Contract.IUserInfoView, UserInfoPresenter>(), 
             hashMap.put("userId", userId)
             hashMap.put("sessionId", sessionId)
             userInfoPresenter.onIUserInfoPre(hashMap)
+            JMessageClient.login(phone,pwd,object : BasicCallback(){
+                override fun gotResult(p0: Int, p1: String?) {
+                    Log.i("极光",p0.toString()+"--------"+p1)
+                }
+            })
+        } else if (userId != "0" && sessionId != "0") {
+            wei_login.visibility = View.GONE
+            my_content.visibility = View.VISIBLE
+            hashMap.put("userId", userId)
+            hashMap.put("sessionId", sessionId)
+            userInfoPresenter.onIUserInfoPre(hashMap)
+            JMessageClient.login(phone,pwd,object : BasicCallback(){
+                override fun gotResult(p0: Int, p1: String?) {
+                    Log.i("极光",p0.toString()+"--------"+p1)
+                }
+            })
+        }else if (userId != "0" && sessionId != "0" && first == "1") {
+            wei_login.visibility = View.GONE
+            my_content.visibility = View.VISIBLE
+            hashMap.put("userId", userId)
+            hashMap.put("sessionId", sessionId)
+            userInfoPresenter.onIUserInfoPre(hashMap)
         } else {
             wei_login.visibility = View.VISIBLE
             my_content.visibility = View.GONE
-        }
-        if (userId != "0" && sessionId != "0") {
-            wei_login.visibility = View.GONE
-            my_content.visibility = View.VISIBLE
-            hashMap.put("userId", userId)
-            hashMap.put("sessionId", sessionId)
-            userInfoPresenter.onIUserInfoPre(hashMap)
-        }
-        first = intent.getStringExtra("first")
-        if (userId != "0" && sessionId != "0" && first == "1") {
-            wei_login.visibility = View.GONE
-            my_content.visibility = View.VISIBLE
-            hashMap.put("userId", userId)
-            hashMap.put("sessionId", sessionId)
-            userInfoPresenter.onIUserInfoPre(hashMap)
         }
     }
 
@@ -280,6 +293,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView, UserInfoPresenter>(), 
     override fun onDestroy() {
         super.onDestroy()
         userInfoPresenter.detachView()
+        JMessageClient.logout();
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

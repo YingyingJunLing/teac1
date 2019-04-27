@@ -5,8 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import cn.jpush.im.android.api.JMessageClient
+import cn.jpush.im.api.BasicCallback
 
 import com.wd.tech.base.RsaCoder
 import com.wd.tech.mvp.model.bean.LoginBean
@@ -27,6 +30,8 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
     var accountValidatorUtil:AccountValidatorUtil?=null
     private var sp: SharedPreferences? = null
     var b : Boolean = false
+    var phone : String ?= null
+    var pwd : String ?= null
 
     override fun createPresenter(): LoginPresenter? {
          loginPresenter = LoginPresenter(this);
@@ -38,7 +43,7 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
     override fun initData() {
         b = sp!!.getBoolean("记住", false)
         if (b) {
-            login_phone.setText(sp!!.getString("name", ""))
+            login_phone!!.setText(sp!!.getString("name", ""))
             login_pwd.setText(sp!!.getString("pass", ""))
             login_remember_pwd.setChecked(b)
         }
@@ -56,7 +61,7 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
 
         if(loginBean.status.equals("0000")) {
             val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
-            sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).putInt("vip",loginBean.result.whetherVip).commit()
+            sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).putString("phone", phone).putString("pwd", pwd).putInt("vip",loginBean.result.whetherVip).commit()
             if(login_remember_pwd.isChecked){
                 sp.edit().putString("type","1").commit()
             }else{
@@ -64,6 +69,26 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
             }
             val intent = Intent(this@LoginActivity, MainActivity::class.java)
             intent.putExtra("first","1")
+            Log.i("极光用户名",phone)
+            JMessageClient.login(phone,pwd,object : BasicCallback(){
+                override fun gotResult(p0: Int, p1: String?) {
+                    Log.i("极光",p0.toString()+"--------"+p1)
+                    if (p1 == "user not exist"){
+                        JMessageClient.register(phone,pwd,object : BasicCallback(){
+                            override fun gotResult(p0: Int, p1: String?) {
+                                Log.i("极光",p0.toString()+"--------"+p1)
+                                if(p0 == 0){
+                                    JMessageClient.login(phone,pwd,object : BasicCallback(){
+                                        override fun gotResult(p0: Int, p1: String?) {
+                                            Log.i("极光",p0.toString()+"--------"+p1)
+                                        }
+                                    })
+                                }
+                            }
+                        })
+                    }
+                }
+            })
             startActivity(intent)
             Toast.makeText(this,loginBean.message,Toast.LENGTH_LONG).show()
             finish()
@@ -78,28 +103,28 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
         {
             //登录按钮点击事件
             R.id.login_btn ->{
-                var login_pwd =  login_pwd.text.toString().trim()
+                pwd =  login_pwd.text.toString().trim()
                 //加密后的密码
-                var passWord = RsaCoder.encryptByPublicKey(login_pwd)
+                var passWord = RsaCoder.encryptByPublicKey(pwd)
                 //验证密码
-                val password = accountValidatorUtil!!.isPassword(login_pwd)
+                val password = accountValidatorUtil!!.isPassword(pwd!!)
                 if (!password) {
                     Toast.makeText(this, "输入密码不合法", Toast.LENGTH_LONG).show()
                 }
-                var login_phone = login_phone.text.toString().trim()
+                phone = login_phone.text.toString().trim()
                 //判断手机号是否合法
-                val mobile = accountValidatorUtil!!.isMobile(login_phone)
+                val mobile = accountValidatorUtil!!.isMobile(phone!!)
                 if(!mobile)
                 {
                     Toast.makeText(this,"输入数据不合法，请检查",Toast.LENGTH_LONG).show()
                     return
                 }else{
-                    loginPresenter!!.onILoinPre(login_phone,passWord)
+                    loginPresenter!!.onILoinPre(phone!!,passWord)
                 }
                 //记住密码
                 val edit = sp!!.edit()
-                edit.putString("name", login_phone)
-                edit.putString("pass", login_pwd)
+                edit.putString("name", phone!!)
+                edit.putString("pass", pwd!!)
                 edit.putBoolean("记住", login_remember_pwd.isChecked())
                 edit.commit()
             }

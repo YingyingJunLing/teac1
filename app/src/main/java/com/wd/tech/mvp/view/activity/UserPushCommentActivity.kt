@@ -79,6 +79,7 @@ class UserPushCommentActivity : BaseActivity<Contract.IUserPushCommentView,UserP
                 dialogShow()
             }
         })
+        //点击发表事件
         push_comment_text.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 var flieList : ArrayList<File> = ArrayList<File>()

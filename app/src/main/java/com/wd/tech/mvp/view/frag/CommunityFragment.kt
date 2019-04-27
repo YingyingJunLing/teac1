@@ -62,6 +62,7 @@ class CommunityFragment : BaseFragment<Contract.ICommunityListView,CommunityList
         view.xRecycle_community.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
         xRecycle_community = view.xRecycle_community
         loading_linear = view.loading_linear
+        //点击编辑的按钮 也就是发表评论的按钮
         view.user_push_comment_image.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 var intent : Intent = Intent(activity,UserPushCommentActivity::class.java)
