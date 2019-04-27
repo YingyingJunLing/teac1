@@ -18,6 +18,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.DETALICOMMENT
 import com.wd.tech.mvp.model.api.Api.Companion.FINDAllINFOPLATE
 import com.wd.tech.mvp.model.api.Api.Companion.FINDINFOADVERTISING
 import com.wd.tech.mvp.model.api.Api.Companion.FRIENDGROUPLIST
+import com.wd.tech.mvp.model.api.Api.Companion.FRIENDINFOMATION
 import com.wd.tech.mvp.model.api.Api.Companion.FindVipCommodityList
 import com.wd.tech.mvp.model.api.Api.Companion.FRIENDLISTBYGROUPID
 import com.wd.tech.mvp.model.api.Api.Companion.INFOCOLLECTIONLIST
@@ -183,7 +184,13 @@ interface ApiServer {
     //我的通知
     @GET(MyNotice)
     fun getMyNotice(@HeaderMap hashMap: HashMap<String, String>,@Query("page") page: Int, @Query("count") count: Int)
+
     //删除我的帖子
     @DELETE(DELETEPIST)
     fun getDeleltPost(@HeaderMap hashMap: HashMap<String, String>, @Query("communityId") id: String?):Observable<DeletePostBean>
+
+    //根据用户ID查询用户信息
+    @GET(FRIENDINFOMATION)
+    fun getFriendInfoMation(@HeaderMap hashMap: HashMap<String, String>,@Query("friend") friend: String): Observable<FriendInfoMationBean>
+
 }

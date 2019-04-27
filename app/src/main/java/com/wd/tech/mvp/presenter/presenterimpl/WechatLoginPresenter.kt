@@ -24,7 +24,7 @@ class WechatLoginPresenter( val wxEntryActivity:WXEntryActivity) : BasePresenter
 
                 override fun onNext(t: LoginBean) {
                     Log.e("成功","成功")
-                    wxEntryActivity!!.onIWechatLoginSuccess(t)
+                    wxEntryActivity?.onIWechatLoginSuccess(t)
                 }
 
                 override fun onError(e: Throwable) {

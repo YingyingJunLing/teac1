@@ -140,7 +140,7 @@ class InfoDetailPresenter (val detailsActivity: DetailsActivity): BasePresenter<
 
     }
 
-    override fun onInfoDetailPre( hashMap: HashMap<String, String>,id: Int) {
+    override fun onInfoDetailPre(hashMap: HashMap<String, String>,id: Int) {
         val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
         sslRetrofit.getInfoDetail(hashMap,id)
             .subscribeOn(Schedulers.io())

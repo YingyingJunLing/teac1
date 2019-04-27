@@ -26,7 +26,7 @@ class NetworkChangeReceiverUtil : BroadcastReceiver() {
             var bulider : AlertDialog.Builder = AlertDialog.Builder(context)
             val alertDialog : AlertDialog = bulider.create()
             alertDialog.setView(view)
-            alertDialog.window.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY)
+            alertDialog?.window.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY)
             alertDialog.show()
             Toast.makeText(context, "当前无网络连接", Toast.LENGTH_SHORT).show()
         }

@@ -82,8 +82,8 @@ class MainActivity : BaseActivity<Contract.IUserInfoView, UserInfoPresenter>(), 
         var sharedPreferences: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
         var userId = sharedPreferences.getString("userId", "0")
         var sessionId = sharedPreferences.getString("sessionId", "0")
-        var phone = sharedPreferences.getString("phone", "0")
         var pwd = sharedPreferences.getString("pwd", "0")
+        var phone = sharedPreferences.getString("phone", "0")
         var type = sharedPreferences.getString("type", "0")
         //我的页面处理
         if (userId != "0" && sessionId != "0" && type == "1") {
@@ -94,7 +94,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView, UserInfoPresenter>(), 
             userInfoPresenter.onIUserInfoPre(hashMap)
             JMessageClient.login(phone,pwd,object : BasicCallback(){
                 override fun gotResult(p0: Int, p1: String?) {
-                    Log.i("极光",p0.toString()+"--------"+p1)
+
                 }
             })
         } else if (userId != "0" && sessionId != "0") {
@@ -105,7 +105,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView, UserInfoPresenter>(), 
             userInfoPresenter.onIUserInfoPre(hashMap)
             JMessageClient.login(phone,pwd,object : BasicCallback(){
                 override fun gotResult(p0: Int, p1: String?) {
-                    Log.i("极光",p0.toString()+"--------"+p1)
+
                 }
             })
         }else if (userId != "0" && sessionId != "0" && first == "1") {
@@ -114,6 +114,11 @@ class MainActivity : BaseActivity<Contract.IUserInfoView, UserInfoPresenter>(), 
             hashMap.put("userId", userId)
             hashMap.put("sessionId", sessionId)
             userInfoPresenter.onIUserInfoPre(hashMap)
+            JMessageClient.login(phone,pwd,object : BasicCallback(){
+                override fun gotResult(p0: Int, p1: String?) {
+
+                }
+            })
         } else {
             wei_login.visibility = View.VISIBLE
             my_content.visibility = View.GONE

@@ -22,4 +22,8 @@ class MyApp : Application() {
         JMessageClient.init(this)
         MobSDK.init(this,"2ae99603e8708","47d7cae6cfff51929a3a7cc201f7f769")
     }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+    }
 }

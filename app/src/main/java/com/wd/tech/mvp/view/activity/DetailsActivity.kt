@@ -130,7 +130,7 @@ class DetailsActivity : BaseActivity<Contract.IInfoDetailView, InfoDetailPresent
         if (any is InfoDetailBean) {
             loading_linear_info.visibility = View.GONE
             message_details_scroll.visibility = View.VISIBLE
-            if (any != null) {
+
                 result = any.getResult()!!
                 //标题
                 message_details_title.text = any.result!!.title
@@ -210,7 +210,7 @@ class DetailsActivity : BaseActivity<Contract.IInfoDetailView, InfoDetailPresent
                     Log.e("nhj", "没有赞" + greate)
                     message_details_like.setBackgroundResource(R.mipmap.common_icon_prise_n_x)
                 }
-            }
+
         }
         //点赞
         if (any is AddGreatRecordBean) {

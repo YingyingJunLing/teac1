@@ -10,13 +10,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
 import com.wd.tech.R
-import com.wd.tech.mvp.model.bean.FriendGroupListBeanResult
 import com.wd.tech.mvp.model.bean.FriendListGroupByIdBeanResult
 import com.wd.tech.mvp.model.utils.FrescoUtil
 import com.wd.tech.mvp.view.activity.FriendMessageActivity
 import kotlinx.android.synthetic.main.friend_list_layout_item.view.*
+import org.greenrobot.eventbus.EventBus
 
-class FriendListAdapter(context: Context,list: List<FriendListGroupByIdBeanResult>) : RecyclerView.Adapter<FriendListAdapter.MyViewHolder>() {
+class FriendListAdapter(
+    context: Context,
+    list: List<FriendListGroupByIdBeanResult>
+) : RecyclerView.Adapter<FriendListAdapter.MyViewHolder>() {
 
     var context = context
     var list : List<FriendListGroupByIdBeanResult> = list
@@ -38,9 +41,13 @@ class FriendListAdapter(context: Context,list: List<FriendListGroupByIdBeanResul
         FrescoUtil.setPic(list.get(p1).headPic,p0.friend_head_image)
         p0.friend_name_text.setText(list.get(p1).nickName)
         p0.friend_sign_text.setText("")
+        val friendUid = list.get(p1).friendUid
+        val friendListGroupByIdBeanResult = list.get(p1)
         p0.friend_linear.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
+                EventBus.getDefault().postSticky(friendListGroupByIdBeanResult)
                 var intent : Intent = Intent(context,FriendMessageActivity::class.java)
+                /*intent.putExtra("friendUid",friendUid)*/
                 context.startActivity(intent)
             }
         })
