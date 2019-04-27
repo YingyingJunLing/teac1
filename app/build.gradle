@@ -127,6 +127,9 @@ dependencies {
     //微信分享
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     //极光IM
-    implementation 'cn.jiguang.sdk:jmessage:2.8.2'  // 此处以JMessage 2.8.2 版本为例。
-    implementation 'cn.jiguang.sdk:jcore:1.2.7'  // 此处以JCore 1.2.7 版本为例。
+    implementation 'cn.jiguang.sdk:jmessage:2.8.2'
+    // 此处以JMessage 2.8.2 版本为例。
+    implementation 'cn.jiguang.sdk:jcore:1.2.7'
+    // 此处以JCore 1.2.7 版本为例。
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

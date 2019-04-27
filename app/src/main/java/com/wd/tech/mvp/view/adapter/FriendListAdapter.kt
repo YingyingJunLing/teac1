@@ -44,7 +44,7 @@ class FriendListAdapter(
         p0.friend_linear.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 var intent : Intent = Intent(context,FriendMessageActivity::class.java)
-                intent.putExtra("friendUid",friendUid)
+                intent.putExtra("friendUid",friendUid.toString())
                 context.startActivity(intent)
             }
         })

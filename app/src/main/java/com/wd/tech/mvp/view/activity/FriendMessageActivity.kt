@@ -24,7 +24,8 @@ import cn.jpush.im.android.api.event.MessageEvent
 
 class FriendMessageActivity : AppCompatActivity() {
 
-    var friendUid : Int = 0
+    lateinit var friendUid : String
+    lateinit var title : String
     lateinit var adapter : FriendMessageAdapter
     var hashMap: HashMap<String, String> = HashMap()
     lateinit var phone : String
@@ -33,50 +34,74 @@ class FriendMessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend_message)
         JMessageClient.registerEventReceiver(this)
-        friendUid = intent.getIntExtra("friendUid", 0)
-        Log.i("用户ID",friendUid.toString())
-        var apiServer : ApiServer = RetrofitUtil.instant.SSLRetrofit()
-        var sharedPreferences: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
-        var userId = sharedPreferences.getString("userId", "0")
-        var sessionId = sharedPreferences.getString("sessionId", "0")
-        hashMap.put("userId", userId)
-        hashMap.put("sessionId", sessionId)
-        apiServer.getFriendInfoMation(hashMap,friendUid.toString())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : DisposableObserver<FriendInfoMationBean>(){
-                override fun onComplete() {
-
-                }
-
-                override fun onNext(t: FriendInfoMationBean) {
-                    phone = t.result.phone
-                    var createSingleConversation = Conversation.createSingleConversation(phone)
-                    val singleConversation = JMessageClient.getSingleConversation(phone)
-                    var list = singleConversation.allMessage
-                    friend_message_recycle.layoutManager = LinearLayoutManager(this@FriendMessageActivity,LinearLayoutManager.VERTICAL,false)
-                    adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
-                    friend_message_recycle.adapter = adapter
-                    user_push_text.setOnClickListener(object : View.OnClickListener{
-                        override fun onClick(v: View?) {
-                            var edit_text = user_push_edit.text.toString()
-                            if (user_push_edit.text.toString().length!=0){
-                                var message = JMessageClient.createSingleTextMessage(phone, edit_text)
-                                JMessageClient.sendMessage(message)
-                                val singleConversation = JMessageClient.getSingleConversation(phone)
-                                var list = singleConversation.allMessage
-                                adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
-                                friend_message_recycle.adapter = adapter
-                                user_push_edit.setText(null)
-                            }
-                        }
-                    })
-                }
-
-                override fun onError(e: Throwable) {
-
+        friendUid = intent.getStringExtra("friendUid")
+        if (friendUid.length==11){
+            user_name.setText(friendUid)
+            var createSingleConversation = Conversation.createSingleConversation(friendUid)
+            val singleConversation = JMessageClient.getSingleConversation(friendUid)
+            var list = singleConversation.allMessage
+            friend_message_recycle.layoutManager = LinearLayoutManager(this@FriendMessageActivity,LinearLayoutManager.VERTICAL,false)
+            adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
+            friend_message_recycle.adapter = adapter
+            user_push_text.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(v: View?) {
+                    var edit_text = user_push_edit.text.toString()
+                    if (user_push_edit.text.toString().length!=0){
+                        var message = JMessageClient.createSingleTextMessage(friendUid, edit_text)
+                        JMessageClient.sendMessage(message)
+                        val singleConversation = JMessageClient.getSingleConversation(friendUid)
+                        var list = singleConversation.allMessage
+                        adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
+                        friend_message_recycle.adapter = adapter
+                        user_push_edit.setText(null)
+                    }
                 }
             })
+        }else{
+            var apiServer : ApiServer = RetrofitUtil.instant.SSLRetrofit()
+            var sharedPreferences: SharedPreferences = getSharedPreferences("User", Context.MODE_PRIVATE)
+            var userId = sharedPreferences.getString("userId", "0")
+            var sessionId = sharedPreferences.getString("sessionId", "0")
+            hashMap.put("userId", userId)
+            hashMap.put("sessionId", sessionId)
+            apiServer.getFriendInfoMation(hashMap,friendUid.toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : DisposableObserver<FriendInfoMationBean>(){
+                    override fun onComplete() {
+
+                    }
+
+                    override fun onNext(t: FriendInfoMationBean) {
+                        phone = t.result.phone
+                        user_name.setText(phone)
+                        var createSingleConversation = Conversation.createSingleConversation(phone)
+                        val singleConversation = JMessageClient.getSingleConversation(phone)
+                        var list = singleConversation.allMessage
+                        friend_message_recycle.layoutManager = LinearLayoutManager(this@FriendMessageActivity,LinearLayoutManager.VERTICAL,false)
+                        adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
+                        friend_message_recycle.adapter = adapter
+                        user_push_text.setOnClickListener(object : View.OnClickListener{
+                            override fun onClick(v: View?) {
+                                var edit_text = user_push_edit.text.toString()
+                                if (user_push_edit.text.toString().length!=0){
+                                    var message = JMessageClient.createSingleTextMessage(phone, edit_text)
+                                    JMessageClient.sendMessage(message)
+                                    val singleConversation = JMessageClient.getSingleConversation(phone)
+                                    var list = singleConversation.allMessage
+                                    adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
+                                    friend_message_recycle.adapter = adapter
+                                    user_push_edit.setText(null)
+                                }
+                            }
+                        })
+                    }
+
+                    override fun onError(e: Throwable) {
+
+                    }
+                })
+        }
     }
 
     fun onEventMainThread(event: MessageEvent) {
