@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.view.activity
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,9 @@ import com.wd.tech.mvp.view.contract.Contract
 import kotlinx.android.synthetic.main.activity_all_plate_item.*
 import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.activity_score_dui_huan.*
+import kotlinx.android.synthetic.main.detail_fail_dialog_item.*
+import kotlinx.android.synthetic.main.detail_success_dialog_item.*
+import kotlinx.android.synthetic.main.dialog_camera_layout.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -75,15 +79,46 @@ class ScoreDuiHuanActivity : BaseActivity<Contract.IInfoPayByIntegralView,InfoPa
 
         })
         lijiduihuan.setOnClickListener(object :View.OnClickListener{
-            override fun onClick(v: View?) {
-                if(needScore>integrals)
-                {
-                    val view = View.inflate(this@ScoreDuiHuanActivity, R.layout.detail_fail_dialog_item, null)
-                    alertAndAnimationUtils!!.AlterDialog(this@ScoreDuiHuanActivity, view)
-                }else{
-                    val view = View.inflate(this@ScoreDuiHuanActivity, R.layout.detail_success_dialog_item, null)
-                    alertAndAnimationUtils!!.AlterDialog(this@ScoreDuiHuanActivity, view)
-                }
+            override fun onClick(v: View?) = if(needScore>integrals)
+            {
+                val view = View.inflate(this@ScoreDuiHuanActivity, R.layout.detail_fail_dialog_item, null)
+                //点击叉号
+                delete_fail.setOnClickListener(object :View.OnClickListener{
+                    override fun onClick(v: View?) {
+                      finish()
+                    }
+
+                })
+                //点击取消
+                cancel_fail.setOnClickListener(object :View.OnClickListener{
+                    override fun onClick(v: View?) {
+                        finish()
+                    }
+                })
+                //点击去换积分
+                makeTask_fail.setOnClickListener(object :View.OnClickListener{
+                    override fun onClick(v: View?) {
+                        val intent1 = Intent(this@ScoreDuiHuanActivity, MyTaskActivity::class.java)
+                        startActivity(intent1)
+                    }
+                })
+                alertAndAnimationUtils!!.AlterDialog(this@ScoreDuiHuanActivity, view)
+
+            }else{
+                val view = View.inflate(this@ScoreDuiHuanActivity, R.layout.detail_success_dialog_item, null)
+                delete_success.setOnClickListener(object :View.OnClickListener{
+                    override fun onClick(v: View?) {
+                        finish()
+                    }
+
+                })
+                agagin_success.setOnClickListener(object :View.OnClickListener{
+                    override fun onClick(v: View?) {
+                        val intent12 = Intent(this@ScoreDuiHuanActivity, DetailsActivity::class.java)
+                        startActivity(intent12)
+                    }
+                })
+                alertAndAnimationUtils!!.AlterDialog(this@ScoreDuiHuanActivity, view)
             }
         })
     }

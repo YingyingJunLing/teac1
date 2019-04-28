@@ -31,7 +31,6 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
     var informationPresenter: InformationPresenter? = null
     lateinit var bannerAdapter: BannerAdapter
     var infoRecommendListBean:InfoRecommendListBean?=null
-    var plateId: Int = 1
     var page: Int = 1
     var count: Int = 10
    var bannerShowBean:BannerShowBean?=null
@@ -89,6 +88,7 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
                         count++
                         informationPresenter?.onInfoRecommendList( hashMap,page, count)
                         infomation_recy.loadMoreComplete()
+                        bannerAdapter.notifyDataSetChanged()
                     }
                 }, 1500)
             }
