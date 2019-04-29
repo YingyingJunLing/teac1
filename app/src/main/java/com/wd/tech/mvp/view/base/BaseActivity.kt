@@ -7,9 +7,10 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
 import com.wd.tech.mvp.presenter.base.BasePresenter
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity
 import me.jessyan.autosize.internal.CustomAdapt
 
-abstract class BaseActivity<V,T : BasePresenter<V>> : AppCompatActivity(), CustomAdapt {
+abstract class BaseActivity<V,T : BasePresenter<V>> : SwipeBackActivity(), CustomAdapt {
 
     override fun isBaseOnWidth(): Boolean {
         return false

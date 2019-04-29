@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_all_plate_item.*
 import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.activity_score_dui_huan.*
 import kotlinx.android.synthetic.main.detail_fail_dialog_item.*
+import kotlinx.android.synthetic.main.detail_fail_dialog_item.view.*
 import kotlinx.android.synthetic.main.detail_success_dialog_item.*
 import kotlinx.android.synthetic.main.dialog_camera_layout.*
 import org.greenrobot.eventbus.EventBus
@@ -83,20 +84,20 @@ class ScoreDuiHuanActivity : BaseActivity<Contract.IInfoPayByIntegralView,InfoPa
             {
                 val view = View.inflate(this@ScoreDuiHuanActivity, R.layout.detail_fail_dialog_item, null)
                 //点击叉号
-                delete_fail.setOnClickListener(object :View.OnClickListener{
+               view. delete_fail.setOnClickListener(object :View.OnClickListener{
                     override fun onClick(v: View?) {
-                      finish()
+                alertAndAnimationUtils!!.hideDialog()
                     }
 
                 })
                 //点击取消
-                cancel_fail.setOnClickListener(object :View.OnClickListener{
+                view.cancel_fail.setOnClickListener(object :View.OnClickListener{
                     override fun onClick(v: View?) {
-                        finish()
+                        alertAndAnimationUtils!!.hideDialog()
                     }
                 })
                 //点击去换积分
-                makeTask_fail.setOnClickListener(object :View.OnClickListener{
+               view. makeTask_fail.setOnClickListener(object :View.OnClickListener{
                     override fun onClick(v: View?) {
                         val intent1 = Intent(this@ScoreDuiHuanActivity, MyTaskActivity::class.java)
                         startActivity(intent1)
@@ -108,7 +109,7 @@ class ScoreDuiHuanActivity : BaseActivity<Contract.IInfoPayByIntegralView,InfoPa
                 val view = View.inflate(this@ScoreDuiHuanActivity, R.layout.detail_success_dialog_item, null)
                 delete_success.setOnClickListener(object :View.OnClickListener{
                     override fun onClick(v: View?) {
-                        finish()
+                        alertAndAnimationUtils!!.hideDialog()
                     }
 
                 })

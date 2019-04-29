@@ -69,7 +69,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView, UserInfoPresenter>(), 
         windowManager.defaultDisplay.getMetrics(metrics)
         width = metrics.widthPixels
         height = metrics.heightPixels
-
+        getSwipeBackLayout().setEnableGesture(false);//禁止右滑退出
     }
 
     override fun initData() {
