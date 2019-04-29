@@ -75,6 +75,10 @@ class Api {
         const val MyNotice="techApi/tool/verify/v1/findSysNoticeList"
         //根据用户ID查询用户信息
         const val FRIENDINFOMATION="techApi/user/verify/v1/queryFriendInformation"
+        //根据手机号查询用户信息
+        const val FINDUSERBYPHONE="techApi/user/verify/v1/findUserByPhone"
+        //添加好友
+        const val ADDFRIEND="techApi/chat/verify/v1/addFriend"
     }
 
 }

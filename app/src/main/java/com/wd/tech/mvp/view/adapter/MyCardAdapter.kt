@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.wd.tech.R
-import com.wd.tech.mvp.view.activity.MyCardActivityBean
-import kotlinx.android.synthetic.main.activity_details.*
+import com.wd.tech.mvp.model.bean.MyCardActivityBean
 import kotlinx.android.synthetic.main.my_card_item.view.*
 import java.text.SimpleDateFormat
 import java.util.*

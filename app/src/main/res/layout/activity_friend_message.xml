@@ -27,7 +27,7 @@
                 android:textColor="#fff"
                 android:textSize="18sp"/>
         <View android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1"/>
-        <ImageView
+        <ImageView android:id="@+id/jump_friend_show"
                    android:layout_width="30dp"
                    android:layout_height="30dp"
                    android:layout_marginRight="12dp"

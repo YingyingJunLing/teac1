@@ -241,4 +241,18 @@ class Contract
     interface IMyCardPre{
         fun onIMyCardPre(hashMap: HashMap<String, String>, page: Int, count: Int)
     }
+    /**
+     * 好友详情界面
+     */
+    interface IFriendShowView{
+        fun onPhoneSuccess(findUserByPhoneBean: FindUserByPhoneBean)
+        fun onIdSuccess(friendInfoMationBean: FriendInfoMationBean)
+        fun onAddSuccess(addFriendBean: AddFriendBean)
+        fun onFail()
+    }
+    interface IFriendShowPre{
+        fun onIFriendPhoneShowPre(hashMap: HashMap<String, String>,phone: String)
+        fun onIFriendIdShowPre(hashMap: HashMap<String, String>,id: String)
+        fun onIFriendAddShowPre(hashMap: HashMap<String, String>,friendUid: String,remark: String)
+    }
 }

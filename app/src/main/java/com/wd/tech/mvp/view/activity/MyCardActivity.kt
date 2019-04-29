@@ -5,14 +5,13 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.facebook.drawee.gestures.GestureDetector
 import com.wd.tech.R
+import com.wd.tech.mvp.model.bean.MyCardActivityBean
 import com.wd.tech.mvp.presenter.presenterimpl.MyCardPresenter
 import com.wd.tech.mvp.view.adapter.MyCardAdapter
 import com.wd.tech.mvp.view.base.BaseActivity
 import com.wd.tech.mvp.view.contract.Contract
 import kotlinx.android.synthetic.main.activity_my_card.*
-import kotlinx.android.synthetic.main.my_card_item.*
 import java.util.HashMap
 
 class MyCardActivity : BaseActivity<Contract.IMyCardView,MyCardPresenter>(),Contract.IMyCardView {

@@ -37,7 +37,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.USERSIGN
 import com.wd.tech.mvp.model.api.Api.Companion.WECHATLOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.infoPayByIntegral
 import com.wd.tech.mvp.model.bean.*
-import com.wd.tech.mvp.view.activity.MyCardActivityBean
+import com.wd.tech.mvp.model.bean.MyCardActivityBean
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -186,4 +186,9 @@ interface ApiServer {
     //根据用户ID查询用户信息
     @GET(FRIENDINFOMATION)
     fun getFriendInfoMation(@HeaderMap hashMap: HashMap<String, String>,@Query("friend") friend: String): Observable<FriendInfoMationBean>
+    //根据手机号查询用户信息
+    @GET(Api.FINDUSERBYPHONE)
+    fun getFindUserByPhone(@HeaderMap hashMap: HashMap<String, String>,@Query("phone") phone: String): Observable<FindUserByPhoneBean>
+    @POST(Api.ADDFRIEND)
+    fun getAddFriend(@HeaderMap hashMap: HashMap<String, String>,@Query("friendUid") friendUid: String,@Query("remark") remark: String): Observable<AddFriendBean>
 }

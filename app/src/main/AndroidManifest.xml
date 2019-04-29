@@ -34,6 +34,8 @@
             android:roundIcon="@mipmap/logo"
             android:supportsRtl="true"
             android:theme="@style/TranslucentTheme">
+        <activity android:name=".mvp.view.activity.FriendShowActivity">
+        </activity>
         <activity android:name=".mvp.view.activity.AddFriendActivity">
         </activity>
         <activity android:name=".mvp.view.activity.PayVipActivity">
