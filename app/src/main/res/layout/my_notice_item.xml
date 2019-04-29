@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+    <TextView
+            android:layout_marginTop="64dp"
+            android:layout_width="77dp"
+            android:layout_height="28dp"
+            android:id="@+id/my_record_time"
+            android:textColor="#999999"
+            android:text="通知时间"
+            android:textSize="14sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+    />
+    <TextView
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_record_content"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_12"
+            android:text="具体的通知内容"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/circle_radius"
+    />
+
+
+</LinearLayout>

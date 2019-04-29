@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.tencent.mm.opensdk.constants.ConstantsAPI
 import com.tencent.mm.opensdk.modelbase.BaseReq
 import com.tencent.mm.opensdk.modelbase.BaseResp
 import com.tencent.mm.opensdk.modelmsg.SendAuth
@@ -57,6 +58,12 @@ class WXEntryActivity : IWXAPIEventHandler, BaseActivity<Contract.IWechatLoginVi
                 code = (p0 as SendAuth.Resp).code
                 var ak:String = "0110010010000"
                 wechatLoginPresenter?.onIWechatLoginPre(ak,code!!)
+            }
+            ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX -> {
+                //分享回调,处理分享成功后的逻辑
+                Toast.makeText(this@WXEntryActivity,"分享成功",Toast.LENGTH_LONG).show()
+                Toast.makeText(this@WXEntryActivity,"分享失败",Toast.LENGTH_LONG).show()
+                finish()
             }
             else -> {
             }

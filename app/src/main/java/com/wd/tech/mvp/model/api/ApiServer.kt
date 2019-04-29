@@ -29,6 +29,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLISTBYID
 import com.wd.tech.mvp.model.api.Api.Companion.INITFRIENDLIST
 import com.wd.tech.mvp.model.api.Api.Companion.LOGIN
 import com.wd.tech.mvp.model.api.Api.Companion.MODIFYHEADPIC
+import com.wd.tech.mvp.model.api.Api.Companion.MYSCORE
 import com.wd.tech.mvp.model.api.Api.Companion.MyCard
 import com.wd.tech.mvp.model.api.Api.Companion.MyNotice
 import com.wd.tech.mvp.model.api.Api.Companion.PAY
@@ -37,6 +38,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.RELEASEPOST
 import com.wd.tech.mvp.model.api.Api.Companion.USERINFOBYUSERID
 import com.wd.tech.mvp.model.api.Api.Companion.USERSIGN
 import com.wd.tech.mvp.model.api.Api.Companion.WECHATLOGIN
+import com.wd.tech.mvp.model.api.Api.Companion.WXSHARE
 import com.wd.tech.mvp.model.api.Api.Companion.infoPayByIntegral
 import com.wd.tech.mvp.model.bean.*
 import com.wd.tech.mvp.model.bean.MyCardActivityBean
@@ -184,27 +186,30 @@ interface ApiServer {
     fun getMyCard(@HeaderMap hashMap: HashMap<String, String>,@Query("page") page: Int, @Query("count") count: Int):Observable<MyCardActivityBean>
     //我的通知
     @GET(MyNotice)
-    fun getMyNotice(@HeaderMap hashMap: HashMap<String, String>,@Query("page") page: Int, @Query("count") count: Int)
-
+    fun getMyNotice(@HeaderMap hashMap: HashMap<String, String>,@Query("page") page: Int, @Query("count") count: Int):Observable<MyNoticeBean>
     //删除我的帖子
     @DELETE(DELETEPIST)
     fun getDeleltPost(@HeaderMap hashMap: HashMap<String, String>, @Query("communityId") id: String?):Observable<DeletePostBean>
-
     //根据用户ID查询用户信息
     @GET(FRIENDINFOMATION)
     fun getFriendInfoMation(@HeaderMap hashMap: HashMap<String, String>,@Query("friend") friend: String): Observable<FriendInfoMationBean>
-
     //绑定脸部
     @PUT(Api.BindingFaceId)
     fun getBindingFaceId(@HeaderMap hashMap: HashMap<String, String>,@Query("featureInfo") featureInfo: String): Observable<BindFaceBean>
-
+    //刷脸登录
     @POST(FaceLogin)
     fun getFaceLogin(@Query("faceId")faceId:String):Observable<LoginBean>
-
     //根据手机号查询用户信息
     @GET(Api.FINDUSERBYPHONE)
     fun getFindUserByPhone(@HeaderMap hashMap: HashMap<String, String>,@Query("phone") phone: String): Observable<FindUserByPhoneBean>
+    //添加好友
     @POST(Api.ADDFRIEND)
     fun getAddFriend(@HeaderMap hashMap: HashMap<String, String>,@Query("friendUid") friendUid: String,@Query("remark") remark: String): Observable<AddFriendBean>
+    //微信分享
+    @POST(WXSHARE)
+    fun getWxShare(@FieldMap hashMap: java.util.HashMap<String, String>?):Observable<WxShareBean>
+    //我的积分
+    @GET(MYSCORE)
+    fun getMyScore(@HeaderMap hashMap: HashMap<String, String>):Observable<MyScoreBean>
 
 }

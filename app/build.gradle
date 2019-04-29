@@ -131,10 +131,6 @@ android {
         implementation 'cn.jiguang.sdk:jcore:1.2.7'
         // 此处以JCore 1.2.7 版本为例。
         implementation files('libs/arcsoft_face.jar')
-        implementation project(':arclibrary')
-        implementation 'com.github.tyhjh:PermissionUtil:v1.0.5'
-        implementation 'com.github.tyhjh:picturePickUtil:v1.0.6'
-
         implementation 'me.imid.swipebacklayout.lib:library:1.1.0'
 
 }

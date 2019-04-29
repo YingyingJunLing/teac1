@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.model.bean
 
-class MyNoticeBean
-{
-
-}
+data class MyNoticeBean(
+    var message: String,
+    var result: List<Any>,
+    var status: String
+)

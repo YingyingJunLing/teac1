@@ -75,6 +75,7 @@ class Contract
     {
         fun onSuccess(any: Any)
         fun onDetailCommentSuccess(any: Any)
+        fun onWxShare(any: Any)
         fun onFail()
     }
     interface IInfoDetailPre{
@@ -92,6 +93,8 @@ class Contract
         fun onICancelCollectionPre(hashMap: HashMap<String, String>,infoId:Int)
         //添加评论
         fun onIAddInfoCommentPre(hashMap: HashMap<String, String>,infoId:Int,content: String)
+        //分享
+        fun onIWxShare(hashMap:HashMap<String, String>?)
     }
     /**
      * 咨询搜索item展示
@@ -240,6 +243,28 @@ class Contract
     interface IMyCardPre{
         fun onIMyCardPre(hashMap: HashMap<String, String>, page: Int, count: Int)
         fun onIDeleltePost(hashMap: HashMap<String, String>, id: String)
+    }
+    /**
+     * 我的通知
+     */
+    interface IMyNoticeView{
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface IMyNoticePre{
+        fun onIMyNoticePre(hashMap: HashMap<String, String>, page: Int, count: Int)
+
+    }
+    /**
+     * 我的积分
+     */
+    interface IMyScoreView{
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface IMyScorePre{
+        fun onIMyScorePre(hashMap: HashMap<String, String>)
+
     }
     /**
      * 好友详情界面

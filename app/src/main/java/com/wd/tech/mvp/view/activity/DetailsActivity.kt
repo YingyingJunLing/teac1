@@ -22,8 +22,6 @@ import kotlinx.android.synthetic.main.activity_details.*
 import java.text.SimpleDateFormat
 import java.util.*
 import android.graphics.drawable.ColorDrawable
-import android.support.v7.widget.AlertDialogLayout
-import android.support.v7.widget.OrientationHelper
 import android.util.Log
 import android.view.Gravity
 import android.widget.RelativeLayout
@@ -32,8 +30,11 @@ import com.wd.tech.R
 import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.popup_comment.view.*
 import android.view.ViewGroup
-import android.widget.EditText
-import com.facebook.drawee.gestures.GestureDetector
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject
+import com.wd.tech.md5.Md5.MD5
+import com.wd.tech.mvp.model.app.MyApp
 import com.wd.tech.mvp.model.utils.AlterAndAnimationUtil
 import com.wd.tech.mvp.model.utils.WeiXinUtil
 import kotlinx.android.synthetic.main.detail_pay_dialog_item.view.*
@@ -43,6 +44,8 @@ import kotlinx.android.synthetic.main.pop_share.view.*
 
 class DetailsActivity : BaseActivity<Contract.IInfoDetailView, InfoDetailPresenter>(), Contract.IInfoDetailView,
     View.OnClickListener {
+
+
     var infoDetailPresenter: InfoDetailPresenter? = null
     val FORMAT_DATE_TIME_PATTERN = "HH:mm:ss"
     var whetherPay: Int = 0
@@ -50,10 +53,12 @@ class DetailsActivity : BaseActivity<Contract.IInfoDetailView, InfoDetailPresent
     var id: Int = 0
     var count: Int = 10
     var whetherCollection: Int = 0
+    var shareMap: HashMap<String, String>? = HashMap()
     var useId: String? = null
     var greate: Int = 0
     var session: String? = null
     var whetherVip :Int  = 0
+    var infoId :Int = 0
     var hashMap: HashMap<String, String> = HashMap()
     var map: HashMap<String, String> = HashMap()
     lateinit var result: InfoDetailBean.ResultBean
@@ -131,7 +136,9 @@ class DetailsActivity : BaseActivity<Contract.IInfoDetailView, InfoDetailPresent
             loading_linear_info.visibility = View.GONE
             message_details_scroll.visibility = View.VISIBLE
 
+
                 result = any.getResult()!!
+            infoId =  result.id
                 //标题
                 message_details_title.text = any.result!!.title
                 //时间
@@ -262,6 +269,16 @@ class DetailsActivity : BaseActivity<Contract.IInfoDetailView, InfoDetailPresent
         }
 
     }
+    override fun onWxShare(any: Any) {
+        if(any is WxShareBean)
+        {
+            var shareMap: HashMap<String, Any>? = HashMap()
+            shareMap?.put("infoId", infoId)
+            val shareHeaderMap: HashMap<String, String>? = HashMap()
+            infoDetailPresenter!!.onIWxShare(shareHeaderMap!!)
+        }
+
+    }
 
     override fun onFail() {
 
@@ -371,20 +388,26 @@ class DetailsActivity : BaseActivity<Contract.IInfoDetailView, InfoDetailPresent
                 //微信好友分享
                 view.share_friend_image.setOnClickListener(object : View.OnClickListener {
                     override fun onClick(v: View?) {
-                        Toast.makeText(this@DetailsActivity, "微信分享", Toast.LENGTH_LONG).show()
+                        if (result != null) {
+                            getShare(result, 1)
+                            startPresent()
+                        }
                     }
+
+
                 })
                 //微信朋友圈分享
                 view.share_friendcricle_image.setOnClickListener(object : View.OnClickListener {
                     override fun onClick(v: View?) {
                         if (!WeiXinUtil.success(this@DetailsActivity)) {
                             Toast.makeText(this@DetailsActivity, "请先安装应用", Toast.LENGTH_SHORT).show()
+                        }else{
+                            if (result != null) {
+                                getShare(result, 1)
+                                startPresent()
+                            }
                         }
-                        /**
-                         * 是否支持分享到朋友圈
-                         */
-                        
-                        Toast.makeText(this@DetailsActivity, "朋友圈分享", Toast.LENGTH_LONG).show()
+
                     }
                 })
             }
@@ -402,13 +425,13 @@ class DetailsActivity : BaseActivity<Contract.IInfoDetailView, InfoDetailPresent
                     override fun onClick(v: View?) {
                         val intent = Intent(this@DetailsActivity, ScoreDuiHuanActivity::class.java)
                         intent.putExtra("id", result!!.id)
-                        intent.putExtra("whetherCollection",result?.whetherCollection)
-                        intent.putExtra("score",result.integralCost)
-                        intent.putExtra("source",result.source)
-                        intent.putExtra("time",result.releaseTime)
-                        intent.putExtra("content",result.content)
-                        intent.putExtra("share",result.share)
-                        intent.putExtra("img",result.thumbnail)
+                        intent.putExtra("whetherCollection", result?.whetherCollection)
+                        intent.putExtra("score", result.integralCost)
+                        intent.putExtra("source", result.source)
+                        intent.putExtra("time", result.releaseTime)
+                        intent.putExtra("content", result.content)
+                        intent.putExtra("share", result.share)
+                        intent.putExtra("img", result.thumbnail)
                         startActivity(intent)
                     }
                 })
@@ -423,6 +446,49 @@ class DetailsActivity : BaseActivity<Contract.IInfoDetailView, InfoDetailPresent
 
             }
         }
+    }
+    fun getShare(bean: InfoDetailBean.ResultBean, isTimeLineCb: Int) {
+        if (!WeiXinUtil.success(this)) {
+            Toast.makeText(this@DetailsActivity,"你的手机未安装微信",Toast.LENGTH_LONG).show()
+            return
+        }
+        val webpage = WXWebpageObject()
+        webpage.webpageUrl = "https://www.baidu.com";
+        val msg = WXMediaMessage(webpage)
+        msg.title = bean.title
+        msg.description = bean.summary
+//        var bitmap: Bitmap? = null
+//        try {
+//            val bitmapArray: ByteArray
+//            ToastAndLogUtils.showLog("base64", bean.thumbnail)
+//            bitmapArray = Base64.decode(bean.thumbnail, Base64.DEFAULT)
+//            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.size)
+//        } catch (e: Exception) {
+//            ToastAndLogUtils.showLog("wx's exception", e.toString())
+//            e.printStackTrace()
+//        }
+//        msg.thumbData = getWXThumb(bitmap!!).toByteArray()
+        val req = SendMessageToWX.Req()
+
+        //WXSceneTimeline朋友圈    WXSceneSession聊天界面
+        req.scene =
+            if (isTimeLineCb == 0) SendMessageToWX.Req.WXSceneTimeline else SendMessageToWX.Req.WXSceneSession//聊天界面
+        req.message = msg;
+        req.transaction = System.currentTimeMillis().toString()
+        WeiXinUtil.reg(this@DetailsActivity)!!.sendReq(req)
+
+    }
+    fun startPresent() {
+        //获取当前的毫秒值
+        val time = System.currentTimeMillis()
+        //将毫秒值转换为String类型数据
+        val time_stamp = time.toString()
+        val sign = time_stamp + "wxShare" + "tech"
+        //调用MD5加密
+        shareMap?.put("time", time_stamp)
+        shareMap?.put("sign", MD5(sign))
+        infoDetailPresenter!!.onIWxShare(shareMap)
+
     }
 }
 

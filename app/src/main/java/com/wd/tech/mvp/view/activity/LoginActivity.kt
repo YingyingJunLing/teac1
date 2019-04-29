@@ -11,8 +11,6 @@ import android.view.View
 import android.widget.Toast
 import cn.jpush.im.android.api.JMessageClient
 import cn.jpush.im.api.BasicCallback
-import com.example.arclibrary.liveness.LivenessActiveListener
-import com.example.arclibrary.liveness.LivenessService
 
 import com.wd.tech.base.RsaCoder
 import com.wd.tech.mvp.model.bean.LoginBean
@@ -26,8 +24,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.wd.tech.R
 import com.wd.tech.mvp.model.utils.WeiXinUtil
-import permison.PermissonUtil
-import permison.listener.PermissionListener
 
 
 class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contract.ILoginView, View.OnClickListener {
@@ -61,27 +57,27 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
         login_faceCheck.setOnClickListener(this)
         accountValidatorUtil = AccountValidatorUtil()
         sp = getSharedPreferences("LOGIN", Context.MODE_PRIVATE)
-        PermissonUtil.checkPermission(this, object : PermissionListener {
-            override fun havePermission() {
-
-                //激活活体检测
-                LivenessService.activeEngine(object : LivenessActiveListener {
-                    override fun activeSucceed() {
-                        toast("激活成功")
-                    }
-
-                    override fun activeFail(massage: String) {
-                        Log.d("激活活体检测失败", massage)
-                        toast("激活失败：$massage")
-                    }
-                })
-            }
-
-            override fun requestPermissionFail() {
-                toast("活体检测激活失败")
-                finish()
-            }
-        }, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//        PermissonUtil.checkPermission(this, object : PermissionListener {
+//            override fun havePermission() {
+//
+//                //激活活体检测
+//                LivenessService.activeEngine(object : LivenessActiveListener {
+//                    override fun activeSucceed() {
+//                        toast("激活成功")
+//                    }
+//
+//                    override fun activeFail(massage: String) {
+//                        Log.d("激活活体检测失败", massage)
+//                        toast("激活失败：$massage")
+//                    }
+//                })
+//            }
+//
+//            override fun requestPermissionFail() {
+//                toast("活体检测激活失败")
+//                finish()
+//            }
+//        }, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     }
 
@@ -163,8 +159,7 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
             //人脸识别
             R.id.login_faceCheck->
             {
-                LivenessActivity.flag = 2
-                startActivity(Intent(this@LoginActivity, LivenessActivity::class.java))
+
             }
         }
     }

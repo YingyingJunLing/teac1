@@ -8,10 +8,28 @@ import com.wd.tech.mvp.view.contract.Contract
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import retrofit2.http.HeaderMap
-import retrofit2.http.QueryMap
 
 class InfoDetailPresenter (val detailsActivity: DetailsActivity): BasePresenter<Contract.IInfoDetailView>(),Contract.IInfoDetailPre {
+    override fun onIWxShare(hashMap: java.util.HashMap<String, String>?) {
+        val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
+        sslRetrofit.getWxShare(hashMap)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableObserver<WxShareBean>() {
+                override fun onNext(t: WxShareBean) {
+                    detailsActivity.onWxShare(t)
+                }
+
+                override fun onError(e: Throwable) {
+
+                }
+
+                override fun onComplete() {
+
+                }
+            })
+    }
+
     override fun onIAddInfoCommentPre(hashMap: HashMap<String, String>, infoId: Int, content: String) {
         val sslRetrofit = RetrofitUtil.instant.SSLRetrofit()
         sslRetrofit.getAddInfoComment(hashMap,infoId,content)

@@ -291,6 +291,7 @@ class MainActivity : BaseActivity<Contract.IUserInfoView, UserInfoPresenter>(), 
             }
             mMonth = monthOfYear
             mBirthDay = mYear.toString() + mm + dd
+            userInfoPresenter.onIUserSignPre(hashMap)
             Log.e("birthday", mBirthDay.toString())
         }
     }

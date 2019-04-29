@@ -128,9 +128,7 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
                     alertDialog.show()
                   view.btn_register.setOnClickListener(object :View.OnClickListener{
                         override fun onClick(v: View?) {
-                            LivenessActivity.flag = 1
-                            startActivity(Intent(this@MySettingActivity, LivenessActivity::class.java))
-                            alertDialog.dismiss()
+
                         }
                     })
                     view.btn_cancel.setOnClickListener(object :View.OnClickListener{
