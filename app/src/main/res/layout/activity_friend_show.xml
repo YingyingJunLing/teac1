@@ -9,7 +9,7 @@
         tools:context=".mvp.view.activity.FriendShowActivity">
     <ImageView
             android:src="@mipmap/find_message"
-            android:layout_width="360dp"
+            android:layout_width="match_parent"
             android:layout_height="256dp"/>
     <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/find_friend_img"
