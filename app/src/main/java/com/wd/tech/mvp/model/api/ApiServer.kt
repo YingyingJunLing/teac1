@@ -198,6 +198,5 @@ interface ApiServer {
     fun getBindingFaceId(@HeaderMap hashMap: HashMap<String, String>,@Query("featureInfo") featureInfo: String): Observable<BindFaceBean>
 //刷脸登录
     @POST(FaceLogin)
-    @FormUrlEncoded
-    fun getFaceLogin(@Field("faceId")faceId:String):Observable<LoginBean>
+    fun getFaceLogin(@Query("faceId")faceId:String):Observable<LoginBean>
 }

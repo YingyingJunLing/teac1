@@ -131,6 +131,7 @@ public class LivenessActivity extends AppCompatActivity implements CameraPreview
                 flag = -1;
                 AFR_FSDKFace afr_fsdkFace = faceRecognitionService.faceData(data, aft_fsdkFace.getRect(), aft_fsdkFace.getDegree());
                 ApiServer apiServer = RetrofitUtil.Companion.getInstant().SSLRetrofit();
+                Log.e("datalallalla",data.toString());
                 apiServer.getBindingFaceId(hashMap,data.toString())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -142,6 +143,7 @@ public class LivenessActivity extends AppCompatActivity implements CameraPreview
                             public void onNext(BindFaceBean bindFaceBean) {
                                 Toast.makeText(LivenessActivity.this,bindFaceBean.getMessage(),Toast.LENGTH_SHORT).show();
                                 faceId = bindFaceBean.getFaceId();
+                                Log.e("lallallala",faceId);
                             }
 
                             @Override
@@ -172,30 +174,29 @@ public class LivenessActivity extends AppCompatActivity implements CameraPreview
                     public void serchFinish(float sorce, int position) {
                         Log.e("LivenessActivity", "sorce：" + sorce + "，position：" + position);
                         if (sorce > 0.7) {
-                            //TilU1msg4gCedHZntA0GwBsaRSDTYJmdT8IViaLwHCd+066BzSSjGb5NohnFUwzYqASRMO8tmdaK5XTQsQ4943kVe03bqZwDM4vp/yf0afzXgqSH0pCIS4X2W0DeQ8A2LRPsZgtI9uFKGAgo/ODlpY3zfxF2b6dsoxJOcxnhKiY=
-                            ApiServer apiServer = RetrofitUtil.Companion.getInstant().SSLRetrofit();
-                            apiServer.getFaceLogin(faceId)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(new DisposableObserver<LoginBean>() {
-                                        @Override
-                                        public void onNext(LoginBean loginBean) {
-                                            Log.e("lalallallal",loginBean.toString());
-                                            Toast.makeText(LivenessActivity.this,loginBean.getMessage(),Toast.LENGTH_SHORT).show();
-                                            SharedPreferences sp = getSharedPreferences("User", Context.MODE_PRIVATE);
-                                            sp.edit().putString("userId", loginBean.getResult().getUserId()).putString("sessionId", loginBean.getResult().getSessionId()).putInt("vip",loginBean.getResult().getWhetherVip()).commit();
-                                        }
-
-                                        @Override
-                                        public void onError(Throwable e) {
-                                      Log.e("lallallala","失败了");
-                                        }
-
-                                        @Override
-                                        public void onComplete() {
-
-                                        }
-                                    });
+//                            ApiServer apiServer = RetrofitUtil.Companion.getInstant().SSLRetrofit();
+//                            apiServer.getFaceLogin(faceId)
+//                                    .subscribeOn(Schedulers.io())
+//                                    .observeOn(AndroidSchedulers.mainThread())
+//                                    .subscribe(new DisposableObserver<LoginBean>() {
+//                                        @Override
+//                                        public void onNext(LoginBean loginBean) {
+//                                            Log.e("lalallallal",loginBean.toString());
+//                                            Toast.makeText(LivenessActivity.this,loginBean.getMessage(),Toast.LENGTH_SHORT).show();
+//                                            SharedPreferences sp = getSharedPreferences("User", Context.MODE_PRIVATE);
+//                                            sp.edit().putString("userId", loginBean.getResult().getUserId()).putString("sessionId", loginBean.getResult().getSessionId()).putInt("vip",loginBean.getResult().getWhetherVip()).commit();
+//                                        }
+//
+//                                        @Override
+//                                        public void onError(Throwable e) {
+//                                      Log.e("lallallala","失败了");
+//                                        }
+//
+//                                        @Override
+//                                        public void onComplete() {
+//
+//                                        }
+//                                    });
 
                             startActivity(new Intent(LivenessActivity.this, MainActivity.class));
                             tv_name.setText(faces.get(position).getName() + "：相似度：" + sorce);
