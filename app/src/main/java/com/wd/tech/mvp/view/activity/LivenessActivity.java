@@ -131,7 +131,7 @@ public class LivenessActivity extends AppCompatActivity implements CameraPreview
                 flag = -1;
                 AFR_FSDKFace afr_fsdkFace = faceRecognitionService.faceData(data, aft_fsdkFace.getRect(), aft_fsdkFace.getDegree());
                 ApiServer apiServer = RetrofitUtil.Companion.getInstant().SSLRetrofit();
-                Log.e("datalallalla",data.toString());
+                Log.e("我是data",data.toString());
                 apiServer.getBindingFaceId(hashMap,data.toString())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
