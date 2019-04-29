@@ -21,6 +21,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_friend_message.*
 import java.util.HashMap
 import cn.jpush.im.android.api.event.MessageEvent
+import cn.jpush.im.android.api.model.Message
 
 
 class FriendMessageActivity : AppCompatActivity() {
@@ -30,6 +31,7 @@ class FriendMessageActivity : AppCompatActivity() {
     lateinit var adapter : FriendMessageAdapter
     var hashMap: HashMap<String, String> = HashMap()
     lateinit var phone : String
+    lateinit var list : MutableList<Message>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +53,7 @@ class FriendMessageActivity : AppCompatActivity() {
             friend_message_recycle.layoutManager = LinearLayoutManager(this@FriendMessageActivity,LinearLayoutManager.VERTICAL,false)
             adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
             friend_message_recycle.adapter = adapter
+            friend_message_recycle.scrollToPosition(list.size-1)
             user_push_text.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     var edit_text = user_push_edit.text.toString()
@@ -58,9 +61,10 @@ class FriendMessageActivity : AppCompatActivity() {
                         var message = JMessageClient.createSingleTextMessage(friendUid, edit_text)
                         JMessageClient.sendMessage(message)
                         val singleConversation = JMessageClient.getSingleConversation(friendUid)
-                        var list = singleConversation.allMessage
+                        list = singleConversation.allMessage
                         adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
                         friend_message_recycle.adapter = adapter
+                        friend_message_recycle.scrollToPosition(list.size-1)
                         user_push_edit.setText(null)
                     }
                 }
@@ -89,6 +93,7 @@ class FriendMessageActivity : AppCompatActivity() {
                         friend_message_recycle.layoutManager = LinearLayoutManager(this@FriendMessageActivity,LinearLayoutManager.VERTICAL,false)
                         adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
                         friend_message_recycle.adapter = adapter
+                        friend_message_recycle.scrollToPosition(list.size-1)
                         user_push_text.setOnClickListener(object : View.OnClickListener{
                             override fun onClick(v: View?) {
                                 var edit_text = user_push_edit.text.toString()
@@ -96,9 +101,10 @@ class FriendMessageActivity : AppCompatActivity() {
                                     var message = JMessageClient.createSingleTextMessage(phone, edit_text)
                                     JMessageClient.sendMessage(message)
                                     val singleConversation = JMessageClient.getSingleConversation(phone)
-                                    var list = singleConversation.allMessage
+                                    list = singleConversation.allMessage
                                     adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
                                     friend_message_recycle.adapter = adapter
+                                    friend_message_recycle.scrollToPosition(list.size-1)
                                     user_push_edit.setText(null)
                                 }
                             }
@@ -117,6 +123,7 @@ class FriendMessageActivity : AppCompatActivity() {
         var list = singleConversation.allMessage
         adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
         friend_message_recycle.adapter = adapter
+        friend_message_recycle.scrollToPosition(list.size-1)
     }
 
     override fun onDestroy() {

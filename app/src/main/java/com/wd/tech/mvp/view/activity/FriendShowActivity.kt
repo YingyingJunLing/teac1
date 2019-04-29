@@ -78,4 +78,9 @@ class FriendShowActivity : BaseActivity<Contract.IFriendShowView,FriendShowPrese
     override fun onFail() {
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        friendShowPresenter.detachView()
+    }
 }
