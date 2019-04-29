@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.view.activity
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -35,6 +36,13 @@ class FriendMessageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_friend_message)
         JMessageClient.registerEventReceiver(this)
         friendUid = intent.getStringExtra("friendUid")
+        jump_friend_show.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                var intent : Intent = Intent(this@FriendMessageActivity,FriendShowActivity::class.java)
+                intent.putExtra("phone",friendUid)
+                startActivity(intent)
+            }
+        })
         if (friendUid.length==11){
             user_name.setText(friendUid)
             var createSingleConversation = Conversation.createSingleConversation(friendUid)

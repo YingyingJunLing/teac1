@@ -77,10 +77,16 @@ class Api {
         const val DELETEPIST="techApi/community/verify/v1/deletePost"
         //根据用户ID查询用户信息
         const val FRIENDINFOMATION="techApi/user/verify/v1/queryFriendInformation"
+
         //绑定脸部
         const val BindingFaceId="techApi/user/verify/v1/bindingFaceId"
         //刷脸登录
         const val FaceLogin="techApi/user/v1/faceLogin"
+
+        //根据手机号查询用户信息
+        const val FINDUSERBYPHONE="techApi/user/verify/v1/findUserByPhone"
+        //添加好友
+        const val ADDFRIEND="techApi/chat/verify/v1/addFriend"
 
     }
 

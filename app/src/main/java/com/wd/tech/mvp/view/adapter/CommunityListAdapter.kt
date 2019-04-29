@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.view.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.wd.tech.mvp.model.bean.CommunityGreatBean
 import com.wd.tech.mvp.model.bean.CommunityListBeanResult
 import com.wd.tech.mvp.model.utils.FrescoUtil
 import com.wd.tech.mvp.model.utils.RetrofitUtil
+import com.wd.tech.mvp.view.activity.FriendShowActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -54,6 +56,14 @@ class CommunityListAdapter(context : Context, list : List<CommunityListBeanResul
         hashMap.put("userId",userId)
         hashMap.put("sessionId",sessionId)
         FrescoUtil.setPic(list.get(p1).headPic, p0.user_head_image)
+        p0.user_head_image.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                var phone = list.get(p1).userId.toString()
+                var intent : Intent = Intent(context,FriendShowActivity::class.java)
+                intent.putExtra("phone",phone)
+                context.startActivity(intent)
+            }
+        })
         p0.user_head_text.setText(list.get(p1).nickName)
         val currentTime = Date(list.get(p1).publishTime)
         val simpleTiem = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")

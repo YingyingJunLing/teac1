@@ -1,4 +1,4 @@
-package com.wd.tech.mvp.view.activity
+package com.wd.tech.mvp.model.bean
 
 class MyCardActivityBean
 {

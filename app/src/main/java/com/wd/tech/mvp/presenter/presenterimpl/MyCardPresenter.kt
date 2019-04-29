@@ -1,10 +1,12 @@
 package com.wd.tech.mvp.presenter.presenterimpl
 
+
 import com.wd.tech.mvp.model.bean.DeletePostBean
+
 import com.wd.tech.mvp.model.utils.RetrofitUtil
 import com.wd.tech.mvp.presenter.base.BasePresenter
 import com.wd.tech.mvp.view.activity.MyCardActivity
-import com.wd.tech.mvp.view.activity.MyCardActivityBean
+import com.wd.tech.mvp.model.bean.MyCardActivityBean
 import com.wd.tech.mvp.view.contract.Contract
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
