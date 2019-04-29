@@ -255,4 +255,16 @@ class Contract
         fun onIFriendIdShowPre(hashMap: HashMap<String, String>,id: String)
         fun onIFriendAddShowPre(hashMap: HashMap<String, String>,friendUid: String,remark: String)
     }
+    /**
+     * 新的好友列表
+     */
+    interface INewFriendListView{
+        fun onINewFriendListSuccess(findFriendNoticePageListBean: FindFriendNoticePageListBean)
+        fun onIReviewFriend(reviewFriendApplyBean: ReviewFriendApplyBean)
+        fun onFail()
+    }
+    interface INewFriendListPre{
+        fun onINewFriendListPre(hashMap: HashMap<String, String>, page: Int, count: Int)
+        fun onIReviewFriend(hashMap: HashMap<String, String>, noticeId: Int, flag: Int)
+    }
 }

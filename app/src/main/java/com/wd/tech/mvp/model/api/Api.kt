@@ -87,7 +87,9 @@ class Api {
         const val FINDUSERBYPHONE="techApi/user/verify/v1/findUserByPhone"
         //添加好友
         const val ADDFRIEND="techApi/chat/verify/v1/addFriend"
-
+        //查询用户的好友通知记录
+        const val FINDFRIENDNOTICEPAGELIST="techApi/chat/verify/v1/findFriendNoticePageList"
+        //审核好友申请
+        const val REVIEWFRIENDAPPLY="techApi/chat/verify/v1/reviewFriendApply"
     }
-
 }

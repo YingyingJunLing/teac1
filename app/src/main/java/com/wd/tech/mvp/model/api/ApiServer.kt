@@ -34,6 +34,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.MyNotice
 import com.wd.tech.mvp.model.api.Api.Companion.PAY
 import com.wd.tech.mvp.model.api.Api.Companion.REG
 import com.wd.tech.mvp.model.api.Api.Companion.RELEASEPOST
+import com.wd.tech.mvp.model.api.Api.Companion.REVIEWFRIENDAPPLY
 import com.wd.tech.mvp.model.api.Api.Companion.USERINFOBYUSERID
 import com.wd.tech.mvp.model.api.Api.Companion.USERSIGN
 import com.wd.tech.mvp.model.api.Api.Companion.WECHATLOGIN
@@ -207,4 +208,11 @@ interface ApiServer {
     @POST(Api.ADDFRIEND)
     fun getAddFriend(@HeaderMap hashMap: HashMap<String, String>,@Query("friendUid") friendUid: String,@Query("remark") remark: String): Observable<AddFriendBean>
 
+    //查询用户的好友通知记录
+    @GET(Api.FINDFRIENDNOTICEPAGELIST)
+    fun getFindFriendNoticePageList(@HeaderMap hashMap: HashMap<String, String>,@Query("page") page: Int, @Query("count") count: Int): Observable<FindFriendNoticePageListBean>
+
+    //审核好友申请
+    @PUT(REVIEWFRIENDAPPLY)
+    fun getReviewFriendApply(@HeaderMap hashMap: HashMap<String, String>,@Query("noticeId") noticeId: Int, @Query("flag") flag: Int): Observable<ReviewFriendApplyBean>
 }
