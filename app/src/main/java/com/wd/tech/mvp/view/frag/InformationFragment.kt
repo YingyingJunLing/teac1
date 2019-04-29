@@ -71,28 +71,33 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
         infomation_recy.setLoadingMoreEnabled(true)
         infomation_recy.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader)
         infomation_recy.setLoadingMoreProgressStyle(ProgressStyle.Pacman)
-        infomation_recy.setLoadingListener(object : XRecyclerView.LoadingListener {
-            override fun onRefresh() {
-                Handler().postDelayed(object : Runnable {
-                    override fun run() {
-                        page = 1
-                        count = 10
-                        informationPresenter?.onInfoRecommendList(hashMap,page, count)
-                    }
-                }, 1500)
-                infomation_recy.refreshComplete()
-            }
-            override fun onLoadMore() {
-                Handler().postDelayed(object : Runnable {
-                    override fun run() {
-                        count++
-                        informationPresenter?.onInfoRecommendList( hashMap,page, count)
-                        infomation_recy.loadMoreComplete()
-                        bannerAdapter.notifyDataSetChanged()
-                    }
-                }, 1500)
-            }
-        })
+//        infomation_recy.setLoadingListener(object : XRecyclerView.LoadingListener {
+//            override fun onRefresh() {
+//                Handler().postDelayed(object : Runnable {
+//                    override fun run() {
+//                        page = 1
+//                        count = 10
+//                        informationPresenter?.onInfoRecommendList(hashMap,page, count)
+//                    }
+//                }, 1500)
+//                infomation_recy.refreshComplete()
+//            }
+//            override fun onLoadMore() {
+//                Handler().postDelayed(object : Runnable {
+//                    override fun run() {
+//                       page++
+//                        if(page == 6)
+//                        {
+//                           Toast.makeText(activity,"没有更多数据咯……",Toast.LENGTH_LONG).show()
+//
+//                        }
+//                        informationPresenter?.onInfoRecommendList( hashMap,page, 10)
+//                        infomation_recy.loadMoreComplete()
+//                        bannerAdapter.notifyDataSetChanged()
+//                    }
+//                }, 1500)
+//            }
+//        })
 
     }
 
@@ -120,14 +125,35 @@ class InformationFragment : BaseFragment<Contract.IInformationView, InformationP
      * 咨询展示
      */
     override fun onSuccessInfoRecommendList(any: Any) {
+        infomation_recy?.refreshComplete()
+        infomation_recy?.loadMoreComplete()
         infomation_recy?.visibility = View.VISIBLE
         loading_linear_info?.visibility = View.GONE
+      val list =   ArrayList<InfoRecommendListBean.ResultBean>()
         if (any is InfoRecommendListBean) {
-            if(any !=null)
+            val result = any.result
+            for (i in result!!)
+            {
+                list.add(i)
+            }
+            if(list .size == result .size)
             {
                 infoRecommendListBean = any
                 infomation_recy.adapter = BannerAdapter(context,bannerShowBean, infoRecommendListBean!!)
             }
+
+            infomation_recy?.setLoadingListener(object : XRecyclerView.LoadingListener{
+                override fun onLoadMore() {
+                    page++
+                    informationPresenter?.onInfoRecommendList( hashMap,page, 10)
+                }
+
+                override fun onRefresh() {
+                    list.clear()
+                    page = 1
+                    informationPresenter?.onInfoRecommendList( hashMap,page, 10)
+                }
+            })
         }
     }
     /**
