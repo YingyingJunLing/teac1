@@ -14,6 +14,11 @@ class AddFriendActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_friend)
+        text_add_finsh.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                finish()
+            }
+        })
         search_add_edit.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
 
