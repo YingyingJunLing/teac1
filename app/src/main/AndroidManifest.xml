@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="com.wd.tech">
-    <uses-permission android:name="com.wd.tech.permission.permission.JPUSH_MESSAGE" />
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.wd.tech">
+
+    <uses-permission android:name="com.wd.tech.permission.permission.JPUSH_MESSAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="permission.READ_PHONE_STATE"/>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" tools:ignore="ProtectedPermissions"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" tools:ignore="ProtectedPermissions"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission
+            android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+            tools:ignore="ProtectedPermissions"/>
+    <uses-permission
+            android:name="android.permission.WRITE_SETTINGS"
+            tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <permission
             android:name="com.wd.tech.permission.JPUSH_MESSAGE"
             android:protectionLevel="signature"/>
-
-
 
     <application
             android:name=".mvp.model.app.MyApp"
@@ -35,13 +35,14 @@
             android:roundIcon="@mipmap/logo"
             android:supportsRtl="true"
             android:theme="@style/TranslucentTheme">
-
+        <activity android:name=".mvp.view.activity.HHActivity"></activity>
+        <activity android:name=".mvp.view.activity.LivenessActivity" />
+        <activity android:name=".mvp.view.activity.AddFriendActivity">
+        </activity>
         <activity android:name=".mvp.view.activity.PayVipActivity">
         </activity>
-        <activity android:name=".mvp.view.activity.ScoreDuiHuanActivity"></activity>
-
+        <activity android:name=".mvp.view.activity.ScoreDuiHuanActivity"/>
         <activity android:name=".mvp.view.activity.FriendMessageActivity">
-
         </activity>
         <activity android:name=".mvp.view.activity.SearchAllPlateActivity">
         </activity>
@@ -64,6 +65,7 @@
         </activity>
         <activity android:name=".mvp.view.activity.MyScoreActivity">
         </activity>
+        <activity android:name=".mvp.view.activity.MainActivity"/>
         <activity android:name=".mvp.view.activity.MyAttentionActivity">
         </activity>
         <activity android:name=".mvp.view.activity.MyCollectionActivity">
@@ -74,10 +76,6 @@
         </activity>
         <activity android:name=".mvp.view.activity.LoginActivity">
         </activity>
-        <activity
-                android:name=".mvp.view.activity.MainActivity"
-                android:launchMode="singleTask">
-        </activity>
         <activity android:name=".mvp.view.activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -85,7 +83,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!-- 微信登录 -->
         <activity
                 android:name=".wxapi.WXEntryActivity"
                 android:exported="true"
@@ -98,14 +95,13 @@
                 <data android:scheme="wx4c96b6b8da494224"/>
             </intent-filter>
         </activity>
-         <!-- 屏幕适配 -->
+
         <meta-data
                 android:name="design_width_in_dp"
                 android:value="375"/>
         <meta-data
                 android:name="design_height_in_dp"
-                android:value="667"/>
-        <!-- //图片选择Activity -->
+                android:value="667"/> <!-- //图片选择Activity -->
         <activity android:name="com.donkingliang.imageselector.ImageSelectorActivity"/>
         <!--
 //去掉Activity的ActionBar。
@@ -132,96 +128,78 @@
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/file_paths"/>
-        </provider>
-
-
-        <!-- Required SDK 核心功能-->
+        </provider> <!-- Required SDK 核心功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
                 android:name="cn.jpush.android.service.PushService"
                 android:enabled="true"
                 android:exported="false">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTER" />
-                <action android:name="cn.jpush.android.intent.REPORT" />
-                <action android:name="cn.jpush.android.intent.PushService" />
-                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+                <action android:name="cn.jpush.android.intent.REGISTER"/>
+                <action android:name="cn.jpush.android.intent.REPORT"/>
+                <action android:name="cn.jpush.android.intent.PushService"/>
+                <action android:name="cn.jpush.android.intent.PUSH_TIME"/>
             </intent-filter>
-        </service>
-
-        <!-- Required SDK核心功能-->
+        </service> <!-- Required SDK核心功能 -->
         <receiver
                 android:name="cn.jpush.android.service.PushReceiver"
                 android:enabled="true"
                 android:exported="false">
             <intent-filter android:priority="1000">
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
-                <category android:name="com.wd.tech" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/>
+
+                <category android:name="com.wd.tech"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
             <!-- Optional -->
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
 
-                <data android:scheme="package" />
+                <data android:scheme="package"/>
             </intent-filter>
-        </receiver>
-
-        <!-- Required SDK核心功能-->
+        </receiver> <!-- Required SDK核心功能 -->
         <receiver
                 android:name="cn.jpush.android.service.AlarmReceiver"
-                android:exported="false" />
-
-        <!-- Required since JCore 1.1.7. SDK 核心功能-->
+                android:exported="false"/> <!-- Required since JCore 1.1.7. SDK 核心功能 -->
         <provider
                 android:name="cn.jpush.android.service.DataProvider"
                 android:authorities="com.wd.tech.DataProvider"
-                android:exported="false" />
-
-        <!-- Required since JMessage 2.7.0 SDK 核心功能-->
+                android:exported="false"/> <!-- Required since JMessage 2.7.0 SDK 核心功能 -->
         <provider
                 android:name="cn.jpush.im.android.helpers.ipc.IMProvider"
                 android:authorities="com.wd.tech.IMProvider"
-                android:exported="false" />
-
-        <!-- Required JMessage SDK核心功能-->
+                android:exported="false"/> <!-- Required JMessage SDK核心功能 -->
         <receiver
                 android:name="cn.jpush.im.android.helpers.IMReceiver"
                 android:enabled="true"
                 android:exported="false">
-        </receiver>
-
-        <!-- since JCore 1.8.0 option 可选项。用于同一设备中不同应用的 jiguang 服务相互拉起的功能。 -->
+        </receiver> <!-- since JCore 1.8.0 option 可选项。用于同一设备中不同应用的 jiguang 服务相互拉起的功能。 -->
         <!-- 若不启用该功能可删除该组件，或把 enabled 设置成 false ；拉起服务被关闭，App 不会通过拉起服务拉起其他的 App，也不会被其他 App 拉起。 -->
         <service
                 android:name="cn.jpush.android.service.DaemonService"
                 android:enabled="true"
                 android:exported="true">
-            <intent-filter >
-                <action android:name="cn.jpush.android.intent.DaemonService" />
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService"/>
+
                 <category android:name="com.wd.tech"/>
             </intent-filter>
-        </service>
-
-        <!-- Required. For publish channel feature -->
-        <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。-->
+        </service> <!-- Required. For publish channel feature -->
+        <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。 -->
         <!-- 例如: -->
         <!-- 发到 Google Play 的APK可以设置为 google-play; -->
         <!-- 发到其他市场的 APK 可以设置为 xxx-market。 -->
-        <!-- 目前这个渠道统计功能的报表还未开放。-->
+        <!-- 目前这个渠道统计功能的报表还未开放。 -->
         <meta-data
                 android:name="JPUSH_CHANNEL"
-                android:value="developer-default" />
-
-        <!-- Required. AppKey copied from Portal -->
+                android:value="developer-default"/> <!-- Required. AppKey copied from Portal -->
         <meta-data
                 android:name="JPUSH_APPKEY"
-                android:value="d4cf77f0d3b85e9edc540dee" />
-
+                android:value="d4cf77f0d3b85e9edc540dee"/>
     </application>
 
 </manifest>

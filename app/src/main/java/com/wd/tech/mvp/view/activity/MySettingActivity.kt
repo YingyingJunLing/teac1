@@ -24,6 +24,8 @@ import com.wd.tech.mvp.view.contract.Contract
 import kotlinx.android.synthetic.main.activity_my_setting.*
 import kotlinx.android.synthetic.main.dialog_camera_layout.view.*
 import kotlinx.android.synthetic.main.dialog_end_login_layout.view.*
+import kotlinx.android.synthetic.main.dialog_reg_face_layout.*
+import kotlinx.android.synthetic.main.dialog_reg_face_layout.view.*
 import org.greenrobot.eventbus.EventBus
 import java.io.File
 import java.util.ArrayList
@@ -115,6 +117,29 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
             user_vip_text.setText(userInfoBean.result.whetherVip.toString())
             Face_ID_text.setText("")
             EventBus.getDefault().postSticky(userInfoBean)
+            //点击绑定faceid
+            fecaid_lin.setOnClickListener(object :View.OnClickListener{
+                override fun onClick(v: View?) {
+                    var view : View = View.inflate(this@MySettingActivity,R.layout.dialog_reg_face_layout,null)
+                    var bulider : AlertDialog.Builder = AlertDialog.Builder(this@MySettingActivity)
+                    var alertDialog = bulider.create()
+                    alertDialog.setView(view)
+                    alertDialog.setCanceledOnTouchOutside(true)
+                    alertDialog.show()
+                  view.btn_register.setOnClickListener(object :View.OnClickListener{
+                        override fun onClick(v: View?) {
+                            LivenessActivity.flag = 1
+                            startActivity(Intent(this@MySettingActivity, LivenessActivity::class.java))
+                            alertDialog.dismiss()
+                        }
+                    })
+                    view.btn_cancel.setOnClickListener(object :View.OnClickListener{
+                        override fun onClick(v: View?) {
+                            alertDialog.dismiss()
+                        }
+                    })
+                }
+            })
             end_login_linear.setOnClickListener(object : View.OnClickListener{
                 override fun onClick(v: View?) {
                     var view : View = View.inflate(this@MySettingActivity,R.layout.dialog_end_login_layout,null)

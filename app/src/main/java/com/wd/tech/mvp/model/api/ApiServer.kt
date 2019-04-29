@@ -21,6 +21,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.FRIENDGROUPLIST
 import com.wd.tech.mvp.model.api.Api.Companion.FRIENDINFOMATION
 import com.wd.tech.mvp.model.api.Api.Companion.FindVipCommodityList
 import com.wd.tech.mvp.model.api.Api.Companion.FRIENDLISTBYGROUPID
+import com.wd.tech.mvp.model.api.Api.Companion.FaceLogin
 import com.wd.tech.mvp.model.api.Api.Companion.INFOCOLLECTIONLIST
 import com.wd.tech.mvp.model.api.Api.Companion.INFODETAIL
 import com.wd.tech.mvp.model.api.Api.Companion.INFORECOMMENEDLIST
@@ -192,5 +193,11 @@ interface ApiServer {
     //根据用户ID查询用户信息
     @GET(FRIENDINFOMATION)
     fun getFriendInfoMation(@HeaderMap hashMap: HashMap<String, String>,@Query("friend") friend: String): Observable<FriendInfoMationBean>
-
+    //绑定脸部
+    @PUT(Api.BindingFaceId)
+    fun getBindingFaceId(@HeaderMap hashMap: HashMap<String, String>,@Query("featureInfo") featureInfo: String): Observable<BindFaceBean>
+//刷脸登录
+    @POST(FaceLogin)
+    @FormUrlEncoded
+    fun getFaceLogin(@Field("faceId")faceId:String):Observable<LoginBean>
 }

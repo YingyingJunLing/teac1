@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.view.activity
 
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,6 +11,8 @@ import android.view.View
 import android.widget.Toast
 import cn.jpush.im.android.api.JMessageClient
 import cn.jpush.im.api.BasicCallback
+import com.example.arclibrary.liveness.LivenessActiveListener
+import com.example.arclibrary.liveness.LivenessService
 
 import com.wd.tech.base.RsaCoder
 import com.wd.tech.mvp.model.bean.LoginBean
@@ -23,6 +26,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.wd.tech.R
 import com.wd.tech.mvp.model.utils.WeiXinUtil
+import permison.PermissonUtil
+import permison.listener.PermissionListener
 
 
 class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contract.ILoginView, View.OnClickListener {
@@ -53,14 +58,37 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
         login_reg.setOnClickListener(this)
         login_pwd_eye.setOnClickListener(this)
         login_wechat.setOnClickListener(this)
+        login_faceCheck.setOnClickListener(this)
         accountValidatorUtil = AccountValidatorUtil()
         sp = getSharedPreferences("LOGIN", Context.MODE_PRIVATE)
+        PermissonUtil.checkPermission(this, object : PermissionListener {
+            override fun havePermission() {
+
+                //激活活体检测
+                LivenessService.activeEngine(object : LivenessActiveListener {
+                    override fun activeSucceed() {
+                        toast("激活成功")
+                    }
+
+                    override fun activeFail(massage: String) {
+                        Log.d("激活活体检测失败", massage)
+                        toast("激活失败：$massage")
+                    }
+                })
+            }
+
+            override fun requestPermissionFail() {
+                toast("活体检测激活失败")
+                finish()
+            }
+        }, Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
     }
 
     override fun onSuccess(loginBean: LoginBean){
-        if(loginBean.status.equals("0000")) {
-            val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
+        if(loginBean.status.equals("0000")) { val sp = getSharedPreferences("User", Context.MODE_PRIVATE)
             sp.edit().putString("userId", loginBean.result.userId).putString("sessionId", loginBean.result.sessionId).putString("phone", phone).putString("pwd", pwd).putInt("vip",loginBean.result.whetherVip).commit()
+
             if(login_remember_pwd.isChecked){
                 sp.edit().putString("type","1").commit()
             }else{
@@ -132,7 +160,17 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
                 }
 
             }
+            //人脸识别
+            R.id.login_faceCheck->
+            {
+                LivenessActivity.flag = 2
+                startActivity(Intent(this@LoginActivity, LivenessActivity::class.java))
+            }
         }
+    }
+
+    fun toast(test: String) {
+        runOnUiThread { Toast.makeText(this@LoginActivity, test, Toast.LENGTH_SHORT).show() }
     }
 
     override fun onDestroy() {

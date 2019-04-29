@@ -1,47 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="#F2F2F2"
-              android:orientation="vertical">
-    <RadioGroup android:id="@+id/radioGroup"
-            android:layout_width="188dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/group_style"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-        <RadioButton android:id="@+id/btn1"
-                android:layout_width="94dp"
-                android:layout_height="match_parent"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:button="@null"
-                android:text="消息"
-                android:textColor="@drawable/button_sel_text"
-                android:textSize="20sp"
-                android:gravity="center"
-                     android:checked="true"
-                android:background="@drawable/button_sel"
-                android:layout_weight="1"/>
-        <RadioButton android:id="@+id/btn2"
-                android:layout_width="94dp"
-                android:layout_height="match_parent"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:button="@null"
-                android:text="联系人"
-                android:textColor="@drawable/button_sel_text"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:background="@drawable/button_sel"
-                android:layout_weight="1"/>
-    </RadioGroup>
-    <FrameLayout android:id="@+id/fragment_message"
+              android:background="#F2F2F2">
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-    </FrameLayout>
-
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:orientation="vertical">
+        <RadioGroup android:id="@+id/radioGroup"
+                    android:layout_width="188dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/group_style"
+                    android:orientation="horizontal">
+            <RadioButton android:id="@+id/btn1"
+                         android:layout_width="94dp"
+                         android:layout_height="match_parent"
+                         android:paddingTop="2dp"
+                         android:paddingBottom="2dp"
+                         android:button="@null"
+                         android:text="消息"
+                         android:textColor="@drawable/button_sel_text"
+                         android:textSize="20sp"
+                         android:gravity="center"
+                         android:checked="true"
+                         android:background="@drawable/button_sel"
+                         android:layout_weight="1"/>
+            <RadioButton android:id="@+id/btn2"
+                         android:layout_width="94dp"
+                         android:layout_height="match_parent"
+                         android:paddingTop="2dp"
+                         android:paddingBottom="2dp"
+                         android:button="@null"
+                         android:text="联系人"
+                         android:textColor="@drawable/button_sel_text"
+                         android:textSize="20sp"
+                         android:gravity="center"
+                         android:background="@drawable/button_sel"
+                         android:layout_weight="1"/>
+        </RadioGroup>
+        <FrameLayout
+                android:id="@+id/fragment_message"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        </FrameLayout>
+    </LinearLayout>
+    <ImageView android:id="@+id/add_friend_image"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_margin="16dp"
+               android:layout_alignParentRight="true"
+               android:background="@mipmap/common_nav_btn_add_n"/>
+</RelativeLayout>

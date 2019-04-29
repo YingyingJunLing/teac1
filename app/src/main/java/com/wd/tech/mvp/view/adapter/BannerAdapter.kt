@@ -123,7 +123,6 @@ class BannerAdapter(
                 var dateFormat= SimpleDateFormat(FORMAT_DATE_TIME_PATTERN, Locale.getDefault())
                 p0.itemView.info_time.setText(dateFormat.format(infoRecommendListBean.result?.get(p1-1)?.releaseTime))
                 p0.itemView.info_source.text= infoRecommendListBean.result!!.get(p1-1).source
-            Log.e("lallallallalal", infoRecommendListBean.result!!.get(p1-1).whetherCollection.toString())
                 //收藏的判断
                 if (infoRecommendListBean.result!!.get(p1-1).whetherCollection==2)
                 {
