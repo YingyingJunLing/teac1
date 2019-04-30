@@ -69,12 +69,12 @@ class PayVipActivity : BaseActivity<Contract.IVipView, VipPresenter>() ,Contract
         immediately_oppened_bt.setOnClickListener(this)
         pay_type_1.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-               type  =2
+               type  =1
             }
         })
         pay_type_2.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                type = 1
+                type = 2
             }
         })
     }
