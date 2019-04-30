@@ -64,4 +64,31 @@
                   android:padding="5dp"
                   android:text="发送"/>
     </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+        <View android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1"/>
+        <ImageView android:id="@+id/messge_img"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/common_btn_picture_n"/>
+        <View android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1"/>
+        <ImageView android:id="@+id/messge_voice"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/common_btn_picture_n"/>
+        <View android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1"/>
+        <ImageView android:id="@+id/messge_address"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/common_tab_informatiion_s"/>
+        <View android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1"/>
+        <ImageView android:id="@+id/messge_file"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/common_tab_informatiion_s"/>
+        <View android:layout_width="wrap_content" android:layout_height="0dp" android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>
