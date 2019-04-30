@@ -1,20 +1,24 @@
 package com.wd.tech.mvp.view.activity
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import cn.jpush.im.android.api.JMessageClient
 import com.wd.tech.R
+import com.wd.tech.mvp.model.app.MyApp
 import com.wd.tech.mvp.model.bean.ModifyHeadPicBean
+import com.wd.tech.mvp.model.bean.UntiedFaceIdBean
 import com.wd.tech.mvp.model.bean.UserInfoBean
 import com.wd.tech.mvp.model.utils.AlterAndAnimationUtil
 import com.wd.tech.mvp.model.utils.FrescoUtil
@@ -31,6 +35,12 @@ import java.io.File
 import java.util.ArrayList
 
 class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUserInfoPresenter>(), Contract.ISettingUserInfoView {
+    override fun onUntiedFaceIdSuccess(any: Any) {
+        if(any is UntiedFaceIdBean)
+        {
+            Toast.makeText(this@MySettingActivity,any.message,Toast.LENGTH_LONG).show()
+        }
+    }
 
     var settingUserInfoPresenter : SettingUserInfoPresenter = SettingUserInfoPresenter(this)
     var hashMap : HashMap<String,String> = HashMap()
@@ -38,6 +48,11 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
     val PHOTO_REQUEST_GALLERY : Int = 2
     var alterAndAnimationUtil : AlterAndAnimationUtil = AlterAndAnimationUtil()
     lateinit var status : String
+    val REQUEST_CODE_IMAGE_CAMERA = 1
+    val REQUEST_CODE_IMAGE_OP = 2
+    val REQUEST_CODE_OP = 3
+    val REQUEST_CODE_IMAGE_CAMERA_FACE=4
+    val REQUEST_CODE_IMAGE_OP_FACE=5
 
     override fun createPresenter(): SettingUserInfoPresenter? {
         return settingUserInfoPresenter
@@ -109,33 +124,73 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
             }else{
                 user_sex_text.setText("女")
             }
+            if(userInfoBean.result.whetherFaceId == 1)
+            {
+                Face_ID_text.text="已绑定"
+            }else{
+                Face_ID_text.text="点击绑定"
+            }
+
+            if(userInfoBean.result.whetherVip == 2)
+            {
+                user_vip_text.setText("非会员")
+            }else{
+                user_vip_text.setText("会员")
+            }
             user_sign_text.setText(userInfoBean.result.signature)
             user_bir_text.setText("")
             user_tel_text.setText(userInfoBean.result.phone)
             user_emile_text.setText(userInfoBean.result.email)
             user_num_text.setText(userInfoBean.result.integral.toString())
-            user_vip_text.setText(userInfoBean.result.whetherVip.toString())
-            Face_ID_text.setText("")
+
+
             EventBus.getDefault().postSticky(userInfoBean)
             //点击绑定faceid
             fecaid_lin.setOnClickListener(object :View.OnClickListener{
                 override fun onClick(v: View?) {
-                    var view : View = View.inflate(this@MySettingActivity,R.layout.dialog_reg_face_layout,null)
-                    var bulider : AlertDialog.Builder = AlertDialog.Builder(this@MySettingActivity)
-                    var alertDialog = bulider.create()
-                    alertDialog.setView(view)
-                    alertDialog.setCanceledOnTouchOutside(true)
-                    alertDialog.show()
-                  view.btn_register.setOnClickListener(object :View.OnClickListener{
-                        override fun onClick(v: View?) {
-
-                        }
-                    })
-                    view.btn_cancel.setOnClickListener(object :View.OnClickListener{
-                        override fun onClick(v: View?) {
-                            alertDialog.dismiss()
-                        }
-                    })
+                 if(Face_ID_text.text.toString().equals("点击绑定"))
+                 {
+                     AlertDialog.Builder(this@MySettingActivity)
+                         .setTitle("请选择注册方式")
+                         .setIcon(android.R.drawable.ic_dialog_info)
+                         .setItems(arrayOf("打开图片", "拍摄照片")) { dialog, which ->
+                             when (which) {
+                                 1 -> {
+                                     val intent = Intent("android.media.action.IMAGE_CAPTURE")
+                                     val values = ContentValues(1)
+                                     values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                                     val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                                     MyApp.setCaptureImage(uri)
+                                     intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+                                     startActivityForResult(intent, REQUEST_CODE_IMAGE_CAMERA_FACE)
+                                 }
+                                 0 -> {
+                                     val getImageByalbum = Intent(Intent.ACTION_GET_CONTENT)
+                                     getImageByalbum.addCategory(Intent.CATEGORY_OPENABLE)
+                                     getImageByalbum.type = "image/jpeg"
+                                     startActivityForResult(getImageByalbum, REQUEST_CODE_IMAGE_OP_FACE)
+                                 }
+                                 else -> {
+                                 }
+                             }
+                         }
+                         .show()
+                 } else if (Face_ID_text.text.toString() == "已绑定") {
+                     val builder1 = AlertDialog.Builder(this@MySettingActivity)
+                     //    设置Title的内容
+                     builder1.setTitle("温馨提示")
+                     //    设置Content来显示一个信息
+                     builder1.setMessage("确定取消绑定吗？")
+                     //    设置一个PositiveButton
+                     builder1.setPositiveButton("取消绑定") { dialog, which ->
+                        settingUserInfoPresenter.onUntiedFaceId(hashMap)
+                         Face_ID_text.text = "点击绑定"
+                     }
+                     //设置一个NegativeButton
+                     builder1.setNegativeButton("再想想", null)
+                     //    显示出该对话框
+                     builder1.show()
+                 }
                 }
             })
             end_login_linear.setOnClickListener(object : View.OnClickListener{
@@ -178,8 +233,6 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
             user_tel_text.setText("")
             user_emile_text.setText("")
             user_num_text.setText("")
-            user_vip_text.setText("")
-            Face_ID_text.setText("")
         }
     }
 
@@ -217,8 +270,6 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
                 list.add(file)
                 // myHead.setImageBitmap(bitmap)
                 settingUserInfoPresenter.onModifyHeadPicPre(hashMap,file)
-            }else {
-                Toast.makeText(this, "未找到存储啦，无法存储照片", Toast.LENGTH_SHORT).show()
             }
         }else if (requestCode==PHOTO_REQUEST_GALLERY&&resultCode==RESULT_OK){
             val uri = data?.getData()
@@ -230,10 +281,31 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
             val file = File(img_path)
             val list = ArrayList<File>()
             list.add(file)
-            // myHead.setImageBitmap(bitmap)
             settingUserInfoPresenter.onModifyHeadPicPre(hashMap,file)
-        }else {
-            Toast.makeText(this, "未找到存储啦，无法存储照片", Toast.LENGTH_SHORT).show()
+        }
+        if (requestCode == REQUEST_CODE_IMAGE_OP_FACE && resultCode == RESULT_OK) {
+            val mPath = data!!.getData()
+            val file = getPath(mPath)
+            val bmp = MyApp.decodeImage(file!!)
+            if (bmp == null || bmp!!.getWidth() <= 0 || bmp!!.getHeight() <= 0) {
+                Log.e("SettingActivity", "error")
+            } else {
+                Log.i("SettingActivity", "bmp [" + bmp!!.getWidth() + "," + bmp!!.getHeight())
+            }
+            startRegister(bmp!!, file!!)
+        } else if (requestCode == REQUEST_CODE_IMAGE_OP_FACE) {
+            //  Log.i(TAG, "RESULT =$resultCode")
+
+            if (data == null) {
+                return
+            }
+            val bundle = data.extras
+            val path = bundle!!.getString("imagePath")
+        } else if (requestCode == REQUEST_CODE_IMAGE_CAMERA_FACE && resultCode == RESULT_OK) {
+            val mPath = MyApp.getCaptureImage()
+            val file = getPath(mPath)
+            val bmp = MyApp.decodeImage(file!!)
+            startRegister(bmp!!, file!!)
         }
     }
 
@@ -251,5 +323,128 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
     override fun onDestroy() {
         super.onDestroy()
         settingUserInfoPresenter.detachView()
+    }
+    //人脸的设置
+    fun getPath(uri: Uri): String? {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (DocumentsContract.isDocumentUri(this, uri)) {
+                // ExternalStorageProvider
+                if (isExternalStorageDocument(uri)) {
+                    val docId = DocumentsContract.getDocumentId(uri)
+                    val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    val type = split[0]
+
+                    if ("primary".equals(type, ignoreCase = true)) {
+                        return Environment.getExternalStorageDirectory().toString() + "/" + split[1]
+                    }
+                } else if (isDownloadsDocument(uri)) {
+
+                    val id = DocumentsContract.getDocumentId(uri)
+                    val contentUri = ContentUris.withAppendedId(
+                        Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
+                    )
+
+                    return getDataColumn(this, contentUri, null, null)
+                } else if (isMediaDocument(uri)) {
+                    val docId = DocumentsContract.getDocumentId(uri)
+                    val split = docId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    val type = split[0]
+
+                    var contentUri: Uri? = null
+                    if ("image" == type) {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    } else if ("video" == type) {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                    } else if ("audio" == type) {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                    }
+
+                    val selection = "_id=?"
+                    val selectionArgs = arrayOf(split[1])
+
+                    return getDataColumn(this, contentUri, selection, selectionArgs)
+                }
+            }
+        }
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val actualimagecursor = this.contentResolver.query(uri, proj, null, null, null)
+        val actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        actualimagecursor.moveToFirst()
+        val img_path = actualimagecursor.getString(actual_image_column_index)
+        val end = img_path.substring(img_path.length - 4)
+        return if (0 != end.compareTo(".jpg", ignoreCase = true) && 0 != end.compareTo(".png", ignoreCase = true)) {
+            null
+        } else img_path
+    }
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    fun isExternalStorageDocument(uri: Uri): Boolean {
+        return "com.android.externalstorage.documents" == uri.authority
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    fun isDownloadsDocument(uri: Uri): Boolean {
+        return "com.android.providers.downloads.documents" == uri.authority
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    fun isMediaDocument(uri: Uri): Boolean {
+        return "com.android.providers.media.documents" == uri.authority
+    }
+
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param context       The context.
+     * @param uri           The Uri to query.
+     * @param selection     (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    fun getDataColumn(
+        context: Context, uri: Uri?, selection: String?,
+        selectionArgs: Array<String>?
+    ): String? {
+
+        var cursor: Cursor? = null
+        val column = "_data"
+        val projection = arrayOf(column)
+
+        try {
+            cursor = context.contentResolver.query(uri!!, projection, selection, selectionArgs, null)
+            if (cursor != null && cursor.moveToFirst()) {
+                val index = cursor.getColumnIndexOrThrow(column)
+                return cursor.getString(index)
+            }
+        } finally {
+            cursor?.close()
+        }
+        return null
+    }
+
+    /**
+     * @param mBitmap
+     */
+    fun startRegister(mBitmap: Bitmap, file: String) {
+        val it = Intent(this@MySettingActivity, PeopleActivity::class.java)
+        val bundle = Bundle()
+        bundle.putString("imagePath", file)
+        it.putExtras(bundle)
+        startActivityForResult(it, REQUEST_CODE_OP)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        settingUserInfoPresenter.onSettingIUserInfoPre(hashMap)
+        Face_ID_text.text="已绑定"
     }
 }

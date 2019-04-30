@@ -186,11 +186,13 @@ class Contract
     interface ISettingUserInfoView {
         fun onSuccess(userInfoBean: UserInfoBean)
         fun onModifyHeadPicSuccess(modifyHeadPicBean: ModifyHeadPicBean)
+        fun onUntiedFaceIdSuccess(any: Any)
         fun onFail()
     }
     interface ISettingUserInfoPre {
         fun onSettingIUserInfoPre(hashMap: HashMap<String,String>)
         fun onModifyHeadPicPre(hashMap: HashMap<String,String>,file: File)
+        fun onUntiedFaceId(hashMap: HashMap<String,String>)
     }
     /**
      * 用户发布帖子
@@ -279,5 +281,39 @@ class Contract
         fun onIFriendPhoneShowPre(hashMap: HashMap<String, String>,phone: String)
         fun onIFriendIdShowPre(hashMap: HashMap<String, String>,id: String)
         fun onIFriendAddShowPre(hashMap: HashMap<String, String>,friendUid: String,remark: String)
+    }
+    /**
+     * 新的好友列表
+     */
+    interface INewFriendListView{
+        fun onINewFriendListSuccess(findFriendNoticePageListBean: FindFriendNoticePageListBean)
+        fun onIReviewFriend(reviewFriendApplyBean: ReviewFriendApplyBean)
+        fun onFail()
+    }
+    interface INewFriendListPre{
+        fun onINewFriendListPre(hashMap: HashMap<String, String>, page: Int, count: Int)
+        fun onIReviewFriend(hashMap: HashMap<String, String>, noticeId: Int, flag: Int)
+    }
+    /**
+     * 注册刷脸
+     */
+    interface IMyFaceRegView{
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface IMyFaceRegPre{
+        fun onIMyFacePre(hashMap: HashMap<String, String>,featureInfo:String)
+
+    }
+    /**
+     *刷脸登录
+     */
+    interface IMyFaceLoginView{
+        fun onSuccess(any: Any)
+        fun onFail()
+    }
+    interface IMyFaceLoginPre{
+        fun onIMyFaceLoginPre(faceId:String)
+
     }
 }

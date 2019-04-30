@@ -3,6 +3,7 @@ package com.wd.tech.mvp.presenter.presenterimpl
 import android.util.Log
 import com.wd.tech.mvp.model.api.ApiServer
 import com.wd.tech.mvp.model.bean.ModifyHeadPicBean
+import com.wd.tech.mvp.model.bean.UntiedFaceIdBean
 import com.wd.tech.mvp.model.bean.UserInfoBean
 import com.wd.tech.mvp.model.utils.RetrofitUtil
 import com.wd.tech.mvp.presenter.base.BasePresenter
@@ -17,6 +18,25 @@ import okhttp3.RequestBody
 import java.io.File
 
 class SettingUserInfoPresenter(var mySettingActivity: MySettingActivity) : BasePresenter<Contract.ISettingUserInfoView>(),Contract.ISettingUserInfoPre {
+    override fun onUntiedFaceId(hashMap: HashMap<String, String>) {
+        apiServer.getUntiedFaceId(hashMap)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : DisposableObserver<UntiedFaceIdBean>(){
+                override fun onComplete() {
+
+                }
+
+                override fun onNext(t: UntiedFaceIdBean) {
+                    mySettingActivity.onUntiedFaceIdSuccess(t)
+                }
+
+                override fun onError(e: Throwable) {
+
+                }
+
+            })
+    }
 
     var apiServer : ApiServer = RetrofitUtil.instant.SSLRetrofit()
 
@@ -59,4 +79,5 @@ class SettingUserInfoPresenter(var mySettingActivity: MySettingActivity) : BaseP
                 }
             })
     }
+
 }

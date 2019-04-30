@@ -2,6 +2,7 @@ package com.wd.tech.mvp.view.activity
 
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 import com.tencent.mm.opensdk.modelmsg.SendAuth
 import com.wd.tech.R
+import com.wd.tech.mvp.model.app.MyApp
 import com.wd.tech.mvp.model.utils.WeiXinUtil
 
 
@@ -159,7 +161,18 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
             //人脸识别
             R.id.login_faceCheck->
             {
-
+                // 人脸登录
+                if ((application as MyApp).mFaceDB!!.mRegister.isEmpty()) {
+                    Toast.makeText(this, "没有注册人脸，请先注册！", Toast.LENGTH_SHORT).show()
+                } else {
+                    AlertDialog.Builder(this)
+                        .setTitle("请选择相机")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setItems(
+                            arrayOf("后置相机", "前置相机")
+                        ) { dialog, which -> startDetector(which) }
+                        .show()
+                }
             }
         }
     }
@@ -174,5 +187,11 @@ class LoginActivity : BaseActivity<Contract.ILoginView, LoginPresenter>(),Contra
         {
             loginPresenter!!.detachView()
         }
+    }
+    fun startDetector(camera: Int) {
+        val it = Intent(this@LoginActivity, DetecterActivity::class.java)
+        it.putExtra("Camera", camera)
+        startActivity(it)
+        finish()
     }
 }

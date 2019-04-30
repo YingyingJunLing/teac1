@@ -85,6 +85,7 @@ class Api {
         const val FINDUSERBYPHONE="techApi/user/verify/v1/findUserByPhone"
         //添加好友
         const val ADDFRIEND="techApi/chat/verify/v1/addFriend"
+
         //微信分享
         const val WXSHARE="techApi/tool/v1/wxShare"
         //修改咨询分享数
@@ -93,7 +94,12 @@ class Api {
         const val MYSCORE="techApi/user/verify/v1/findUserIntegral"
         //查询积分明细
         const val IntegralRecord="techApi/user/verify/v1/findUserIntegralRecord"
+        //查询用户的好友通知记录
+        const val FINDFRIENDNOTICEPAGELIST="techApi/chat/verify/v1/findFriendNoticePageList"
+        //审核好友申请
+        const val REVIEWFRIENDAPPLY="techApi/chat/verify/v1/reviewFriendApply"
+        //解绑脸部
+        const val UNTIEDGACE="techApi/user/verify/v1/untiedFaceId"
 
     }
-
 }

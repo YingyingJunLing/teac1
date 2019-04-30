@@ -36,9 +36,12 @@
             android:supportsRtl="true"
             android:theme="@style/TranslucentTheme">
 
+
+
+        <activity android:name=".mvp.view.activity.NewFriendListActivity">
+        </activity>
         <activity android:name=".mvp.view.activity.FriendShowActivity">
         </activity>
-
         <activity android:name=".mvp.view.activity.AddFriendActivity">
         </activity>
         <activity android:name=".mvp.view.activity.PayVipActivity">
@@ -48,6 +51,8 @@
         </activity>
         <activity android:name=".mvp.view.activity.SearchAllPlateActivity">
         </activity>
+        <activity android:name=".mvp.view.activity.PeopleActivity"/>
+        <activity android:name=".mvp.view.activity.DetecterActivity"/>
         <activity android:name=".mvp.view.activity.AllPlateItemActivity">
         </activity>
         <activity android:name=".mvp.view.activity.AdvertisementDetailActivity">

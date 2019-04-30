@@ -8,6 +8,7 @@ import com.wd.tech.mvp.model.api.Api.Companion.AddInfoComment
 import com.wd.tech.mvp.model.api.Api.Companion.BANNERSHOW
 import com.wd.tech.mvp.model.api.Api.Companion.BYSOURCE
 import com.wd.tech.mvp.model.api.Api.Companion.BYTITLE
+import com.wd.tech.mvp.model.api.Api.Companion.BindingFaceId
 import com.wd.tech.mvp.model.api.Api.Companion.BuyVip
 import com.wd.tech.mvp.model.api.Api.Companion.CANCELCLOOECTION
 import com.wd.tech.mvp.model.api.Api.Companion.CANCELCOMMUNITYGREAT
@@ -35,6 +36,8 @@ import com.wd.tech.mvp.model.api.Api.Companion.MyNotice
 import com.wd.tech.mvp.model.api.Api.Companion.PAY
 import com.wd.tech.mvp.model.api.Api.Companion.REG
 import com.wd.tech.mvp.model.api.Api.Companion.RELEASEPOST
+import com.wd.tech.mvp.model.api.Api.Companion.REVIEWFRIENDAPPLY
+import com.wd.tech.mvp.model.api.Api.Companion.UNTIEDGACE
 import com.wd.tech.mvp.model.api.Api.Companion.USERINFOBYUSERID
 import com.wd.tech.mvp.model.api.Api.Companion.USERSIGN
 import com.wd.tech.mvp.model.api.Api.Companion.WECHATLOGIN
@@ -193,12 +196,8 @@ interface ApiServer {
     //根据用户ID查询用户信息
     @GET(FRIENDINFOMATION)
     fun getFriendInfoMation(@HeaderMap hashMap: HashMap<String, String>,@Query("friend") friend: String): Observable<FriendInfoMationBean>
-    //绑定脸部
-    @PUT(Api.BindingFaceId)
-    fun getBindingFaceId(@HeaderMap hashMap: HashMap<String, String>,@Query("featureInfo") featureInfo: String): Observable<BindFaceBean>
-    //刷脸登录
-    @POST(FaceLogin)
-    fun getFaceLogin(@Query("faceId")faceId:String):Observable<LoginBean>
+
+
     //根据手机号查询用户信息
     @GET(Api.FINDUSERBYPHONE)
     fun getFindUserByPhone(@HeaderMap hashMap: HashMap<String, String>,@Query("phone") phone: String): Observable<FindUserByPhoneBean>
@@ -211,5 +210,22 @@ interface ApiServer {
     //我的积分
     @GET(MYSCORE)
     fun getMyScore(@HeaderMap hashMap: HashMap<String, String>):Observable<MyScoreBean>
+
+    //查询用户的好友通知记录
+    @GET(Api.FINDFRIENDNOTICEPAGELIST)
+    fun getFindFriendNoticePageList(@HeaderMap hashMap: HashMap<String, String>,@Query("page") page: Int, @Query("count") count: Int): Observable<FindFriendNoticePageListBean>
+
+    //审核好友申请
+    @PUT(REVIEWFRIENDAPPLY)
+    fun getReviewFriendApply(@HeaderMap hashMap: HashMap<String, String>,@Query("noticeId") noticeId: Int, @Query("flag") flag: Int): Observable<ReviewFriendApplyBean>
+   //绑定脸部
+    @PUT(BindingFaceId)
+    fun getBindMyFace(@HeaderMap hashMap: HashMap<String, String>,@Query("featureInfo")featureInfo:String):Observable<BindFaceBean>
+    //脸部登录
+    @POST(FaceLogin)
+    fun getFaceLogin(@Query("faceId")faceId:String):Observable<LoginBean>
+    //解绑脸部
+    @DELETE(UNTIEDGACE)
+    fun getUntiedFaceId(@HeaderMap hashMap: HashMap<String, String>):Observable<UntiedFaceIdBean>
 
 }

@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
 apply plugin: 'com.mob.sdk'
 apply plugin: 'kotlin-android-extensions'
@@ -9,13 +8,12 @@ MobSDK {
     appKey '2ae99603e8708'
     appSecret '47d7cae6cfff51929a3a7cc201f7f769'
 
-    permissions{
+    permissions {
         exclude "android.permission.READ_SMS"
     }
 
     SMSSDK {}
 }
-
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -48,31 +46,32 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
-        signingConfigs {
-            debug {
-                storeFile file('tech.keystore')
-                keyAlias "tech"
-                storePassword "123456"
-                keyPassword "123456"
-            }
-            pro {
-                keyAlias 'tech'
-                keyPassword '123456'
-                storeFile file('tech.keystore')
-                storePassword '123456'
-            }
+    signingConfigs {
+        debug {
+            storeFile file('tech.keystore')
+            keyAlias "tech"
+            storePassword "123456"
+            keyPassword "123456"
         }
-        buildTypes {
-            release {
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            }
-        }
-        productFlavors {
-            pro {
-            }
+        pro {
+            keyAlias 'tech'
+            keyPassword '123456'
+            storeFile file('tech.keystore')
+            storePassword '123456'
         }
     }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        pro {
+        }
+    }
+
+
 
     repositories {
         flatDir {
@@ -131,6 +130,18 @@ android {
         implementation 'cn.jiguang.sdk:jcore:1.2.7'
         // 此处以JCore 1.2.7 版本为例。
         implementation files('libs/arcsoft_face.jar')
+        implementation 'com.github.tyhjh:PermissionUtil:v1.0.5'
+        implementation 'com.github.tyhjh:picturePickUtil:v1.0.6'
         implementation 'me.imid.swipebacklayout.lib:library:1.1.0'
+        implementation 'com.guo.android_extend:android-extend:1.0.6'
+    }
+}
+dependencies {
 
+
+    implementation files('libs/ageestimation.jar')
+    implementation files('libs/facedetection.jar')
+    implementation files('libs/facerecognition.jar')
+    implementation files('libs/facetracking.jar')
+    implementation files('libs/genderestimation.jar')
 }

@@ -1,6 +1,7 @@
 package com.wd.tech.mvp.view.frag
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.wd.tech.mvp.model.bean.FriendGroupListBeanResult
 import com.wd.tech.mvp.model.bean.FriendListGroupByIdBean
 import com.wd.tech.mvp.model.bean.InitFriendListBean
 import com.wd.tech.mvp.presenter.presenterimpl.MessagePresenter
+import com.wd.tech.mvp.view.activity.NewFriendListActivity
 import com.wd.tech.mvp.view.adapter.GroupPeoplestListAdapter
 import com.wd.tech.mvp.view.base.BaseFragment
 import com.wd.tech.mvp.view.contract.Contract
@@ -41,6 +43,12 @@ class FragMessagePeopleList : BaseFragment<Contract.IMessageView, MessagePresent
     override fun initFragmentChildView(view: View) {
         view.people_group_recycle.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
         people_group_recycle = view.people_group_recycle
+        view.new_friend_linear.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                var intent : Intent = Intent(activity,NewFriendListActivity::class.java)
+                startActivity(intent)
+            }
+        })
     }
 
     override fun createPresenter(): MessagePresenter? {
