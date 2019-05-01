@@ -145,7 +145,9 @@ abstract class BaseActivity<V,T : BasePresenter<V>> : SwipeBackActivity(), Custo
                 //相机
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_APN_SETTINGS,
-                Manifest.permission.ACCESS_NETWORK_STATE
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                //录音
+                Manifest.permission.RECORD_AUDIO
             )
             ActivityCompat.requestPermissions(this, mStatenetwork, 100)
         }

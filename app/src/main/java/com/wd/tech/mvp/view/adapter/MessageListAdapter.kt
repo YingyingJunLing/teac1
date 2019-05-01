@@ -44,16 +44,24 @@ class MessageListAdapter(context: Context, list: MutableList<Conversation>) : Re
                 context.startActivity(intent)
             }
         })
+        if (list.get(p1).unReadMsgCnt>0){
+            p0.text_num_shape.visibility = View.VISIBLE
+            p0.text_num_shape.setText(list.get(p1).unReadMsgCnt.toString())
+        }else{
+            p0.text_num_shape.visibility = View.GONE
+        }
     }
 
     class MyViewHolder : RecyclerView.ViewHolder {
 
         var message_text : TextView
         var friend_head : ImageView
+        var text_num_shape : TextView
 
         constructor(view : View) : super(view){
             message_text=view.message_text
             friend_head=view.friend_head
+            text_num_shape=view.text_num_shape
         }
     }
 }

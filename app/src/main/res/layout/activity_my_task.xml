@@ -33,10 +33,13 @@
                 android:text="签到"
                 android:textSize="14dp"/>
         <View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
-        <Button
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_sel"/>
+                android:padding="5dp"
+                android:background="#22affa"
+                android:textColor="#fff"
+                android:text="去签到"/>
     </LinearLayout>
     <LinearLayout
             android:layout_width="match_parent"
@@ -54,11 +57,13 @@
                 android:text="首评"
                 android:textSize="14dp"/>
         <View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
-        <Button
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="去评价"
-                android:background="@drawable/button_sel"/>
+                android:padding="5dp"
+                android:background="#22affa"
+                android:textColor="#fff"
+                android:text="去评价"/>
     </LinearLayout>
     <LinearLayout
             android:layout_width="match_parent"
@@ -76,10 +81,13 @@
                 android:text="发帖"
                 android:textSize="14dp"/>
         <View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
-        <Button
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_sel"/>
+                android:padding="5dp"
+                android:background="#22affa"
+                android:textColor="#fff"
+                android:text="发帖子"/>
     </LinearLayout>
     <LinearLayout
             android:layout_width="match_parent"
@@ -97,10 +105,13 @@
                 android:text="分享"
                 android:textSize="14dp"/>
         <View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
-        <Button
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_sel"/>
+                android:padding="5dp"
+                android:background="#22affa"
+                android:textColor="#fff"
+                android:text="去分享"/>
     </LinearLayout>
     <LinearLayout
             android:layout_width="match_parent"
@@ -118,10 +129,13 @@
                 android:text="查看广告"
                 android:textSize="14dp"/>
         <View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
-        <Button
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_sel"/>
+                android:padding="5dp"
+                android:background="#22affa"
+                android:textColor="#fff"
+                android:text="看广告"/>
     </LinearLayout>
     <TextView
             android:layout_width="wrap_content"
@@ -147,10 +161,13 @@
                 android:text="完善信息"
                 android:textSize="14dp"/>
         <View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
-        <Button
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_sel"/>
+                android:padding="5dp"
+                android:background="#22affa"
+                android:textColor="#fff"
+                android:text="去完善"/>
     </LinearLayout>
     <LinearLayout
             android:layout_width="match_parent"
@@ -168,9 +185,12 @@
                 android:text="绑定微信"
                 android:textSize="14dp"/>
         <View android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
-        <Button
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button_sel"/>
+                android:padding="5dp"
+                android:background="#22affa"
+                android:textColor="#fff"
+                android:text="去绑定"/>
     </LinearLayout>
 </LinearLayout>
