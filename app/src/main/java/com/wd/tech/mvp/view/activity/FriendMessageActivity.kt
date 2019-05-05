@@ -299,6 +299,7 @@ class FriendMessageActivity : AppCompatActivity() {
                             friend_message_recycle.adapter = adapter
                             friend_message_recycle.scrollToPosition(list.size-1)
                         }
+                        dialog.dismiss()
                     }
                 })
             }
