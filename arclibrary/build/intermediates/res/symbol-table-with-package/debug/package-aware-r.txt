@@ -1,0 +1,2 @@
+com.example.arclibrary
+string app_name

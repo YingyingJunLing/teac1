@@ -4,13 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.media.MediaRecorder
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import cn.jpush.im.android.api.JMessageClient
 import cn.jpush.im.android.api.model.Conversation
 import com.wd.tech.R
@@ -30,6 +36,8 @@ import com.wd.tech.mvp.model.utils.AlterAndAnimationUtil
 import com.wd.tech.mvp.view.adapter.UserPushImageAdapter
 import kotlinx.android.synthetic.main.activity_user_push_comment.*
 import kotlinx.android.synthetic.main.dialog_camera_layout.view.*
+import kotlinx.android.synthetic.main.dialog_sound_layout.*
+import kotlinx.android.synthetic.main.dialog_sound_layout.view.*
 import java.io.File
 
 
@@ -46,6 +54,7 @@ class FriendMessageActivity : AppCompatActivity() {
     var alterAndAnimationUtil : AlterAndAnimationUtil = AlterAndAnimationUtil()
     private val REQUEST_CODE = 0x00000011
     var listString : ArrayList<String> = ArrayList<String>()
+    var sdcardfile : File ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,6 +144,12 @@ class FriendMessageActivity : AppCompatActivity() {
         messge_img.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 dialogShow()
+            }
+        })
+        //发送语音
+        messge_voice.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                soundShow()
             }
         })
     }
@@ -236,5 +251,58 @@ class FriendMessageActivity : AppCompatActivity() {
             }
         }
         flieList == null
+    }
+
+    private fun soundShow(){
+        var bulid = AlertDialog.Builder(this)
+        var soundView = LayoutInflater.from(this).inflate(R.layout.dialog_sound_layout,null)
+        val dialog = bulid.create()
+        dialog.setView(soundView)
+        dialog.setCancelable(true)
+        val window = dialog.getWindow()
+        window.setGravity(Gravity.BOTTOM)
+        dialog.show()
+        soundView.sound_image.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                var recorder = MediaRecorder()
+                recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+                recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+                recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+                if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+                    sdcardfile = Environment.getExternalStorageDirectory()
+                }else{
+                    Toast.makeText(this@FriendMessageActivity,"未找到内存卡",Toast.LENGTH_SHORT).show()
+                }
+                var file = File.createTempFile("voice_",".amr",sdcardfile)
+                recorder.setOutputFile(file.absolutePath)
+                recorder.prepare()
+                recorder.start()
+                soundView.sound_image.visibility = View.GONE
+                soundView.stop_image.visibility = View.VISIBLE
+                soundView.stop_image.setOnClickListener(object : View.OnClickListener{
+                    override fun onClick(v: View?) {
+                        recorder.stop()
+                        if (friendUid.length==11){
+                            val createSingleVoiceMessage = JMessageClient.createSingleVoiceMessage(friendUid, file, 20)
+                            JMessageClient.sendMessage(createSingleVoiceMessage)
+                            val singleConversation = JMessageClient.getSingleConversation(friendUid)
+                            list = singleConversation.allMessage
+                            adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
+                            friend_message_recycle.adapter = adapter
+                            friend_message_recycle.scrollToPosition(list.size-1)
+                        }else{
+                            val createSingleVoiceMessage = JMessageClient.createSingleVoiceMessage(phone, file, 20)
+                            JMessageClient.sendMessage(createSingleVoiceMessage)
+                            val singleConversation = JMessageClient.getSingleConversation(phone)
+                            list = singleConversation.allMessage
+                            adapter = FriendMessageAdapter(this@FriendMessageActivity,list!!)
+                            friend_message_recycle.adapter = adapter
+                            friend_message_recycle.scrollToPosition(list.size-1)
+                        }
+                        dialog.dismiss()
+                    }
+                })
+            }
+        })
     }
 }

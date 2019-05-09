@@ -47,6 +47,7 @@ class FriendMessageAdapter(context: Context, list: MutableList<Message>) : Recyc
         when(list.get(p1).content.contentType){
             ContentType.text ->
                 if (JMessageClient.getMyInfo().userName == list.get(p1).fromUser.userName){
+                    //文字处理
                     FrescoUtil.setPic(head_img,p0.mine_img)
                     p0.view_friend.visibility = View.GONE
                     p0.view_mine.visibility = View.VISIBLE
@@ -55,6 +56,7 @@ class FriendMessageAdapter(context: Context, list: MutableList<Message>) : Recyc
                     p0.message_text.setText(content.get(3))
                     p0.message_image.visibility = View.GONE
                 }else{
+                    //文字处理
                     FrescoUtil.setPic(head_img,p0.friend_img)
                     p0.view_friend.visibility = View.VISIBLE
                     p0.view_mine.visibility = View.GONE
@@ -65,6 +67,7 @@ class FriendMessageAdapter(context: Context, list: MutableList<Message>) : Recyc
                 }
             ContentType.image ->
                 if (JMessageClient.getMyInfo().userName == list.get(p1).fromUser.userName){
+                    //图片处理
                     val imageContent : ImageContent  = list.get(p1).content as ImageContent
                     imageContent.localPath
                     val localThumbnailPath = imageContent.localThumbnailPath
@@ -74,6 +77,7 @@ class FriendMessageAdapter(context: Context, list: MutableList<Message>) : Recyc
                     p0.message_text.visibility = View.GONE
                     Glide.with(context).load(localThumbnailPath).into(p0.message_image)
                 }else{
+                    //图片处理
                     val imageContent : ImageContent  = list.get(p1).content as ImageContent
                     imageContent.localPath
                     val localThumbnailPath = imageContent.localThumbnailPath
@@ -82,6 +86,20 @@ class FriendMessageAdapter(context: Context, list: MutableList<Message>) : Recyc
                     p0.view_friend.visibility = View.GONE
                     p0.message_text.visibility = View.GONE
                     Glide.with(context).load(localThumbnailPath).into(p0.message_image)
+                }
+            ContentType.voice ->
+                if (JMessageClient.getMyInfo().userName == list.get(p1).fromUser.userName){
+                    //语音处理
+                    FrescoUtil.setPic(head_img,p0.mine_img)
+                    p0.view_mine.visibility = View.GONE
+                    p0.view_friend.visibility = View.GONE
+                    p0.message_text.visibility = View.GONE
+                }else{
+                    //语音处理
+                    FrescoUtil.setPic(head_img,p0.friend_img)
+                    p0.view_mine.visibility = View.GONE
+                    p0.view_friend.visibility = View.GONE
+                    p0.message_text.visibility = View.GONE
                 }
         }
     }
