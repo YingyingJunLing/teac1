@@ -257,6 +257,7 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode==PHOTO_REQUEST_CAREMA&&resultCode==RESULT_OK){
             if (hasSdcard()){
+                //相机返回的数据
                 val bitmap : Bitmap = data!!.getParcelableExtra("data")
                 //将bitmap转换为uri
                 var uri : Uri = Uri.parse(MediaStore.Images.Media.insertImage(this.contentResolver,bitmap,null,null))
@@ -272,6 +273,7 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
                 settingUserInfoPresenter.onModifyHeadPicPre(hashMap,file)
             }
         }else if (requestCode==PHOTO_REQUEST_GALLERY&&resultCode==RESULT_OK){
+            //相册返回的数据
             val uri = data?.getData()
             val proj = arrayOf(MediaStore.Images.Media.DATA)
             var actualimagecursor = contentResolver.query(uri,proj,null,null,null)
@@ -283,6 +285,7 @@ class MySettingActivity : BaseActivity<Contract.ISettingUserInfoView, SettingUse
             list.add(file)
             settingUserInfoPresenter.onModifyHeadPicPre(hashMap,file)
         }
+        //人脸识别的数据
         if (requestCode == REQUEST_CODE_IMAGE_OP_FACE && resultCode == RESULT_OK) {
             val mPath = data!!.getData()
             val file = getPath(mPath)
